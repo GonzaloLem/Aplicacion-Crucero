@@ -1,0 +1,24 @@
+﻿public enum Nacionalidades
+{
+    Alemania,
+    Argentina,
+    Australia,
+    Belgica,
+    Bolivia,
+    Brasil,
+    Canada,
+    Colombia,
+    Ecuador,
+    España,
+    Mexico,
+    Uruguay,
+    Chile,
+    Venezuela,
+    CostaRica,
+    Cuba,
+    Panama,
+    Paraguay,
+    Peru,
+    RepublicaDominicana,
+    Belice
+}

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32802.440
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterfazGrafica", "InterfazGrafica\InterfazGrafica.csproj", "{EA43BDA3-6492-4B66-8E29-071720DBB009}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entidades", "Entidades\Entidades.csproj", "{AFFAD1E6-E3D7-4A3A-B8B4-D173E2B1CB63}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EA43BDA3-6492-4B66-8E29-071720DBB009}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA43BDA3-6492-4B66-8E29-071720DBB009}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA43BDA3-6492-4B66-8E29-071720DBB009}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA43BDA3-6492-4B66-8E29-071720DBB009}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFFAD1E6-E3D7-4A3A-B8B4-D173E2B1CB63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFFAD1E6-E3D7-4A3A-B8B4-D173E2B1CB63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFFAD1E6-E3D7-4A3A-B8B4-D173E2B1CB63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFFAD1E6-E3D7-4A3A-B8B4-D173E2B1CB63}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9FB44F82-9882-40DB-B177-8753DE3AA1D3}
+	EndGlobalSection
+EndGlobal
