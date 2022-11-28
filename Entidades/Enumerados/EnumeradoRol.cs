@@ -1,6 +1,8 @@
 ﻿public enum Roles
 {
     Admin,
+    Capitan,
+    Empleado,
     Vendedor,
-    Lector,
+    Cliente,
 }

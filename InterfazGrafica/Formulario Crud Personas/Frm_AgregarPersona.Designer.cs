@@ -56,9 +56,22 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.Lbl_Correo = new System.Windows.Forms.Label();
             this.TxtBox_Correo = new System.Windows.Forms.TextBox();
+            this.GrpBox_DatosCapitan = new System.Windows.Forms.GroupBox();
+            this.Lbl_HorasViaje = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.Btn_AgregarPersona = new System.Windows.Forms.Button();
+            this.GrpBox_PreferenciasPasajero = new System.Windows.Forms.GroupBox();
+            this.CkBox_Gimnacio = new System.Windows.Forms.CheckBox();
+            this.CkBox_Piscina = new System.Windows.Forms.CheckBox();
+            this.CkBox_Casino = new System.Windows.Forms.CheckBox();
+            this.GrpBox_Empleado_Datos = new System.Windows.Forms.GroupBox();
+            this.Lbl_Puesto = new System.Windows.Forms.Label();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.GrpBox_Contenedor.SuspendLayout();
             this.GrpBox_Pasajero.SuspendLayout();
+            this.GrpBox_DatosCapitan.SuspendLayout();
+            this.GrpBox_PreferenciasPasajero.SuspendLayout();
+            this.GrpBox_Empleado_Datos.SuspendLayout();
             this.SuspendLayout();
             // 
             // GrpBox_Contenedor
@@ -216,9 +229,9 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             // 
             // Btn_Confirmar
             // 
-            this.Btn_Confirmar.Location = new System.Drawing.Point(114, 205);
+            this.Btn_Confirmar.Location = new System.Drawing.Point(105, 205);
             this.Btn_Confirmar.Name = "Btn_Confirmar";
-            this.Btn_Confirmar.Size = new System.Drawing.Size(120, 37);
+            this.Btn_Confirmar.Size = new System.Drawing.Size(140, 24);
             this.Btn_Confirmar.TabIndex = 1;
             this.Btn_Confirmar.Text = "Confirmar";
             this.Btn_Confirmar.UseVisualStyleBackColor = true;
@@ -236,12 +249,13 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             this.GrpBox_Pasajero.Controls.Add(this.comboBox1);
             this.GrpBox_Pasajero.Controls.Add(this.Lbl_Correo);
             this.GrpBox_Pasajero.Controls.Add(this.TxtBox_Correo);
-            this.GrpBox_Pasajero.Location = new System.Drawing.Point(350, 12);
+            this.GrpBox_Pasajero.Location = new System.Drawing.Point(374, 12);
             this.GrpBox_Pasajero.Name = "GrpBox_Pasajero";
             this.GrpBox_Pasajero.Size = new System.Drawing.Size(283, 187);
             this.GrpBox_Pasajero.TabIndex = 2;
             this.GrpBox_Pasajero.TabStop = false;
             this.GrpBox_Pasajero.Text = "Ingresar Datos";
+            this.GrpBox_Pasajero.Visible = false;
             // 
             // Lbl_PesoMaletas
             // 
@@ -336,9 +350,38 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             this.TxtBox_Correo.TabIndex = 0;
             this.TxtBox_Correo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Validar_LetrasNumerosCaracterEspecial);
             // 
+            // GrpBox_DatosCapitan
+            // 
+            this.GrpBox_DatosCapitan.Controls.Add(this.Lbl_HorasViaje);
+            this.GrpBox_DatosCapitan.Controls.Add(this.textBox1);
+            this.GrpBox_DatosCapitan.Location = new System.Drawing.Point(350, 69);
+            this.GrpBox_DatosCapitan.Name = "GrpBox_DatosCapitan";
+            this.GrpBox_DatosCapitan.Size = new System.Drawing.Size(124, 94);
+            this.GrpBox_DatosCapitan.TabIndex = 4;
+            this.GrpBox_DatosCapitan.TabStop = false;
+            this.GrpBox_DatosCapitan.Text = "Ingresar Datos";
+            this.GrpBox_DatosCapitan.Visible = false;
+            // 
+            // Lbl_HorasViaje
+            // 
+            this.Lbl_HorasViaje.AutoSize = true;
+            this.Lbl_HorasViaje.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.Lbl_HorasViaje.Location = new System.Drawing.Point(6, 28);
+            this.Lbl_HorasViaje.Name = "Lbl_HorasViaje";
+            this.Lbl_HorasViaje.Size = new System.Drawing.Size(88, 16);
+            this.Lbl_HorasViaje.TabIndex = 23;
+            this.Lbl_HorasViaje.Text = "Horas de Viajes";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(6, 45);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(88, 23);
+            this.textBox1.TabIndex = 23;
+            // 
             // Btn_AgregarPersona
             // 
-            this.Btn_AgregarPersona.Location = new System.Drawing.Point(435, 206);
+            this.Btn_AgregarPersona.Location = new System.Drawing.Point(453, 205);
             this.Btn_AgregarPersona.Name = "Btn_AgregarPersona";
             this.Btn_AgregarPersona.Size = new System.Drawing.Size(120, 37);
             this.Btn_AgregarPersona.TabIndex = 3;
@@ -346,15 +389,92 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             this.Btn_AgregarPersona.UseVisualStyleBackColor = true;
             this.Btn_AgregarPersona.Visible = false;
             // 
+            // GrpBox_PreferenciasPasajero
+            // 
+            this.GrpBox_PreferenciasPasajero.Controls.Add(this.CkBox_Gimnacio);
+            this.GrpBox_PreferenciasPasajero.Controls.Add(this.CkBox_Piscina);
+            this.GrpBox_PreferenciasPasajero.Controls.Add(this.CkBox_Casino);
+            this.GrpBox_PreferenciasPasajero.Location = new System.Drawing.Point(663, 44);
+            this.GrpBox_PreferenciasPasajero.Name = "GrpBox_PreferenciasPasajero";
+            this.GrpBox_PreferenciasPasajero.Size = new System.Drawing.Size(174, 119);
+            this.GrpBox_PreferenciasPasajero.TabIndex = 5;
+            this.GrpBox_PreferenciasPasajero.TabStop = false;
+            this.GrpBox_PreferenciasPasajero.Text = "Preferencias del Pasajero";
+            this.GrpBox_PreferenciasPasajero.Visible = false;
+            // 
+            // CkBox_Gimnacio
+            // 
+            this.CkBox_Gimnacio.AutoSize = true;
+            this.CkBox_Gimnacio.Location = new System.Drawing.Point(7, 83);
+            this.CkBox_Gimnacio.Name = "CkBox_Gimnacio";
+            this.CkBox_Gimnacio.Size = new System.Drawing.Size(77, 19);
+            this.CkBox_Gimnacio.TabIndex = 2;
+            this.CkBox_Gimnacio.Text = "Gimnacio";
+            this.CkBox_Gimnacio.UseVisualStyleBackColor = true;
+            // 
+            // CkBox_Piscina
+            // 
+            this.CkBox_Piscina.AutoSize = true;
+            this.CkBox_Piscina.Location = new System.Drawing.Point(7, 58);
+            this.CkBox_Piscina.Name = "CkBox_Piscina";
+            this.CkBox_Piscina.Size = new System.Drawing.Size(63, 19);
+            this.CkBox_Piscina.TabIndex = 1;
+            this.CkBox_Piscina.Text = "Piscina";
+            this.CkBox_Piscina.UseVisualStyleBackColor = true;
+            // 
+            // CkBox_Casino
+            // 
+            this.CkBox_Casino.AutoSize = true;
+            this.CkBox_Casino.Location = new System.Drawing.Point(7, 32);
+            this.CkBox_Casino.Name = "CkBox_Casino";
+            this.CkBox_Casino.Size = new System.Drawing.Size(62, 19);
+            this.CkBox_Casino.TabIndex = 0;
+            this.CkBox_Casino.Text = "Casino";
+            this.CkBox_Casino.UseVisualStyleBackColor = true;
+            // 
+            // GrpBox_Empleado_Datos
+            // 
+            this.GrpBox_Empleado_Datos.Controls.Add(this.Lbl_Puesto);
+            this.GrpBox_Empleado_Datos.Controls.Add(this.comboBox2);
+            this.GrpBox_Empleado_Datos.Location = new System.Drawing.Point(350, 76);
+            this.GrpBox_Empleado_Datos.Name = "GrpBox_Empleado_Datos";
+            this.GrpBox_Empleado_Datos.Size = new System.Drawing.Size(141, 87);
+            this.GrpBox_Empleado_Datos.TabIndex = 6;
+            this.GrpBox_Empleado_Datos.TabStop = false;
+            this.GrpBox_Empleado_Datos.Text = "Ingresar Datos";
+            this.GrpBox_Empleado_Datos.Visible = false;
+            // 
+            // Lbl_Puesto
+            // 
+            this.Lbl_Puesto.AutoSize = true;
+            this.Lbl_Puesto.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.Lbl_Puesto.Location = new System.Drawing.Point(6, 21);
+            this.Lbl_Puesto.Name = "Lbl_Puesto";
+            this.Lbl_Puesto.Size = new System.Drawing.Size(50, 16);
+            this.Lbl_Puesto.TabIndex = 23;
+            this.Lbl_Puesto.Text = "Puestos";
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(6, 47);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(121, 23);
+            this.comboBox2.TabIndex = 6;
+            // 
             // Frm_AgregarPersona
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(645, 255);
+            this.ClientSize = new System.Drawing.Size(349, 236);
+            this.Controls.Add(this.GrpBox_Empleado_Datos);
+            this.Controls.Add(this.GrpBox_PreferenciasPasajero);
+            this.Controls.Add(this.GrpBox_DatosCapitan);
             this.Controls.Add(this.Btn_AgregarPersona);
             this.Controls.Add(this.GrpBox_Pasajero);
             this.Controls.Add(this.Btn_Confirmar);
             this.Controls.Add(this.GrpBox_Contenedor);
+            this.MinimumSize = new System.Drawing.Size(365, 275);
             this.Name = "Frm_AgregarPersona";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Frm_AgregarPersona";
@@ -363,6 +483,12 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             this.GrpBox_Contenedor.PerformLayout();
             this.GrpBox_Pasajero.ResumeLayout(false);
             this.GrpBox_Pasajero.PerformLayout();
+            this.GrpBox_DatosCapitan.ResumeLayout(false);
+            this.GrpBox_DatosCapitan.PerformLayout();
+            this.GrpBox_PreferenciasPasajero.ResumeLayout(false);
+            this.GrpBox_PreferenciasPasajero.PerformLayout();
+            this.GrpBox_Empleado_Datos.ResumeLayout(false);
+            this.GrpBox_Empleado_Datos.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -397,5 +523,15 @@ namespace InterfazGrafica.Formulario_Crud_Personas
         private System.Windows.Forms.Label Lbl_PesoMaletas;
         private System.Windows.Forms.TextBox TxtBox_PesoMaletas;
         private System.Windows.Forms.Button Btn_AgregarPersona;
+        private System.Windows.Forms.GroupBox GrpBox_DatosCapitan;
+        private System.Windows.Forms.Label Lbl_HorasViaje;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.GroupBox GrpBox_PreferenciasPasajero;
+        private System.Windows.Forms.CheckBox CkBox_Gimnacio;
+        private System.Windows.Forms.CheckBox CkBox_Piscina;
+        private System.Windows.Forms.CheckBox CkBox_Casino;
+        private System.Windows.Forms.GroupBox GrpBox_Empleado_Datos;
+        private System.Windows.Forms.Label Lbl_Puesto;
+        private System.Windows.Forms.ComboBox comboBox2;
     }
 }
