@@ -45,7 +45,7 @@ namespace InterfazGrafica
             this.Btn_AgregarPersona = new System.Windows.Forms.Button();
             this.Btn_EstadisticasHistoricas = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.Btn_AgregarPersonaAlViaje = new System.Windows.Forms.Button();
+            this.Btn_ListarPersonasSistema = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DtGdVw_ListaViajes)).BeginInit();
             this.SuspendLayout();
             // 
@@ -182,6 +182,7 @@ namespace InterfazGrafica
             this.Btn_EstadisticasHistoricas.TabIndex = 8;
             this.Btn_EstadisticasHistoricas.Text = "Estadisticas Historicas";
             this.Btn_EstadisticasHistoricas.UseVisualStyleBackColor = true;
+            this.Btn_EstadisticasHistoricas.Click += new System.EventHandler(this.Btn_EstadisticasHistoricas_Click);
             // 
             // button1
             // 
@@ -192,21 +193,22 @@ namespace InterfazGrafica
             this.button1.Text = "Listar Tripulantes";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // Btn_AgregarPersonaAlViaje
+            // Btn_ListarPersonasSistema
             // 
-            this.Btn_AgregarPersonaAlViaje.Location = new System.Drawing.Point(495, 285);
-            this.Btn_AgregarPersonaAlViaje.Name = "Btn_AgregarPersonaAlViaje";
-            this.Btn_AgregarPersonaAlViaje.Size = new System.Drawing.Size(140, 46);
-            this.Btn_AgregarPersonaAlViaje.TabIndex = 10;
-            this.Btn_AgregarPersonaAlViaje.Text = "Agregar Persona a un Viaje";
-            this.Btn_AgregarPersonaAlViaje.UseVisualStyleBackColor = true;
+            this.Btn_ListarPersonasSistema.Location = new System.Drawing.Point(495, 285);
+            this.Btn_ListarPersonasSistema.Name = "Btn_ListarPersonasSistema";
+            this.Btn_ListarPersonasSistema.Size = new System.Drawing.Size(140, 46);
+            this.Btn_ListarPersonasSistema.TabIndex = 10;
+            this.Btn_ListarPersonasSistema.Text = "Listar Personas del Sistema";
+            this.Btn_ListarPersonasSistema.UseVisualStyleBackColor = true;
+            this.Btn_ListarPersonasSistema.Click += new System.EventHandler(this.Btn_ListarPersonasSistema_Click);
             // 
             // Frm_Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(969, 343);
-            this.Controls.Add(this.Btn_AgregarPersonaAlViaje);
+            this.Controls.Add(this.Btn_ListarPersonasSistema);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.Btn_EstadisticasHistoricas);
             this.Controls.Add(this.Btn_AgregarPersona);
@@ -242,7 +244,7 @@ namespace InterfazGrafica
         private System.Windows.Forms.Button Btn_AgregarPersona;
         private System.Windows.Forms.Button Btn_EstadisticasHistoricas;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button Btn_AgregarPersonaAlViaje;
+        private System.Windows.Forms.Button Btn_ListarPersonasSistema;
     }
 }
 

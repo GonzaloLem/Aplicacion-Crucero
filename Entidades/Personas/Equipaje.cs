@@ -8,21 +8,28 @@ namespace Entidades.Personas
 {
     public class Equipaje
     {
-
+        private int id;
         private int bolsos;
         private int maletas;
-        private float pesoMaleta;
+        private double pesoMaleta;
 
-        public Equipaje(int bolsos, int maletas, float peso)
+        public Equipaje(int bolsos, int maletas, double peso)
         {
+            this.id = -1;
             this.bolsos = bolsos;
             this.maletas = maletas;
             this.pesoMaleta = peso;
         }
 
+        public Equipaje(int id, int bolsos, int maletas, double peso) : this(bolsos, maletas, peso)
+        {
+            this.id = id;
+        }
+
+        public int ID { get => this.id; }
         public int Bolsos { get => this.bolsos; }
         public int Maletas { get => this.maletas; }
-        public float Peso { get => this.pesoMaleta; }
+        public double Peso { get => this.pesoMaleta; }
 
         public override string ToString()
         {

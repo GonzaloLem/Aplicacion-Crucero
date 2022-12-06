@@ -16,7 +16,17 @@ namespace Entidades.Personas
         private bool piscina;
         private bool gimnacio;
 
-        public Pasajero(string nombre, string apellido, int edad, int dni, Nacionalidades nacionalidad, int celular, string correo,  Clases clase, Equipaje equipaje, bool casino, bool gimnacio, bool piscina) : base(nombre, apellido, edad, dni, nacionalidad, celular)
+        public Pasajero(string nombre, string apellido, int edad, int dni, Nacionalidades nacionalidad, double celular, string correo,  Clases clase, Equipaje equipaje, bool casino, bool gimnacio, bool piscina) : base(nombre, apellido, edad, dni, nacionalidad, celular)
+        {
+            this.correo = correo;
+            this.clase = clase;
+            this.equipaje = equipaje;
+            this.casino = casino;
+            this.piscina = piscina;
+            this.gimnacio = gimnacio;
+        }
+
+        public Pasajero(int id, string nombre, string apellido, int edad, int dni, Nacionalidades nacionalidad, double celular, string correo, Clases clase, Equipaje equipaje, bool casino, bool gimnacio, bool piscina) : base(id, nombre, apellido, edad, dni, nacionalidad, celular)
         {
             this.correo = correo;
             this.clase = clase;
@@ -33,6 +43,7 @@ namespace Entidades.Personas
         public bool Casino { get => this.casino; }
         public bool Piscina { get => this.piscina; }
         public bool Gimnacio { get => this.gimnacio; }
+        public override string Tipo { get => "Pasajero"; }
         public override string ToString()
         {
             StringBuilder cadena = new StringBuilder();
@@ -46,6 +57,8 @@ namespace Entidades.Personas
 
             return cadena.ToString();
         }
+
+
 
     }
 }

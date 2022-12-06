@@ -20,11 +20,11 @@ namespace Entidades.Barcos
         private sbyte gimnacios;
         private float bodegaCapacidad;
         private float bodegaPeso;
-        private Almacenamiento<Persona> listaTripulantes;
+        private AlmacenamientoPersonas<Persona> listaTripulantes;
         
         private Crucero(int camarotes)
         {
-            this.listaTripulantes = new Almacenamiento<Persona>(this.CapacidadPersonas(camarotes));
+            this.listaTripulantes = new AlmacenamientoPersonas<Persona>(this.CapacidadPersonas(camarotes));
             this.bodegaPeso = 0;
         }
         public Crucero(string matricula, string nombre, int camarotes, sbyte salones, sbyte casinos, sbyte piscinas, sbyte gimnacios, float capacidadBodega) : this(camarotes)
@@ -94,7 +94,7 @@ namespace Entidades.Barcos
         {
             if(persona is Pasajero && this.VerificarCapacidadDeLaBodega(((Pasajero)persona).Equipaje))
             {
-                this.bodegaPeso += ((Pasajero)persona).Equipaje.Peso;
+                this.bodegaPeso += (float)((Pasajero)persona).Equipaje.Peso;
                 this.listaTripulantes += persona;
             }
             else
@@ -107,7 +107,7 @@ namespace Entidades.Barcos
         {
             if (persona is Pasajero)
             {
-                this.bodegaPeso -= ((Pasajero)persona).Equipaje.Peso;
+                this.bodegaPeso -= (float)((Pasajero)persona).Equipaje.Peso;
                 this.listaTripulantes -= persona;
             }
             else

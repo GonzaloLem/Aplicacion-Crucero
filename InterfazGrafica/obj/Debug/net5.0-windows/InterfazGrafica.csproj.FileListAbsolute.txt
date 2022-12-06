@@ -20,3 +20,10 @@ D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazG
 D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazGrafica\bin\Debug\net5.0-windows\Entidades.dll
 D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazGrafica\bin\Debug\net5.0-windows\Entidades.pdb
 D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazGrafica\obj\Debug\net5.0-windows\InterfazGrafica.csproj.CopyComplete
+D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazGrafica\bin\Debug\net5.0-windows\System.Data.SqlClient.dll
+D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazGrafica\bin\Debug\net5.0-windows\runtimes\win-arm64\native\sni.dll
+D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazGrafica\bin\Debug\net5.0-windows\runtimes\win-x64\native\sni.dll
+D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazGrafica\bin\Debug\net5.0-windows\runtimes\win-x86\native\sni.dll
+D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazGrafica\bin\Debug\net5.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazGrafica\bin\Debug\net5.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazGrafica\obj\Debug\net5.0-windows\InterfazGrafica.Formulario_Crud_Personas.Frm_ListarPersonas.resources

@@ -11,13 +11,25 @@ namespace Entidades.Personas
         PuestosDeTrabajo puesto;
         DateTime diaQueSeUnio;
 
-        public Empleado(string nombre, string apellido, int edad, int dni, Nacionalidades nacionalidad, int celular, PuestosDeTrabajo puesto) : base(nombre, apellido, edad, dni, nacionalidad, celular)
+        public Empleado(string nombre, string apellido, int edad, int dni, Nacionalidades nacionalidad, double celular, PuestosDeTrabajo puesto) : base(nombre, apellido, edad, dni, nacionalidad, celular)
         {
             this.puesto = puesto;
-            this.diaQueSeUnio = DateTime.Today;
+            this.diaQueSeUnio = DateTime.Now;
+        }
+
+        public Empleado(int id, string nombre, string apellido, int edad, int dni, Nacionalidades nacionalidad, double celular, PuestosDeTrabajo puesto, DateTime fechaIngreso) : base(id, nombre, apellido, edad, dni, nacionalidad, celular)
+        {
+            this.puesto = puesto;
+            this.diaQueSeUnio = fechaIngreso;
         }
 
         public PuestosDeTrabajo Puesto { get => this.puesto; }
+
+        /// <summary>
+        /// Fecha y hora en la que se unio el empleado a la empresa
+        /// </summary>
+        public DateTime Fecha { get => this.diaQueSeUnio; }
+        public override string Tipo { get => "Empleado"; }
 
         /// <summary>
         /// Fecha en la que arranco a trabajar para la empresa
@@ -33,6 +45,7 @@ namespace Entidades.Personas
 
             return cadena.ToString();
         }
+
 
     }
 }

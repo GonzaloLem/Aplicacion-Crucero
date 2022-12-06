@@ -11,7 +11,13 @@ namespace Entidades.Personas
 
         private int horasDeViaje;
         private int viajesRealizadosConLaEmpresa;
-        public Capitan(string nombre, string apellido, int edad, int dni, Nacionalidades nacionalidad, int celular, int horasViaje, int viajesConLaEmpresa) : base(nombre, apellido, edad, dni, nacionalidad, celular)
+        public Capitan(string nombre, string apellido, int edad, int dni, Nacionalidades nacionalidad, double celular, int horasViaje) : base(nombre, apellido, edad, dni, nacionalidad, celular)
+        {
+            this.horasDeViaje = horasViaje;
+            this.viajesRealizadosConLaEmpresa = 0;
+        }
+
+        public Capitan(int id, string nombre, string apellido, int edad, int dni, Nacionalidades nacionalidad, double celular, int horasViaje, int viajesConLaEmpresa) : base(id, nombre, apellido, edad, dni, nacionalidad, celular)
         {
             this.horasDeViaje = horasViaje;
             this.viajesRealizadosConLaEmpresa = viajesConLaEmpresa;
@@ -19,6 +25,7 @@ namespace Entidades.Personas
 
         public int Horas { get => this.horasDeViaje; }
         public int Viajes { get => this.viajesRealizadosConLaEmpresa; }
+        public override string Tipo { get => "Capitan"; }
 
         public override string ToString()
         {
@@ -29,6 +36,8 @@ namespace Entidades.Personas
 
             return cadena.ToString();
         }
+
+
 
     }
 }

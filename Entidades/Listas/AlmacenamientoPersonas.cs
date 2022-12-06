@@ -3,21 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Entidades.Personas;
+using Entidades.Barcos;
 
 namespace Entidades.BaseDeDatos
 {
-    public class Almacenamiento <T> where T : class
+    public class AlmacenamientoPersonas <T> where T : Persona
     {
         private List<T> lista;
         private int limite;
 
-        private Almacenamiento()
+        private AlmacenamientoPersonas()
         {
             this.lista = new List<T>();
             this.limite = 0;
         }
 
-        public Almacenamiento(int limite) : base()
+        public AlmacenamientoPersonas(int limite) : this()
         {
             this.limite = limite;
         }
@@ -79,13 +81,13 @@ namespace Entidades.BaseDeDatos
             return retorno;
         }
 
-        public static bool operator ==(Almacenamiento<T> almacenamiento, T item)
+        public static bool operator ==(AlmacenamientoPersonas<T> almacenamiento, T dato)
         {
             bool retorno = false;
 
-            foreach(T itm in almacenamiento.Lista)
+            for(int i=0;i<almacenamiento.Total;i++)
             {
-                if(itm == item)
+                if(almacenamiento[i] == dato)
                 {
                     retorno = true;
                     break;
@@ -95,12 +97,12 @@ namespace Entidades.BaseDeDatos
             return retorno;
         }
 
-        public static bool operator !=(Almacenamiento<T> almacenamiento, T item)
+        public static bool operator !=(AlmacenamientoPersonas<T> almacenamiento, T item)
         {
             return !(almacenamiento==item);
         }
 
-        public static Almacenamiento<T> operator +(Almacenamiento<T> almacenamiento, T item)
+        public static AlmacenamientoPersonas<T> operator +(AlmacenamientoPersonas<T> almacenamiento, T item)
         {
 
             if(almacenamiento!=item && almacenamiento.Total < almacenamiento.limite)
@@ -111,7 +113,7 @@ namespace Entidades.BaseDeDatos
             return almacenamiento;
         }
 
-        public static Almacenamiento<T> operator -(Almacenamiento<T> almacenamiento, T item)
+        public static AlmacenamientoPersonas<T> operator -(AlmacenamientoPersonas<T> almacenamiento, T item)
         {
             if (almacenamiento.ObtenerIndice(item) != -1)
             {
@@ -121,7 +123,7 @@ namespace Entidades.BaseDeDatos
             return almacenamiento;
         }
 
-        public override bool Equals(object obj)
+       public override bool Equals(object obj)
         {
             bool retorno = false;
 

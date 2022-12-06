@@ -9,15 +9,17 @@ namespace Entidades.Personas
 {
     public abstract class Persona
     {
+        private protected int id;
         private protected string nombre;
         private protected string apellido;
         private protected int edad;
         private protected int dni;
         private protected Nacionalidades nacionalidad;
-        private protected int celular;
+        private protected double celular;
 
-        public Persona(string nombre, string apellido, int edad, int dni, Nacionalidades nacionalidad, int celular)
+        public Persona(string nombre, string apellido, int edad, int dni, Nacionalidades nacionalidad, double celular)
         {
+            this.id = -1;
             this.nombre = nombre;
             this.apellido = apellido;
             this.edad = edad;
@@ -26,10 +28,20 @@ namespace Entidades.Personas
             this.celular = celular;
         }
 
+        public Persona(int id, string nombre, string apellido, int edad, int dni, Nacionalidades nacionalidad, double celular) : this(nombre, apellido, edad, dni, nacionalidad, celular)
+        {
+            this.id = id;
+        }
+
+        public int ID { get => this.id; }
         public string Nombre { get => this.nombre; }
         public string Apellido { get => this.apellido; }
+        public int Edad { get => this.edad; }
         public int DNI { get => this.dni; }
         public Nacionalidades Nacionalidad { get => this.nacionalidad; }
+        public double Celular { get => this.celular; }
+
+        public virtual string Tipo { get => "Persona"; }
 
         public static bool operator ==(Persona persona1, Persona persona2)
         {
@@ -73,8 +85,6 @@ namespace Entidades.Personas
         {
             return base.GetHashCode();
         }
-
-
 
     }
 }

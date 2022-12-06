@@ -53,25 +53,25 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             this.Lbl_Bolso = new System.Windows.Forms.Label();
             this.TxtBox_Bolsos = new System.Windows.Forms.TextBox();
             this.Lbl_Clases = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.CbBox_Pasajero_Clase = new System.Windows.Forms.ComboBox();
             this.Lbl_Correo = new System.Windows.Forms.Label();
             this.TxtBox_Correo = new System.Windows.Forms.TextBox();
             this.GrpBox_DatosCapitan = new System.Windows.Forms.GroupBox();
+            this.GrpBox_Empleado_Datos = new System.Windows.Forms.GroupBox();
+            this.Lbl_Puesto = new System.Windows.Forms.Label();
+            this.CbBox_Empleado_Puesto = new System.Windows.Forms.ComboBox();
             this.Lbl_HorasViaje = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.TxtBox_Capitan_HorasViaje = new System.Windows.Forms.TextBox();
             this.Btn_AgregarPersona = new System.Windows.Forms.Button();
             this.GrpBox_PreferenciasPasajero = new System.Windows.Forms.GroupBox();
             this.CkBox_Gimnacio = new System.Windows.Forms.CheckBox();
             this.CkBox_Piscina = new System.Windows.Forms.CheckBox();
             this.CkBox_Casino = new System.Windows.Forms.CheckBox();
-            this.GrpBox_Empleado_Datos = new System.Windows.Forms.GroupBox();
-            this.Lbl_Puesto = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.GrpBox_Contenedor.SuspendLayout();
             this.GrpBox_Pasajero.SuspendLayout();
             this.GrpBox_DatosCapitan.SuspendLayout();
-            this.GrpBox_PreferenciasPasajero.SuspendLayout();
             this.GrpBox_Empleado_Datos.SuspendLayout();
+            this.GrpBox_PreferenciasPasajero.SuspendLayout();
             this.SuspendLayout();
             // 
             // GrpBox_Contenedor
@@ -246,7 +246,7 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             this.GrpBox_Pasajero.Controls.Add(this.Lbl_Bolso);
             this.GrpBox_Pasajero.Controls.Add(this.TxtBox_Bolsos);
             this.GrpBox_Pasajero.Controls.Add(this.Lbl_Clases);
-            this.GrpBox_Pasajero.Controls.Add(this.comboBox1);
+            this.GrpBox_Pasajero.Controls.Add(this.CbBox_Pasajero_Clase);
             this.GrpBox_Pasajero.Controls.Add(this.Lbl_Correo);
             this.GrpBox_Pasajero.Controls.Add(this.TxtBox_Correo);
             this.GrpBox_Pasajero.Location = new System.Drawing.Point(374, 12);
@@ -324,13 +324,13 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             this.Lbl_Clases.TabIndex = 16;
             this.Lbl_Clases.Text = "Clase";
             // 
-            // comboBox1
+            // CbBox_Pasajero_Clase
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(7, 109);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 23);
-            this.comboBox1.TabIndex = 15;
+            this.CbBox_Pasajero_Clase.FormattingEnabled = true;
+            this.CbBox_Pasajero_Clase.Location = new System.Drawing.Point(7, 109);
+            this.CbBox_Pasajero_Clase.Name = "CbBox_Pasajero_Clase";
+            this.CbBox_Pasajero_Clase.Size = new System.Drawing.Size(121, 23);
+            this.CbBox_Pasajero_Clase.TabIndex = 15;
             // 
             // Lbl_Correo
             // 
@@ -353,31 +353,61 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             // GrpBox_DatosCapitan
             // 
             this.GrpBox_DatosCapitan.Controls.Add(this.Lbl_HorasViaje);
-            this.GrpBox_DatosCapitan.Controls.Add(this.textBox1);
-            this.GrpBox_DatosCapitan.Location = new System.Drawing.Point(350, 69);
+            this.GrpBox_DatosCapitan.Controls.Add(this.TxtBox_Capitan_HorasViaje);
+            this.GrpBox_DatosCapitan.Location = new System.Drawing.Point(350, 50);
             this.GrpBox_DatosCapitan.Name = "GrpBox_DatosCapitan";
-            this.GrpBox_DatosCapitan.Size = new System.Drawing.Size(124, 94);
+            this.GrpBox_DatosCapitan.Size = new System.Drawing.Size(124, 71);
             this.GrpBox_DatosCapitan.TabIndex = 4;
             this.GrpBox_DatosCapitan.TabStop = false;
             this.GrpBox_DatosCapitan.Text = "Ingresar Datos";
             this.GrpBox_DatosCapitan.Visible = false;
             // 
+            // GrpBox_Empleado_Datos
+            // 
+            this.GrpBox_Empleado_Datos.Controls.Add(this.Lbl_Puesto);
+            this.GrpBox_Empleado_Datos.Controls.Add(this.CbBox_Empleado_Puesto);
+            this.GrpBox_Empleado_Datos.Location = new System.Drawing.Point(350, 87);
+            this.GrpBox_Empleado_Datos.Name = "GrpBox_Empleado_Datos";
+            this.GrpBox_Empleado_Datos.Size = new System.Drawing.Size(141, 83);
+            this.GrpBox_Empleado_Datos.TabIndex = 6;
+            this.GrpBox_Empleado_Datos.TabStop = false;
+            this.GrpBox_Empleado_Datos.Text = "Ingresar Datos";
+            this.GrpBox_Empleado_Datos.Visible = false;
+            // 
+            // Lbl_Puesto
+            // 
+            this.Lbl_Puesto.AutoSize = true;
+            this.Lbl_Puesto.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.Lbl_Puesto.Location = new System.Drawing.Point(6, 21);
+            this.Lbl_Puesto.Name = "Lbl_Puesto";
+            this.Lbl_Puesto.Size = new System.Drawing.Size(50, 16);
+            this.Lbl_Puesto.TabIndex = 23;
+            this.Lbl_Puesto.Text = "Puestos";
+            // 
+            // CbBox_Empleado_Puesto
+            // 
+            this.CbBox_Empleado_Puesto.FormattingEnabled = true;
+            this.CbBox_Empleado_Puesto.Location = new System.Drawing.Point(6, 47);
+            this.CbBox_Empleado_Puesto.Name = "CbBox_Empleado_Puesto";
+            this.CbBox_Empleado_Puesto.Size = new System.Drawing.Size(121, 23);
+            this.CbBox_Empleado_Puesto.TabIndex = 6;
+            // 
             // Lbl_HorasViaje
             // 
             this.Lbl_HorasViaje.AutoSize = true;
             this.Lbl_HorasViaje.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.Lbl_HorasViaje.Location = new System.Drawing.Point(6, 28);
+            this.Lbl_HorasViaje.Location = new System.Drawing.Point(6, 26);
             this.Lbl_HorasViaje.Name = "Lbl_HorasViaje";
             this.Lbl_HorasViaje.Size = new System.Drawing.Size(88, 16);
             this.Lbl_HorasViaje.TabIndex = 23;
             this.Lbl_HorasViaje.Text = "Horas de Viajes";
             // 
-            // textBox1
+            // TxtBox_Capitan_HorasViaje
             // 
-            this.textBox1.Location = new System.Drawing.Point(6, 45);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(88, 23);
-            this.textBox1.TabIndex = 23;
+            this.TxtBox_Capitan_HorasViaje.Location = new System.Drawing.Point(6, 45);
+            this.TxtBox_Capitan_HorasViaje.Name = "TxtBox_Capitan_HorasViaje";
+            this.TxtBox_Capitan_HorasViaje.Size = new System.Drawing.Size(88, 23);
+            this.TxtBox_Capitan_HorasViaje.TabIndex = 23;
             // 
             // Btn_AgregarPersona
             // 
@@ -388,6 +418,7 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             this.Btn_AgregarPersona.Text = "¡Agregar Persona!";
             this.Btn_AgregarPersona.UseVisualStyleBackColor = true;
             this.Btn_AgregarPersona.Visible = false;
+            this.Btn_AgregarPersona.Click += new System.EventHandler(this.Btn_AgregarPersona_Click);
             // 
             // GrpBox_PreferenciasPasajero
             // 
@@ -432,41 +463,11 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             this.CkBox_Casino.Text = "Casino";
             this.CkBox_Casino.UseVisualStyleBackColor = true;
             // 
-            // GrpBox_Empleado_Datos
-            // 
-            this.GrpBox_Empleado_Datos.Controls.Add(this.Lbl_Puesto);
-            this.GrpBox_Empleado_Datos.Controls.Add(this.comboBox2);
-            this.GrpBox_Empleado_Datos.Location = new System.Drawing.Point(350, 76);
-            this.GrpBox_Empleado_Datos.Name = "GrpBox_Empleado_Datos";
-            this.GrpBox_Empleado_Datos.Size = new System.Drawing.Size(141, 87);
-            this.GrpBox_Empleado_Datos.TabIndex = 6;
-            this.GrpBox_Empleado_Datos.TabStop = false;
-            this.GrpBox_Empleado_Datos.Text = "Ingresar Datos";
-            this.GrpBox_Empleado_Datos.Visible = false;
-            // 
-            // Lbl_Puesto
-            // 
-            this.Lbl_Puesto.AutoSize = true;
-            this.Lbl_Puesto.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.Lbl_Puesto.Location = new System.Drawing.Point(6, 21);
-            this.Lbl_Puesto.Name = "Lbl_Puesto";
-            this.Lbl_Puesto.Size = new System.Drawing.Size(50, 16);
-            this.Lbl_Puesto.TabIndex = 23;
-            this.Lbl_Puesto.Text = "Puestos";
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(6, 47);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 23);
-            this.comboBox2.TabIndex = 6;
-            // 
             // Frm_AgregarPersona
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(349, 236);
+            this.ClientSize = new System.Drawing.Size(850, 236);
             this.Controls.Add(this.GrpBox_Empleado_Datos);
             this.Controls.Add(this.GrpBox_PreferenciasPasajero);
             this.Controls.Add(this.GrpBox_DatosCapitan);
@@ -485,10 +486,10 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             this.GrpBox_Pasajero.PerformLayout();
             this.GrpBox_DatosCapitan.ResumeLayout(false);
             this.GrpBox_DatosCapitan.PerformLayout();
-            this.GrpBox_PreferenciasPasajero.ResumeLayout(false);
-            this.GrpBox_PreferenciasPasajero.PerformLayout();
             this.GrpBox_Empleado_Datos.ResumeLayout(false);
             this.GrpBox_Empleado_Datos.PerformLayout();
+            this.GrpBox_PreferenciasPasajero.ResumeLayout(false);
+            this.GrpBox_PreferenciasPasajero.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -515,7 +516,7 @@ namespace InterfazGrafica.Formulario_Crud_Personas
         private System.Windows.Forms.Label Lbl_Correo;
         private System.Windows.Forms.TextBox TxtBox_Correo;
         private System.Windows.Forms.Label Lbl_Clases;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox CbBox_Pasajero_Clase;
         private System.Windows.Forms.Label Lbl_Maletas;
         private System.Windows.Forms.TextBox TxtBox_Maletas;
         private System.Windows.Forms.Label Lbl_Bolso;
@@ -525,13 +526,13 @@ namespace InterfazGrafica.Formulario_Crud_Personas
         private System.Windows.Forms.Button Btn_AgregarPersona;
         private System.Windows.Forms.GroupBox GrpBox_DatosCapitan;
         private System.Windows.Forms.Label Lbl_HorasViaje;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox TxtBox_Capitan_HorasViaje;
         private System.Windows.Forms.GroupBox GrpBox_PreferenciasPasajero;
         private System.Windows.Forms.CheckBox CkBox_Gimnacio;
         private System.Windows.Forms.CheckBox CkBox_Piscina;
         private System.Windows.Forms.CheckBox CkBox_Casino;
         private System.Windows.Forms.GroupBox GrpBox_Empleado_Datos;
         private System.Windows.Forms.Label Lbl_Puesto;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox CbBox_Empleado_Puesto;
     }
 }
