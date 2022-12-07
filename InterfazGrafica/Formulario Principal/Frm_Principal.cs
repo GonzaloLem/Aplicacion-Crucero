@@ -41,17 +41,7 @@ namespace InterfazGrafica
 
         private void Btn_EstadisticasHistoricas_Click(object sender, EventArgs e)
         {  
-            Pasajero pasajero = new Pasajero("Gonzalo", "Lemiña", 21, 43593947, Nacionalidades.Argentina, 1134153038, "gonzalonl308@gmail.com",Clases.Turista, new Equipaje(1,1,10), true, true, true);
-            Empleado empleado = new Empleado("Martina", "Lemiña", 18, 53222111, Nacionalidades.Belgica, 1100225511, PuestosDeTrabajo.Recepcionista);
-            Capitan capitan = new Capitan("Santino", "Gilardi", 55, 18377243, Nacionalidades.Canada, 1101345533, 1230);
 
-            ConexionPasajeros conexionPasajero = new ConexionPasajeros();
-            ConexionEmpleados conexionEmpleado = new ConexionEmpleados();
-            ConexionCapitan conexionCapitan = new ConexionCapitan();
-
-            conexionPasajero.Insertar(pasajero);
-            conexionEmpleado.Insertar(empleado);
-            conexionCapitan.Insertar(capitan);
         }
 
 

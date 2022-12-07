@@ -135,7 +135,7 @@ namespace Entidades.BaseDeDatos
                         (Nacionalidades)this.lector["Nacionalidad"],
                         (double)this.lector["Celular"],
                         (PuestosDeTrabajo)this.lector["Puesto"],
-                        (DateTime)this.lector["FechaIngreso"]
+                        (DateTime)this.lector["FechaDeIngreso"]
                     );
 
                     lista += empleado;

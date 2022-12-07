@@ -9,14 +9,19 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Entidades.Personas;
 using Entidades.BaseDeDatos;
+using Entidades.Extensiones;
 
 namespace InterfazGrafica.Formulario_Crud_Personas
 {
     public partial class Frm_ListarPersonas : Form
     {
+        private AlmacenamientoPersonas<Persona> lista;
+        private ListSortDirection orden;
         public Frm_ListarPersonas()
         {
             InitializeComponent();
+            this.lista = new AlmacenamientoPersonas<Persona>(1000000);
+            this.orden = ListSortDirection.Ascending;
         }
 
         private void Frm_ListarPersonas_Load(object sender, EventArgs e)
@@ -25,10 +30,43 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             ConexionEmpleados conexionEmpleado = new ConexionEmpleados();
             ConexionCapitan conexionCapitan = new ConexionCapitan();
 
-            this.ListarPersonas(conexionPasajeros.Obtener());
-            this.ListarPersonas(conexionEmpleado.Obtener());
-            this.ListarPersonas(conexionCapitan.Obtener());
 
+            this.lista += conexionPasajeros.Obtener();
+            this.lista += conexionEmpleado.Obtener();
+            this.lista += conexionCapitan.Obtener();
+            this.ListarPersonas(this.lista);
+
+            this.dtGdVw_ListarPersonas.Sort(this.Colum_Personas_Id, ListSortDirection.Ascending);
+
+        }
+
+        private void btn_Filtrar_Click(object sender, EventArgs e)
+        {
+            if(this.txtBox_Filtro.Text != "" && this.ObtenerCheckBox() != null)
+            {
+                for (int i = 0; i < this.dtGdVw_ListarPersonas.Rows.Count; i++)
+                {
+                    this.dtGdVw_ListarPersonas.Rows[i].Visible = true;
+                }
+
+                string cadena = "Colum_Personas_";
+                cadena += cadena.Rehacer(this.ObtenerCheckBox().Name, (cadena.Contar(this.ObtenerCheckBox().Name, '_') + 1));
+
+               this.BuscarPorFiltro( this.BuscarColumnas(cadena), this.txtBox_Filtro.Text);
+                
+            }
+        }
+
+        private void BuscarPorFiltro(int index, string cadena)
+        {
+            for(int i=0;i<this.dtGdVw_ListarPersonas.Rows.Count;i++)
+            {
+                if(!this.dtGdVw_ListarPersonas.Rows[i].Cells[index].Value.ToString().Validar(this.txtBox_Filtro.Text))
+                {
+                    this.dtGdVw_ListarPersonas.Rows[i].Visible = false;
+                }
+
+            }
         }
 
         private void ListarPersonas(AlmacenamientoPersonas<Persona> lista)
@@ -38,20 +76,110 @@ namespace InterfazGrafica.Formulario_Crud_Personas
 
             for(int i=0;i<lista.Total;i++)
             {
-                int index = this.DtGdVw_ListarPersonas.Rows.Add();
+                int index = this.dtGdVw_ListarPersonas.Rows.Add();
 
-                this.DtGdVw_ListarPersonas.Rows[index].Cells[0].Value = lista[i].ID;
-                this.DtGdVw_ListarPersonas.Rows[index].Cells[1].Value = lista[i].Nombre;
-                this.DtGdVw_ListarPersonas.Rows[index].Cells[2].Value = lista[i].Apellido;
-                this.DtGdVw_ListarPersonas.Rows[index].Cells[3].Value = lista[i].Edad;
-                this.DtGdVw_ListarPersonas.Rows[index].Cells[4].Value = lista[i].DNI;
-                this.DtGdVw_ListarPersonas.Rows[index].Cells[5].Value = lista[i].Nacionalidad;
-                this.DtGdVw_ListarPersonas.Rows[index].Cells[6].Value = lista[i].Celular;
-                this.DtGdVw_ListarPersonas.Rows[index].Cells[7].Value = lista[i].Tipo;
+                this.dtGdVw_ListarPersonas.Rows[index].Cells[0].Value = lista[i].ID;
+                this.dtGdVw_ListarPersonas.Rows[index].Cells[1].Value = lista[i].Nombre;
+                this.dtGdVw_ListarPersonas.Rows[index].Cells[2].Value = lista[i].Apellido;
+                this.dtGdVw_ListarPersonas.Rows[index].Cells[3].Value = lista[i].Edad;
+                this.dtGdVw_ListarPersonas.Rows[index].Cells[4].Value = lista[i].DNI;
+                this.dtGdVw_ListarPersonas.Rows[index].Cells[5].Value = lista[i].Nacionalidad;
+                this.dtGdVw_ListarPersonas.Rows[index].Cells[6].Value = lista[i].Celular;
+                this.dtGdVw_ListarPersonas.Rows[index].Cells[7].Value = lista[i].Tipo;
 
             }
 
         }
 
+        private void Validar(object sender, EventArgs e)
+        {
+            string orden = "Colum_Personas_";
+
+            foreach (Control item in this.grpBox_Ordenar.Controls)
+            {
+                if (item != sender)
+                {
+                    ((CheckBox)item).Checked = false;
+                }
+
+            }
+
+            orden += orden.Rehacer(((CheckBox)sender).Name, orden.Contar(((CheckBox)sender).Name, '_')+ 1);
+
+            this.OrdenarColumna(this.BuscarColumnas(orden), this.orden);
+        }
+
+
+        private int BuscarColumnas(string columna)
+        {
+            int retorno = -1;
+
+            for(int i=0;i<this.dtGdVw_ListarPersonas.Columns.Count;i++)
+            {
+                if(this.dtGdVw_ListarPersonas.Columns[i].Name == columna)
+                {
+                    retorno = i;
+                    break;
+                }
+            }
+
+            return retorno;
+        }
+
+        private void OrdenarColumna(int index, ListSortDirection orden)
+        {
+            if(index > -1)
+            {
+                this.dtGdVw_ListarPersonas.Sort(this.dtGdVw_ListarPersonas.Columns[index], orden);
+            }
+            
+        }
+
+        private CheckBox ObtenerCheckBox()
+        {
+            CheckBox retorno = null;
+
+            foreach(Control item in this.grpBox_Ordenar.Controls)
+            {
+                if(item is CheckBox && ((CheckBox)item).Checked == true)
+                {
+                    retorno = (CheckBox)item;
+                    break;
+                }
+            }
+
+            return retorno;
+        }
+
+        private void Filtro(object sender, EventArgs e)
+        {
+            if(this.txtBox_Filtro.Text == "")
+            {
+                for (int i = 0; i < this.dtGdVw_ListarPersonas.Rows.Count; i++)
+                {
+                    this.dtGdVw_ListarPersonas.Rows[i].Visible = true;
+                }
+            }
+        }
+
+        private void VerificarOrden(object sender, EventArgs e)
+        {
+            if(sender == this.ckBox_Ascendente && ((CheckBox)sender).Checked == true)
+            {
+                this.ckBox_Descendente.Checked = false;
+                this.orden = ListSortDirection.Ascending;
+            }
+            else
+            {
+                this.ckBox_Ascendente.Checked = false;
+                this.orden = ListSortDirection.Descending;
+            }
+            if(this.ObtenerCheckBox() != null)
+            {
+                this.Validar(this.ObtenerCheckBox(), e);
+            }
+            
+
+        }
     }
 }

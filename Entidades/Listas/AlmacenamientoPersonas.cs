@@ -81,6 +81,30 @@ namespace Entidades.BaseDeDatos
             return retorno;
         }
 
+        public static bool operator ==(AlmacenamientoPersonas<T> almacenamiento1, AlmacenamientoPersonas<T> almacenamiento2)
+        {
+            bool retorno = false;
+
+                foreach(T item1 in almacenamiento1.Lista)
+                {
+                    foreach(T item2 in almacenamiento2.Lista)
+                    {
+                            if(item1==item2)
+                            {
+                                retorno = true;
+                                break;
+                            }
+                    }
+                }
+
+            return retorno;
+        }
+
+        public static bool operator !=(AlmacenamientoPersonas<T> almacenamiento1, AlmacenamientoPersonas<T> almacenamiento2)
+        {
+            return !(almacenamiento1==almacenamiento2);
+        }
+
         public static bool operator ==(AlmacenamientoPersonas<T> almacenamiento, T dato)
         {
             bool retorno = false;
@@ -108,6 +132,21 @@ namespace Entidades.BaseDeDatos
             if(almacenamiento!=item && almacenamiento.Total < almacenamiento.limite)
             {
                 almacenamiento.lista.Add(item);
+            }
+
+            return almacenamiento;
+        }
+
+        public static AlmacenamientoPersonas<T> operator +(AlmacenamientoPersonas<T> almacenamiento, AlmacenamientoPersonas<T> almacenamiento2)
+        {
+
+            if (almacenamiento != almacenamiento2 && almacenamiento.Total < almacenamiento.limite)
+            {
+                for(int i=0;i<almacenamiento2.Total;i++)
+                {
+                    almacenamiento.lista.Add(almacenamiento2[i]);
+                }
+
             }
 
             return almacenamiento;

@@ -11,6 +11,8 @@ namespace Entidades.Operaciones
     public class Operacion
     {
 
+
+
         public static bool Validar(string cadena)
         {
             bool retorno = false;
