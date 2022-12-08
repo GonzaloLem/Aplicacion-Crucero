@@ -15,6 +15,11 @@ namespace Entidades.Viajes
             this.viajeExtraRegional = viajeExtraRegional;
         }
 
+        public ViajesExtraRegional ExtraRegional { get => this.viajeExtraRegional; }
 
+        public override string ToString()
+        {
+            return this.viajeExtraRegional.ToString();
+        }
     }
 }

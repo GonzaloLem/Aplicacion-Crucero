@@ -11,23 +11,25 @@ namespace Entidades.Barcos
     public class Crucero
     {
 
+        int id;
         private string matricula;
         private string nombre;
         private int camarotes;
-        private sbyte salones;
-        private sbyte casinos;
-        private sbyte piscinas;
-        private sbyte gimnacios;
-        private float bodegaCapacidad;
-        private float bodegaPeso;
+        private int salones;
+        private int casinos;
+        private int piscinas;
+        private int gimnacios;
+        private double bodegaCapacidad;
+        private double bodegaPeso;
         private AlmacenamientoPersonas<Persona> listaTripulantes;
         
         private Crucero(int camarotes)
         {
+            this.id = 0;
             this.listaTripulantes = new AlmacenamientoPersonas<Persona>(this.CapacidadPersonas(camarotes));
             this.bodegaPeso = 0;
         }
-        public Crucero(string matricula, string nombre, int camarotes, sbyte salones, sbyte casinos, sbyte piscinas, sbyte gimnacios, float capacidadBodega) : this(camarotes)
+        public Crucero(string matricula, string nombre, int camarotes, int salones, int casinos, int piscinas, int gimnacios, double capacidadBodega) : this(camarotes)
         {
             this.matricula = matricula;
             this.nombre = nombre;
@@ -39,6 +41,14 @@ namespace Entidades.Barcos
             this.bodegaCapacidad = capacidadBodega;
         }
 
+        public Crucero(int id, string matricula, string nombre, int camarotes, int salones, int casinos, int piscinas, int gimnacios, double capacidadBodega, double pesoTotalBodega, AlmacenamientoPersonas<Persona> tripulantes) : this(matricula, nombre, camarotes, salones, casinos, piscinas, gimnacios, capacidadBodega)
+        {
+            this.id = id;
+            this.bodegaPeso = pesoTotalBodega;
+            this.listaTripulantes = tripulantes;
+        }
+
+        public int ID { get => this.id; }
         public string Matricula { get => this.matricula; }
         public string Nombre { get => this.nombre; }
         public int Camarotes { get => this.camarotes; }
@@ -49,7 +59,13 @@ namespace Entidades.Barcos
         /// <summary>
         /// Capacidad maxima de la bodega
         /// </summary>
-        public float Capacidad { get => this.bodegaCapacidad; }
+        public double Capacidad { get => this.bodegaCapacidad; }
+        /// <summary>
+        /// Peso de la bodega
+        /// </summary>
+        public double Peso { get => this.bodegaPeso; }
+
+        public AlmacenamientoPersonas<Persona> Tripulantes { get => this.listaTripulantes; }
 
         /// <summary>
         /// Retorna el total de clientes a bordo que tiene el crucero
@@ -72,6 +88,8 @@ namespace Entidades.Barcos
 
             }
         }
+
+
 
         private int CapacidadPersonas(int camarotes)
         {
@@ -116,6 +134,28 @@ namespace Entidades.Barcos
             }
         }
 
+        public static string GenerarMatricula()
+        {
+            string retorno = null;
+            char caracter = '_';
+                Random rd = new Random();
+
+                    for(int i=0;i<3;i++)
+                    {
+                        caracter = (char)(rd.Next(65, 91));
+                        retorno += caracter.ToString();
+                    }
+
+                    retorno += '-';
+
+                    for(int i=0;i<4;i++)
+                    { 
+                        caracter = (char)(rd.Next(48, 58));
+                        retorno += caracter.ToString();
+                    }
+
+            return retorno;
+        }
         public static bool operator ==(Crucero crucero1, Crucero crucero2)
         {
             return (crucero1.matricula == crucero2.matricula);
@@ -130,15 +170,7 @@ namespace Entidades.Barcos
         {
             StringBuilder cadena = new StringBuilder();
 
-            cadena.AppendLine($"Matricula: {this.matricula}");
-            cadena.AppendLine($"Nombre: {this.nombre}");
-            cadena.AppendLine($"Camarotes: {this.camarotes}");
-            cadena.AppendLine($"Salones: {this.salones}");
-            cadena.AppendLine($"Casinos: {this.casinos}");
-            cadena.AppendLine($"Piscinas: {this.piscinas}");
-            cadena.AppendLine($"Gimnacios: {this.gimnacios}");
-            cadena.AppendLine($"Capacidad de la Bodega: {this.bodegaCapacidad}KG");
-            cadena.AppendLine($"Tripulantes: {this.listaTripulantes}");
+            cadena.AppendLine($"{this.nombre}");
 
             return cadena.ToString();
         }
@@ -160,6 +192,25 @@ namespace Entidades.Barcos
             return base.GetHashCode();
         }
 
+        public string ObtenerIdsTripulantes()
+        {
+            string retorno = null;
+
+                for(int i=0;i<this.listaTripulantes.Total;i++)
+                {
+                    if(i!=this.listaTripulantes.Total-1)
+                    {
+                        retorno += this.listaTripulantes[i].ID + ",";
+                    }
+                    else
+                    {
+                        retorno += this.listaTripulantes[i].ID;
+                    }
+                    
+                }
+                
+            return retorno;
+        }
 
 
     }

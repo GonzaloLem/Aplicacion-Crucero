@@ -8,8 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using InterfazGrafica.Formulario_Crud_Personas;
-using Entidades.Personas;
+using InterfazGrafica.Formulario_Crud_Viajes;
+using InterfazGrafica.Formulario_Crud_Barcos;
+using Entidades;
 using Entidades.BaseDeDatos;
+using Entidades.Personas;
+using Entidades.Viajes;
+using Entidades.Listas;
 
 namespace InterfazGrafica
 {
@@ -22,6 +27,9 @@ namespace InterfazGrafica
 
         private void Frm_Principal_Load(object sender, EventArgs e)
         {
+            ConexionViajes conexionViajes = new ConexionViajes();
+
+            this.Listar(conexionViajes.Obtener());
         }
 
         private void Btn_AgregarPersona_Click(object sender, EventArgs e)
@@ -39,11 +47,48 @@ namespace InterfazGrafica
             formListarPersonas.ShowDialog();
         }
 
-        private void Btn_EstadisticasHistoricas_Click(object sender, EventArgs e)
-        {  
-
+        private void Btn_AgregarViaje_Click(object sender, EventArgs e)
+        {
+            Frm_CrearViaje formCrearViaje = new Frm_CrearViaje();
+            ConexionViajes conexionViajes = new ConexionViajes();
+            formCrearViaje.ShowDialog();
+            this.Listar(conexionViajes.Obtener());
         }
 
+        private void btn_CrudCrucero_Click(object sender, EventArgs e)
+        {
+            Frm_ListarCruceros formCruceros = new Frm_ListarCruceros();
+
+            formCruceros.ShowDialog();
+        }
+
+        private void Btn_EstadisticasHistoricas_Click(object sender, EventArgs e)
+        {
+            ConexionViajes viajes = new ConexionViajes();
+
+            viajes.Obtener();
+        }
+
+        private void Listar(AlmecenamientoViajes<Viaje> lista)
+        {
+            this.DtGdVw_ListaViajes.Rows.Clear();
+           for(int i=0;i<lista.Total;i++)
+           {
+                int index = this.DtGdVw_ListaViajes.Rows.Add();
+
+                this.DtGdVw_ListaViajes.Rows[index].Cells[0].Value = lista[i].ID;
+                this.DtGdVw_ListaViajes.Rows[index].Cells[1].Value = lista[i].Partida;
+                this.DtGdVw_ListaViajes.Rows[index].Cells[2].Value = Destino.Parse(lista[i].Destino);
+                this.DtGdVw_ListaViajes.Rows[index].Cells[3].Value = lista[i].Inicio;
+                this.DtGdVw_ListaViajes.Rows[index].Cells[4].Value = lista[i].Crucero;
+                this.DtGdVw_ListaViajes.Rows[index].Cells[5].Value = lista[i].CamarotesPremium;
+                this.DtGdVw_ListaViajes.Rows[index].Cells[6].Value = lista[i].CamarotesTurista;
+                this.DtGdVw_ListaViajes.Rows[index].Cells[7].Value = lista[i].CostoPremium;
+                this.DtGdVw_ListaViajes.Rows[index].Cells[8].Value = lista[i].CostoTurista;
+                this.DtGdVw_ListaViajes.Rows[index].Cells[9].Value = lista[i].Duracion;
+
+            }
+        }
 
     }
 }
