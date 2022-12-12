@@ -22,17 +22,15 @@ namespace InterfazGrafica.Formulario_Crud_Barcos
 
         private void Frm_ListarCruceros_Load(object sender, EventArgs e)
         {
-            ConexionCrucero conexion = new ConexionCrucero();
-            this.Listar(conexion.Obtener());
+            this.Listar(ConexionSQLCrucero.Obtener());
         }
 
         private void btn_CrearViaje_Click(object sender, EventArgs e)
         {
             Frm_CrearCrucero formCrearViaje = new Frm_CrearCrucero();
-            ConexionCrucero conexion = new ConexionCrucero();
 
             formCrearViaje.ShowDialog();
-            this.Listar(conexion.Obtener());
+            this.Listar(ConexionSQLCrucero.Obtener());
         }
 
         private void Listar(Embarcadero<Crucero> embarcadero)

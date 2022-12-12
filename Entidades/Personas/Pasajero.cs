@@ -36,6 +36,16 @@ namespace Entidades.Personas
             this.gimnacio = gimnacio;
         }
 
+        public Pasajero(string correo, Clases clase, Equipaje equipaje, bool casino, bool piscina, bool gimnacio) : base(null, null, -1, -1, 0, -1)
+        {
+            this.correo = correo;
+            this.clase = clase;
+            this.equipaje = equipaje;
+            this.casino = casino;
+            this.piscina = piscina;
+            this.gimnacio = gimnacio;
+        }
+
         public string Correo { get => this.correo; }
         public Clases Clase { get => this.clase; }
         public Equipaje Equipaje { get => this.equipaje; }
@@ -44,6 +54,7 @@ namespace Entidades.Personas
         public bool Piscina { get => this.piscina; }
         public bool Gimnacio { get => this.gimnacio; }
         public override string Tipo { get => "Pasajero"; }
+        public override Roles Rol { get => Roles.Cliente; }
         public override string ToString()
         {
             StringBuilder cadena = new StringBuilder();

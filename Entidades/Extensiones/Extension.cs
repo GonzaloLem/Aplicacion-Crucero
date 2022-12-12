@@ -9,6 +9,18 @@ namespace Entidades.Extensiones
     public static class Extension
     {
 
+        public static byte Conversor(this byte byt, bool booleano)
+        {
+            byte retorno = 0;
+
+            if (booleano == true)
+            {
+                retorno = 1;
+            }
+
+            return retorno;
+        }
+
         public static bool Validar(this string str, string cadena)
         {
             bool retorno = false;

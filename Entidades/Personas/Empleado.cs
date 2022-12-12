@@ -23,6 +23,12 @@ namespace Entidades.Personas
             this.diaQueSeUnio = fechaIngreso;
         }
 
+        public Empleado(PuestosDeTrabajo puesto, DateTime fechaDeIngreso) : base(null, null, -1, -1, Nacionalidades.Alemania, -1)
+        {
+            this.puesto = puesto;
+            this.diaQueSeUnio = fechaDeIngreso;
+        }
+
         public PuestosDeTrabajo Puesto { get => this.puesto; }
 
         /// <summary>
@@ -30,6 +36,7 @@ namespace Entidades.Personas
         /// </summary>
         public DateTime Fecha { get => this.diaQueSeUnio; }
         public override string Tipo { get => "Empleado"; }
+        public override Roles Rol { get => Roles.Empleado; }
 
         /// <summary>
         /// Fecha en la que arranco a trabajar para la empresa

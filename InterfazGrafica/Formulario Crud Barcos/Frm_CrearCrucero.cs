@@ -23,7 +23,6 @@ namespace InterfazGrafica.Formulario_Crud_Barcos
         {
             if (this.ValidarTexBox())
             {
-                ConexionCrucero conexion = new ConexionCrucero();
 
                 Crucero crucero = new Crucero
                     (
@@ -37,9 +36,9 @@ namespace InterfazGrafica.Formulario_Crud_Barcos
                         double.Parse(this.txtBox_Capacidad.Text)
                     );
 
-                if(conexion.Obtener() != crucero)
+                if(ConexionSQLCrucero.Obtener() != crucero)
                 {
-                    conexion.Insertar(crucero);
+                    ConexionSQLCrucero.Insertar(crucero);
                     this.Close();
                 }
 

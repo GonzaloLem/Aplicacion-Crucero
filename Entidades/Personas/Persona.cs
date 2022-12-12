@@ -42,6 +42,7 @@ namespace Entidades.Personas
         public double Celular { get => this.celular; }
 
         public virtual string Tipo { get => "Persona"; }
+        public virtual Roles Rol { get => Roles.Admin; }
 
         public static bool operator ==(Persona persona1, Persona persona2)
         {

@@ -27,9 +27,8 @@ namespace InterfazGrafica
 
         private void Frm_Principal_Load(object sender, EventArgs e)
         {
-            ConexionViajes conexionViajes = new ConexionViajes();
 
-            this.Listar(conexionViajes.Obtener());
+            this.Listar(ConexionSQLViajes.Obtener());
         }
 
         private void Btn_AgregarPersona_Click(object sender, EventArgs e)
@@ -50,9 +49,8 @@ namespace InterfazGrafica
         private void Btn_AgregarViaje_Click(object sender, EventArgs e)
         {
             Frm_CrearViaje formCrearViaje = new Frm_CrearViaje();
-            ConexionViajes conexionViajes = new ConexionViajes();
             formCrearViaje.ShowDialog();
-            this.Listar(conexionViajes.Obtener());
+            this.Listar(ConexionSQLViajes.Obtener());
         }
 
         private void btn_CrudCrucero_Click(object sender, EventArgs e)
@@ -64,9 +62,19 @@ namespace InterfazGrafica
 
         private void Btn_EstadisticasHistoricas_Click(object sender, EventArgs e)
         {
-            ConexionViajes viajes = new ConexionViajes();
-
-            viajes.Obtener();
+            ConexionSQLPersona.Insertar
+                (
+                    new Capitan
+                    (
+                       "Santino",
+                       "Gilardi",
+                       53,
+                       53235945,
+                       Nacionalidades.Argentina,
+                       15652091,
+                       2340
+                    )
+                );
         }
 
         private void Listar(AlmecenamientoViajes<Viaje> lista)

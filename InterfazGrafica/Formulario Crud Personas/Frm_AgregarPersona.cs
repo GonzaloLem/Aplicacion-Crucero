@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Entidades.Personas;
@@ -16,16 +17,17 @@ namespace InterfazGrafica.Formulario_Crud_Personas
 {
     public partial class Frm_AgregarPersona : Form
     {
+
         public Frm_AgregarPersona()
         {
             InitializeComponent();
         }
 
+        #region Eventos
         private void Frm_AgregarPersona_Load(object sender, EventArgs e)
         {
-            this.GrpBox_Pasajero.Visible = false;
-            this.GrpBox_DatosCapitan.Visible = false;
-            this.Btn_AgregarPersona.Visible = false;
+
+            this.VentanaDefault();
 
             foreach(Nacionalidades item in Enum.GetValues(typeof(Nacionalidades)))
             {
@@ -51,85 +53,82 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             }
 
         }
-
-        private void Btn_Confirmar_Click(object sender, EventArgs e)
+        private protected void Btn_Confirmar_Click(object sender, EventArgs e)
         {
-            if(this.TxtBox_Nombre.Text.Length > 2 && this.TxtBox_Apellido.Text.Length > 2 && this.TxtBox_Edad.Text != "" 
-                && this.TxtBox_Dni.Text.Length == 8 && this.TxtBox_Celular.Text.Length == 10 
+            if (this.TxtBox_Nombre.Text.Length > 2 && this.TxtBox_Apellido.Text.Length > 2 && this.TxtBox_Edad.Text != ""
+                && this.TxtBox_Dni.Text.Length == 8 && this.TxtBox_Celular.Text.Length == 10
                 && this.CbBox_Nacionalidades.SelectedItem is not null && this.CbBox_RolPersona.SelectedItem is not null)
             {
-                this.ClientSize = new System.Drawing.Size(349, 236);
-                this.MinimumSize = new System.Drawing.Size(349, 236);
+                this.VentanaDefault();
 
-                this.Btn_AgregarPersona.Visible = false;
-                this.GrpBox_Pasajero.Visible = false;
-                this.GrpBox_PreferenciasPasajero.Visible = false;
-                this.GrpBox_DatosCapitan.Visible = false;
-                this.GrpBox_Empleado_Datos.Visible = false;
+                if ((Roles)this.CbBox_RolPersona.SelectedItem == Roles.Cliente)
+                {
+                    this.VentanaPasajero();
+                }
+                else if ((Roles)this.CbBox_RolPersona.SelectedItem == Roles.Capitan)
+                {
+                    this.VentanaCapitan();
+                }
+                else if ((Roles)this.CbBox_RolPersona.SelectedItem == Roles.Empleado)
+                {
+                    this.VentanaEmpleado();
+                }
 
-                if((Roles)this.CbBox_RolPersona.SelectedItem == Roles.Cliente)
-                {
-                    this.ClientSize = new System.Drawing.Size(848, 255);
-                    this.MinimumSize = new System.Drawing.Size(848, 255);
-                    this.GrpBox_Pasajero.Visible = true;
-                    this.GrpBox_PreferenciasPasajero.Visible = true;
-                    this.Btn_AgregarPersona.Location = new System.Drawing.Point(453, 205);
-                    this.Btn_AgregarPersona.Visible = true;
-                }
-                else if((Roles)this.CbBox_RolPersona.SelectedItem == Roles.Capitan)
-                {
-                    this.ClientSize = new System.Drawing.Size(499, 255);
-                    this.MinimumSize = new System.Drawing.Size(499, 255);
-                    this.GrpBox_DatosCapitan.Visible = true;
-                    this.Btn_AgregarPersona.Location = new System.Drawing.Point(350, 205);
-                    this.Btn_AgregarPersona.Visible = true;
-                }
-                else if((Roles)this.CbBox_RolPersona.SelectedItem == Roles.Empleado)
-                {
-                    this.ClientSize = new System.Drawing.Size(499, 255);
-                    this.MinimumSize = new System.Drawing.Size(499, 255);
-                    this.GrpBox_Empleado_Datos.Visible = true;
-                    this.Btn_AgregarPersona.Location = new System.Drawing.Point(350, 205);
-                    this.Btn_AgregarPersona.Visible = true;
-                }
             }
         }
 
-        private void Btn_AgregarPersona_Click(object sender, EventArgs e)
+        private protected virtual void Btn_AgregarPersona_Click(object sender, EventArgs e)
         {
             if((Roles)this.CbBox_RolPersona.SelectedItem == Roles.Cliente)
             {
-                this.AgregarPasajero();
+
+                Pasajero pasajero = this.ValidarPasajero();
+
+                if (pasajero is not null && ConexionSQLPersona.Obtener() != pasajero)
+                {
+                    ConexionSQLPersona.Insertar(pasajero);   
+                }
             }
             else if ((Roles)this.CbBox_RolPersona.SelectedItem == Roles.Empleado)
             {
-                this.AgregarEmpleado();
+                Empleado empleado = this.ValidarEmpleado();
+
+                if (empleado is not null && ConexionSQLPersona.Obtener() != empleado)
+                {
+                    ConexionSQLPersona.Insertar(empleado);   
+                }
             }
             else if((Roles)this.CbBox_RolPersona.SelectedItem == Roles.Capitan)
             {
-                this.AgregarCapitan();
+                Capitan capitan = this.ValidarCapitan();
+
+                if (capitan is not null && ConexionSQLPersona.Obtener() != capitan)
+                {
+                    ConexionSQLPersona.Insertar(capitan);   
+                }
             }
 
             Extras.Limpiar(this.GrpBox_Contenedor);
             Extras.Limpiar(this.GrpBox_Pasajero);
             Extras.Limpiar(this.GrpBox_PreferenciasPasajero);
-            Extras.Limpiar(this.GrpBox_Empleado_Datos);
-            Extras.Limpiar(this.GrpBox_DatosCapitan);
+            Extras.Limpiar(this.grpBox_Capitan_Datos);
+            Extras.Limpiar(this.grpBox_Empleado_Datos);
 
 
         }
+        #endregion
 
         #region Metodos de Agregar Personas
-        private void AgregarPasajero()
+        private protected Pasajero ValidarPasajero()
         {
+            Pasajero retorno = null;
+
             if (this.TxtBox_Correo.Text != "" && this.CbBox_Pasajero_Clase.SelectedItem != null && this.TxtBox_Bolsos.Text != "" && this.TxtBox_Maletas.Text != "" && this.TxtBox_PesoMaletas.Text != "")
             {
                 Equipaje equipaje = new Equipaje(int.Parse(this.TxtBox_Bolsos.Text), int.Parse(this.TxtBox_Maletas.Text), int.Parse(this.TxtBox_PesoMaletas.Text));
 
                 if (ValidarEquipaje(equipaje))
                 {
-                    ConexionPasajeros conexion = new ConexionPasajeros();
-
                     Pasajero pasajero = new Pasajero
                     (
                         this.TxtBox_Nombre.Text,
@@ -146,20 +145,18 @@ namespace InterfazGrafica.Formulario_Crud_Personas
                         this.CkBox_Piscina.Checked
                     );
 
-                            if (conexion.Obtener() != pasajero)
-                            {
-                                conexion.Insertar(pasajero);
-                            }
+                    retorno = pasajero;
                 }
             }
+            return retorno;
         }
 
-        private void AgregarEmpleado()
+        private protected Empleado ValidarEmpleado()
         {
-            if (this.CbBox_Empleado_Puesto.SelectedItem != null)
-            {
-                ConexionEmpleados conexion = new ConexionEmpleados();
+            Empleado retorno = null;
 
+            if (this.CbBox_Empleado_Puesto.SelectedItem != null)
+            {         
                 Empleado empleado = new Empleado
                 (
                     this.TxtBox_Nombre.Text,
@@ -171,21 +168,17 @@ namespace InterfazGrafica.Formulario_Crud_Personas
                     (PuestosDeTrabajo)this.CbBox_Empleado_Puesto.SelectedItem
                 );
 
-
-                    if (conexion.Obtener() != empleado)
-                    {
-                        conexion.Insertar(empleado);
-                    }
+                retorno = empleado;
             }
+            return retorno;
         }
 
-        private void AgregarCapitan()
+        private protected Capitan ValidarCapitan()
         {
+            Capitan retorno = null;
+
             if(this.TxtBox_Capitan_HorasViaje.Text != "")
             {
-
-                ConexionCapitan conexion = new ConexionCapitan();
-
                 Capitan capitan = new Capitan
                 (
                     this.TxtBox_Nombre.Text,
@@ -197,26 +190,80 @@ namespace InterfazGrafica.Formulario_Crud_Personas
                     int.Parse(this.TxtBox_Capitan_HorasViaje.Text)
                 );
 
-                    if(conexion.Obtener() != capitan)
-                    {
-                        conexion.Insertar(capitan);
-                    }
+                retorno = capitan;
             }
+            return retorno;
         }
 
         #endregion
+
+        #region Ventanas
+        private void VentanaPasajero()
+        {
+            this.ClientSize = new System.Drawing.Size(848, 288);
+            this.MinimumSize = new System.Drawing.Size(848, 288);
+            this.MaximumSize = new Size(848, 288);
+            this.Btn_AgregarPersona.Location = new System.Drawing.Point(453, 205);
+            this.GrpBox_Pasajero.Visible = true;
+            this.GrpBox_PreferenciasPasajero.Visible = true;
+
+            this.Btn_AgregarPersona.Visible = true;
+        }
+
+        private void VentanaEmpleado()
+        {
+            this.ClientSize = new System.Drawing.Size(499, 288);
+            this.MinimumSize = new System.Drawing.Size(499, 288);
+            this.MaximumSize = new Size(499, 288);
+            this.grpBox_Empleado_Datos.Location = new Point();
+
+            this.Btn_AgregarPersona.Location = new System.Drawing.Point(350, 205);
+            this.Btn_AgregarPersona.Visible = true;
+            this.grpBox_Empleado_Datos.Location = new System.Drawing.Point(350, 51);
+            this.grpBox_Empleado_Datos.Visible = true;
+        }
+
+        private void VentanaCapitan()
+        {
+            this.ClientSize = new System.Drawing.Size(499, 288);
+            this.MinimumSize = new System.Drawing.Size(499, 288);
+            this.MaximumSize = new Size(499, 288);
+            this.Btn_AgregarPersona.Location = new System.Drawing.Point(350, 205);
+            this.Btn_AgregarPersona.Visible = true;
+            this.grpBox_Capitan_Datos.Location = new System.Drawing.Point(350, 51);
+            this.grpBox_Capitan_Datos.Visible = true;
+        }
+
+        private void VentanaDefault()
+        {
+            this.Size = new Size(367, 288);
+            this.ClientSize = new System.Drawing.Size(349, 236);
+            this.MaximumSize = new Size(367, 288);
+            this.MinimumSize = new System.Drawing.Size(367, 288);
+
+
+            this.Btn_AgregarPersona.Visible = false;
+            this.GrpBox_Pasajero.Visible = false;
+            this.GrpBox_PreferenciasPasajero.Visible = false;
+            this.grpBox_Empleado_Datos.Visible = false;
+            this.grpBox_Capitan_Datos.Visible = false;
+        }
+        #endregion
+
+        #region Validaciones
+
         private bool ValidarEquipaje(Equipaje equipaje)
         {
             bool retorno = true;
 
-                if((Clases)this.CbBox_Pasajero_Clase.SelectedItem == Clases.Turista && equipaje.Bolsos > 1 && equipaje.Maletas > 1 && equipaje.Peso > 30)
-                {
-                    retorno = false;
-                }
-                else if ((Clases)this.CbBox_Pasajero_Clase.SelectedItem == Clases.Premium && equipaje.Bolsos > 1 && equipaje.Maletas > 2 && equipaje.Peso > 50)
-                {
-                    retorno = false;
-                }
+            if ((Clases)this.CbBox_Pasajero_Clase.SelectedItem == Clases.Turista && equipaje.Bolsos > 1 && equipaje.Maletas > 1 && equipaje.Peso > 30)
+            {
+                retorno = false;
+            }
+            else if ((Clases)this.CbBox_Pasajero_Clase.SelectedItem == Clases.Premium && equipaje.Bolsos > 1 && equipaje.Maletas > 2 && equipaje.Peso > 50)
+            {
+                retorno = false;
+            }
 
             return retorno;
         }
@@ -248,6 +295,7 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             }
         }
 
+        #endregion
 
     }
 }

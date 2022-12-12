@@ -30,6 +30,14 @@ namespace InterfazGrafica.Formulario_Crud_Personas
         private void InitializeComponent()
         {
             this.dtGdVw_ListarPersonas = new System.Windows.Forms.DataGridView();
+            this.Colum_Personas_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Colum_Personas_Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Colum_Personas_Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Colum_Personas_Edad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Colum_Personas_Dni = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Colum_Personas_Nacionalidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Colum_Personas_Celular = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Colum_Personas_Rol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ckBox_Apellido = new System.Windows.Forms.CheckBox();
             this.ckBox_Nacionalidad = new System.Windows.Forms.CheckBox();
             this.ckBox_Rol = new System.Windows.Forms.CheckBox();
@@ -41,14 +49,8 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             this.ckBox_Nombre = new System.Windows.Forms.CheckBox();
             this.ckBox_Ascendente = new System.Windows.Forms.CheckBox();
             this.ckBox_Descendente = new System.Windows.Forms.CheckBox();
-            this.Colum_Personas_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Colum_Personas_Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Colum_Personas_Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Colum_Personas_Edad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Colum_Personas_Dni = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Colum_Personas_Nacionalidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Colum_Personas_Celular = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Colum_Personas_Rol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btn_ModificarPersona = new System.Windows.Forms.Button();
+            this.btn_Eliminar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dtGdVw_ListarPersonas)).BeginInit();
             this.grpBox_Ordenar.SuspendLayout();
             this.SuspendLayout();
@@ -75,8 +77,80 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             this.dtGdVw_ListarPersonas.Location = new System.Drawing.Point(13, 13);
             this.dtGdVw_ListarPersonas.Name = "dtGdVw_ListarPersonas";
             this.dtGdVw_ListarPersonas.RowTemplate.Height = 25;
-            this.dtGdVw_ListarPersonas.Size = new System.Drawing.Size(841, 385);
+            this.dtGdVw_ListarPersonas.Size = new System.Drawing.Size(841, 394);
             this.dtGdVw_ListarPersonas.TabIndex = 0;
+            // 
+            // Colum_Personas_Id
+            // 
+            this.Colum_Personas_Id.FillWeight = 402.8777F;
+            this.Colum_Personas_Id.HeaderText = "ID";
+            this.Colum_Personas_Id.Name = "Colum_Personas_Id";
+            this.Colum_Personas_Id.ReadOnly = true;
+            this.Colum_Personas_Id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.Colum_Personas_Id.Width = 50;
+            // 
+            // Colum_Personas_Nombre
+            // 
+            this.Colum_Personas_Nombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Colum_Personas_Nombre.FillWeight = 49.52039F;
+            this.Colum_Personas_Nombre.HeaderText = "Nombre";
+            this.Colum_Personas_Nombre.Name = "Colum_Personas_Nombre";
+            this.Colum_Personas_Nombre.ReadOnly = true;
+            this.Colum_Personas_Nombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // Colum_Personas_Apellido
+            // 
+            this.Colum_Personas_Apellido.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Colum_Personas_Apellido.FillWeight = 49.52039F;
+            this.Colum_Personas_Apellido.HeaderText = "Apellido";
+            this.Colum_Personas_Apellido.Name = "Colum_Personas_Apellido";
+            this.Colum_Personas_Apellido.ReadOnly = true;
+            this.Colum_Personas_Apellido.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // Colum_Personas_Edad
+            // 
+            this.Colum_Personas_Edad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.Colum_Personas_Edad.HeaderText = "Edad";
+            this.Colum_Personas_Edad.Name = "Colum_Personas_Edad";
+            this.Colum_Personas_Edad.ReadOnly = true;
+            this.Colum_Personas_Edad.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.Colum_Personas_Edad.Width = 58;
+            // 
+            // Colum_Personas_Dni
+            // 
+            this.Colum_Personas_Dni.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Colum_Personas_Dni.FillWeight = 49.52039F;
+            this.Colum_Personas_Dni.HeaderText = "DNI";
+            this.Colum_Personas_Dni.Name = "Colum_Personas_Dni";
+            this.Colum_Personas_Dni.ReadOnly = true;
+            this.Colum_Personas_Dni.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // Colum_Personas_Nacionalidad
+            // 
+            this.Colum_Personas_Nacionalidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Colum_Personas_Nacionalidad.FillWeight = 49.52039F;
+            this.Colum_Personas_Nacionalidad.HeaderText = "Nacionalidad";
+            this.Colum_Personas_Nacionalidad.Name = "Colum_Personas_Nacionalidad";
+            this.Colum_Personas_Nacionalidad.ReadOnly = true;
+            this.Colum_Personas_Nacionalidad.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // Colum_Personas_Celular
+            // 
+            this.Colum_Personas_Celular.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Colum_Personas_Celular.FillWeight = 49.52039F;
+            this.Colum_Personas_Celular.HeaderText = "Celular";
+            this.Colum_Personas_Celular.Name = "Colum_Personas_Celular";
+            this.Colum_Personas_Celular.ReadOnly = true;
+            this.Colum_Personas_Celular.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // Colum_Personas_Rol
+            // 
+            this.Colum_Personas_Rol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Colum_Personas_Rol.FillWeight = 49.52039F;
+            this.Colum_Personas_Rol.HeaderText = "Rol";
+            this.Colum_Personas_Rol.Name = "Colum_Personas_Rol";
+            this.Colum_Personas_Rol.ReadOnly = true;
+            this.Colum_Personas_Rol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // ckBox_Apellido
             // 
@@ -114,7 +188,7 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             // txtBox_Filtro
             // 
             this.txtBox_Filtro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBox_Filtro.Location = new System.Drawing.Point(586, 422);
+            this.txtBox_Filtro.Location = new System.Drawing.Point(587, 429);
             this.txtBox_Filtro.Name = "txtBox_Filtro";
             this.txtBox_Filtro.Size = new System.Drawing.Size(146, 23);
             this.txtBox_Filtro.TabIndex = 5;
@@ -123,7 +197,8 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             // btn_Filtrar
             // 
             this.btn_Filtrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Filtrar.Location = new System.Drawing.Point(740, 422);
+            this.btn_Filtrar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btn_Filtrar.Location = new System.Drawing.Point(738, 429);
             this.btn_Filtrar.Name = "btn_Filtrar";
             this.btn_Filtrar.Size = new System.Drawing.Size(114, 23);
             this.btn_Filtrar.TabIndex = 6;
@@ -151,7 +226,7 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             this.grpBox_Ordenar.Controls.Add(this.ckBox_Rol);
             this.grpBox_Ordenar.Controls.Add(this.ckBox_Nacionalidad);
             this.grpBox_Ordenar.Controls.Add(this.ckBox_Apellido);
-            this.grpBox_Ordenar.Location = new System.Drawing.Point(13, 404);
+            this.grpBox_Ordenar.Location = new System.Drawing.Point(13, 413);
             this.grpBox_Ordenar.Name = "grpBox_Ordenar";
             this.grpBox_Ordenar.Size = new System.Drawing.Size(414, 45);
             this.grpBox_Ordenar.TabIndex = 8;
@@ -186,7 +261,7 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             this.ckBox_Ascendente.AutoSize = true;
             this.ckBox_Ascendente.Checked = true;
             this.ckBox_Ascendente.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ckBox_Ascendente.Location = new System.Drawing.Point(433, 404);
+            this.ckBox_Ascendente.Location = new System.Drawing.Point(433, 413);
             this.ckBox_Ascendente.Name = "ckBox_Ascendente";
             this.ckBox_Ascendente.Size = new System.Drawing.Size(88, 19);
             this.ckBox_Ascendente.TabIndex = 9;
@@ -198,7 +273,7 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             // 
             this.ckBox_Descendente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ckBox_Descendente.AutoSize = true;
-            this.ckBox_Descendente.Location = new System.Drawing.Point(433, 429);
+            this.ckBox_Descendente.Location = new System.Drawing.Point(433, 439);
             this.ckBox_Descendente.Name = "ckBox_Descendente";
             this.ckBox_Descendente.Size = new System.Drawing.Size(94, 19);
             this.ckBox_Descendente.TabIndex = 10;
@@ -206,75 +281,36 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             this.ckBox_Descendente.UseVisualStyleBackColor = true;
             this.ckBox_Descendente.Click += new System.EventHandler(this.VerificarOrden);
             // 
-            // Colum_Personas_Id
+            // btn_ModificarPersona
             // 
-            this.Colum_Personas_Id.FillWeight = 402.8777F;
-            this.Colum_Personas_Id.HeaderText = "ID";
-            this.Colum_Personas_Id.Name = "Colum_Personas_Id";
-            this.Colum_Personas_Id.ReadOnly = true;
-            this.Colum_Personas_Id.Width = 50;
+            this.btn_ModificarPersona.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_ModificarPersona.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btn_ModificarPersona.Location = new System.Drawing.Point(217, 465);
+            this.btn_ModificarPersona.Name = "btn_ModificarPersona";
+            this.btn_ModificarPersona.Size = new System.Drawing.Size(210, 34);
+            this.btn_ModificarPersona.TabIndex = 11;
+            this.btn_ModificarPersona.Text = "Modificar";
+            this.btn_ModificarPersona.UseVisualStyleBackColor = true;
+            this.btn_ModificarPersona.Click += new System.EventHandler(this.Btn_Modificar_Click);
             // 
-            // Colum_Personas_Nombre
+            // btn_Eliminar
             // 
-            this.Colum_Personas_Nombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Colum_Personas_Nombre.FillWeight = 49.52039F;
-            this.Colum_Personas_Nombre.HeaderText = "Nombre";
-            this.Colum_Personas_Nombre.Name = "Colum_Personas_Nombre";
-            this.Colum_Personas_Nombre.ReadOnly = true;
-            // 
-            // Colum_Personas_Apellido
-            // 
-            this.Colum_Personas_Apellido.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Colum_Personas_Apellido.FillWeight = 49.52039F;
-            this.Colum_Personas_Apellido.HeaderText = "Apellido";
-            this.Colum_Personas_Apellido.Name = "Colum_Personas_Apellido";
-            this.Colum_Personas_Apellido.ReadOnly = true;
-            // 
-            // Colum_Personas_Edad
-            // 
-            this.Colum_Personas_Edad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.Colum_Personas_Edad.HeaderText = "Edad";
-            this.Colum_Personas_Edad.Name = "Colum_Personas_Edad";
-            this.Colum_Personas_Edad.ReadOnly = true;
-            this.Colum_Personas_Edad.Width = 58;
-            // 
-            // Colum_Personas_Dni
-            // 
-            this.Colum_Personas_Dni.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Colum_Personas_Dni.FillWeight = 49.52039F;
-            this.Colum_Personas_Dni.HeaderText = "DNI";
-            this.Colum_Personas_Dni.Name = "Colum_Personas_Dni";
-            this.Colum_Personas_Dni.ReadOnly = true;
-            // 
-            // Colum_Personas_Nacionalidad
-            // 
-            this.Colum_Personas_Nacionalidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Colum_Personas_Nacionalidad.FillWeight = 49.52039F;
-            this.Colum_Personas_Nacionalidad.HeaderText = "Nacionalidad";
-            this.Colum_Personas_Nacionalidad.Name = "Colum_Personas_Nacionalidad";
-            this.Colum_Personas_Nacionalidad.ReadOnly = true;
-            // 
-            // Colum_Personas_Celular
-            // 
-            this.Colum_Personas_Celular.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Colum_Personas_Celular.FillWeight = 49.52039F;
-            this.Colum_Personas_Celular.HeaderText = "Celular";
-            this.Colum_Personas_Celular.Name = "Colum_Personas_Celular";
-            this.Colum_Personas_Celular.ReadOnly = true;
-            // 
-            // Colum_Personas_Rol
-            // 
-            this.Colum_Personas_Rol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Colum_Personas_Rol.FillWeight = 49.52039F;
-            this.Colum_Personas_Rol.HeaderText = "Rol";
-            this.Colum_Personas_Rol.Name = "Colum_Personas_Rol";
-            this.Colum_Personas_Rol.ReadOnly = true;
+            this.btn_Eliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Eliminar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btn_Eliminar.Location = new System.Drawing.Point(445, 465);
+            this.btn_Eliminar.Name = "btn_Eliminar";
+            this.btn_Eliminar.Size = new System.Drawing.Size(210, 34);
+            this.btn_Eliminar.TabIndex = 12;
+            this.btn_Eliminar.Text = "Eliminar";
+            this.btn_Eliminar.UseVisualStyleBackColor = true;
             // 
             // Frm_ListarPersonas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(864, 461);
+            this.ClientSize = new System.Drawing.Size(864, 511);
+            this.Controls.Add(this.btn_Eliminar);
+            this.Controls.Add(this.btn_ModificarPersona);
             this.Controls.Add(this.ckBox_Descendente);
             this.Controls.Add(this.ckBox_Ascendente);
             this.Controls.Add(this.grpBox_Ordenar);
@@ -316,5 +352,7 @@ namespace InterfazGrafica.Formulario_Crud_Personas
         private System.Windows.Forms.DataGridViewTextBoxColumn Colum_Personas_Nacionalidad;
         private System.Windows.Forms.DataGridViewTextBoxColumn Colum_Personas_Celular;
         private System.Windows.Forms.DataGridViewTextBoxColumn Colum_Personas_Rol;
+        private System.Windows.Forms.Button btn_ModificarPersona;
+        private System.Windows.Forms.Button btn_Eliminar;
     }
 }

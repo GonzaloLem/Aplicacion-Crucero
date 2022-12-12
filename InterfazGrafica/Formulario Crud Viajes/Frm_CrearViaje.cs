@@ -25,9 +25,7 @@ namespace InterfazGrafica.Formulario_Crud_Viajes
 
         private void Frm_CrearViaje_Load(object sender, EventArgs e)
         {
-            ConexionCrucero conexionCrucero = new ConexionCrucero();
-
-            Embarcadero<Crucero> embacadero = conexionCrucero.Obtener();
+            Embarcadero<Crucero> embacadero = ConexionSQLCrucero.Obtener();
 
             this.InformacionCrucero();
             this.AsignarFechasDeViaje();
@@ -78,7 +76,6 @@ namespace InterfazGrafica.Formulario_Crud_Viajes
         {
             if(this.cbBox_Cruceros.SelectedItem != null && this.cbBox_Destino.SelectedItem != null && this.cbBox_CiudadPartida.SelectedItem != null)
             {
-                ConexionViajes conexionViaje = new ConexionViajes();
                 Destino destino = null;
 
                 if(this.cbBox_Destino.SelectedItem is ViajesRegionales)
@@ -106,9 +103,9 @@ namespace InterfazGrafica.Formulario_Crud_Viajes
 
                 );
 
-                if(conexionViaje.Obtener() != viaje)
+                if(ConexionSQLViajes.Obtener() != viaje)
                 {
-                    conexionViaje.Insertar(viaje);
+                    ConexionSQLViajes.Insertar(viaje);
                     this.Close();
                 }
                 

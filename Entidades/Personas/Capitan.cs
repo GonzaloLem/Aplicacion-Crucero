@@ -23,10 +23,15 @@ namespace Entidades.Personas
             this.viajesRealizadosConLaEmpresa = viajesConLaEmpresa;
         }
 
+        public Capitan(int horasDeViaje, int viajesRelizadosConLaEmpresa) : base(null, null, -1, -1, Nacionalidades.Alemania, -1)
+        {
+            this.horasDeViaje = horasDeViaje;
+            this.viajesRealizadosConLaEmpresa = viajesRelizadosConLaEmpresa;
+        }
         public int Horas { get => this.horasDeViaje; }
         public int Viajes { get => this.viajesRealizadosConLaEmpresa; }
         public override string Tipo { get => "Capitan"; }
-
+        public override Roles Rol { get => Roles.Capitan; }
         public override string ToString()
         {
             StringBuilder cadena = new StringBuilder();

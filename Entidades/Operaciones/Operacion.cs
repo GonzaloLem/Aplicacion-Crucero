@@ -25,26 +25,6 @@ namespace Entidades.Operaciones
             return retorno;
         }
 
-        public static int InsertarID()
-        {
-            int retorno = 0;
-
-            List<ConexionSQLServer> conexiones = new List<ConexionSQLServer>();
-
-            conexiones.Add(new ConexionPasajeros());
-            conexiones.Add(new ConexionEmpleados());
-            conexiones.Add(new ConexionCapitan());
-
-            foreach(ConexionSQLServer item in conexiones)
-            {
-                if(item.ObtenerID() > retorno)
-                {
-                    retorno = item.ObtenerID();
-                }
-            }
-
-            return ++retorno;
-        }
 
     }
 }
