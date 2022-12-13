@@ -9,7 +9,7 @@ using Entidades.Personas;
 
 namespace Entidades.BaseDeDatos.ConexionesPersonas
 {
-    internal static class ConexionSQLEquipaje
+    public static class ConexionSQLEquipaje
     {
 
         private static SqlConnection conexion;
@@ -97,6 +97,77 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
 
         #endregion
 
+        #region Modificar
+        public static void Modificar(Equipaje equipaje)
+        {
+            if (ConexionSQLEquipaje.ProbarConexion())
+            {
+                try
+                {
+                    string cadena = $"update Equipaje set " +
+                        $"Bolsos = {equipaje.Bolsos}, " +
+                        $"Maletas = {equipaje.Maletas}, " +
+                        $"PesoTotalMaletas = {equipaje.Peso} " +
+                        $"WHERE ID = {equipaje.ID}";
+
+                    ConexionSQLEquipaje.comando = new SqlCommand();
+
+                    ConexionSQLEquipaje.comando.CommandType = CommandType.Text;
+                    ConexionSQLEquipaje.comando.CommandText = cadena;
+                    ConexionSQLEquipaje.comando.Connection = ConexionSQLEquipaje.conexion;
+
+                    ConexionSQLEquipaje.conexion.Open();
+
+                    ConexionSQLEquipaje.comando.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                finally
+                {
+                    if (ConexionSQLEquipaje.conexion.State == ConnectionState.Open)
+                    {
+                        ConexionSQLEquipaje.conexion.Close();
+                    }
+                }
+            }
+        }
+        #endregion
+
+        #region Eliminar
+        public static void Eliminar(int id)
+        {
+            if (ConexionSQLEquipaje.ProbarConexion())
+            {
+                try
+                {
+                    string cadena = $"delete FROM Equipaje WHERE ID = {id}";
+                    ConexionSQLEquipaje.comando = new SqlCommand();
+
+                    ConexionSQLEquipaje.comando.CommandType = CommandType.Text;
+                    ConexionSQLEquipaje.comando.CommandText = cadena;
+                    ConexionSQLEquipaje.comando.Connection = ConexionSQLEquipaje.conexion;
+
+                    ConexionSQLEquipaje.conexion.Open();
+
+                    ConexionSQLEquipaje.comando.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                finally
+                {
+                    if (ConexionSQLEquipaje.conexion.State == ConnectionState.Open)
+                    {
+                        ConexionSQLEquipaje.conexion.Close();
+                    }
+                }
+            }
+        }
+        #endregion
+
         #region Obtener
 
         public static int Obtener()
@@ -150,7 +221,7 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
             {
                 try
                 {
-                    string cadena = $"SELECT * FROM Crucero WHERE ID = {id}";
+                    string cadena = $"SELECT * FROM Equipaje WHERE ID = {id}";
 
                     ConexionSQLEquipaje.comando = new SqlCommand();
 

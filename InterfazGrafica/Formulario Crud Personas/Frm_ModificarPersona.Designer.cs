@@ -48,6 +48,11 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             this.Load += new System.EventHandler(this.Frm_ModificarPersonacs_Load);
             this.ResumeLayout(false);
 
+            //
+            // Btn_AgregarPersona
+            //
+            this.Btn_AgregarPersona.Text = "¡Modificar Persona!";
+
         }
 
         #endregion

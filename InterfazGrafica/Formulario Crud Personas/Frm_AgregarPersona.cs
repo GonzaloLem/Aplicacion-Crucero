@@ -119,7 +119,7 @@ namespace InterfazGrafica.Formulario_Crud_Personas
         #endregion
 
         #region Metodos de Agregar Personas
-        private protected Pasajero ValidarPasajero()
+        private protected virtual Pasajero ValidarPasajero()
         {
             Pasajero retorno = null;
 
@@ -127,7 +127,7 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             {
                 Equipaje equipaje = new Equipaje(int.Parse(this.TxtBox_Bolsos.Text), int.Parse(this.TxtBox_Maletas.Text), int.Parse(this.TxtBox_PesoMaletas.Text));
 
-                if (ValidarEquipaje(equipaje))
+                if (this.ValidarEquipaje(equipaje))
                 {
                     Pasajero pasajero = new Pasajero
                     (
@@ -151,7 +151,7 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             return retorno;
         }
 
-        private protected Empleado ValidarEmpleado()
+        private protected virtual Empleado ValidarEmpleado()
         {
             Empleado retorno = null;
 
@@ -173,7 +173,7 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             return retorno;
         }
 
-        private protected Capitan ValidarCapitan()
+        private protected virtual Capitan ValidarCapitan()
         {
             Capitan retorno = null;
 
@@ -252,7 +252,7 @@ namespace InterfazGrafica.Formulario_Crud_Personas
 
         #region Validaciones
 
-        private bool ValidarEquipaje(Equipaje equipaje)
+        private protected bool ValidarEquipaje(Equipaje equipaje)
         {
             bool retorno = true;
 

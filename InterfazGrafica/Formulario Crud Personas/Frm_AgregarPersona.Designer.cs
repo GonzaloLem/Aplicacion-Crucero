@@ -530,7 +530,7 @@ namespace InterfazGrafica.Formulario_Crud_Personas
         private protected System.Windows.Forms.CheckBox CkBox_Casino;
         private protected System.Windows.Forms.ComboBox CbBox_Empleado_Puesto;
         protected System.Windows.Forms.Label lbl_Puesto;
-        private System.Windows.Forms.GroupBox grpBox_Empleado_Datos;
-        private System.Windows.Forms.GroupBox grpBox_Capitan_Datos;
+        protected System.Windows.Forms.GroupBox grpBox_Capitan_Datos;
+        protected System.Windows.Forms.GroupBox grpBox_Empleado_Datos;
     }
 }

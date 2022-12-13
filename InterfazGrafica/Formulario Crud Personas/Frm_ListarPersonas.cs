@@ -25,6 +25,7 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             this.orden = ListSortDirection.Ascending;
         }
 
+        #region Eventos
         private void Frm_ListarPersonas_Load(object sender, EventArgs e)
         {
 
@@ -35,6 +36,42 @@ namespace InterfazGrafica.Formulario_Crud_Personas
 
         }
 
+        private void Btn_Modificar_Click(object sender, EventArgs e)
+        {
+            if (this.dtGdVw_ListarPersonas.SelectedRows.Count == 1)
+            {
+                Persona tripulante = null;
+
+                if ((string)this.dtGdVw_ListarPersonas.Rows[this.dtGdVw_ListarPersonas.SelectedRows[0].Index].Cells[7].Value == "Pasajero")
+                {
+                    tripulante = (Pasajero)ConexionSQLPersona.Obtener((int)this.dtGdVw_ListarPersonas.Rows[this.dtGdVw_ListarPersonas.SelectedRows[0].Index].Cells[0].Value);
+                }
+                else if ((string)this.dtGdVw_ListarPersonas.Rows[this.dtGdVw_ListarPersonas.SelectedRows[0].Index].Cells[7].Value == "Empleado")
+                {
+                    tripulante = (Empleado)ConexionSQLPersona.Obtener((int)this.dtGdVw_ListarPersonas.Rows[this.dtGdVw_ListarPersonas.SelectedRows[0].Index].Cells[0].Value);
+                }
+                else if ((string)this.dtGdVw_ListarPersonas.Rows[this.dtGdVw_ListarPersonas.SelectedRows[0].Index].Cells[7].Value == "Capitan")
+                {
+                    tripulante = (Capitan)ConexionSQLPersona.Obtener((int)this.dtGdVw_ListarPersonas.Rows[this.dtGdVw_ListarPersonas.SelectedRows[0].Index].Cells[0].Value);
+                }
+
+                Frm_ModificarPersona formModificar = new Frm_ModificarPersona(tripulante);
+                formModificar.ShowDialog();
+                this.lista = ConexionSQLPersona.Obtener();
+                this.ListarPersonas(this.lista);
+            }
+        }
+
+        private void btn_Eliminar_Click(object sender, EventArgs e)
+        {
+            if (this.dtGdVw_ListarPersonas.SelectedRows.Count == 1)
+            {
+                ConexionSQLPersona.Eliminar(ConexionSQLPersona.Obtener((int)this.dtGdVw_ListarPersonas.Rows[this.dtGdVw_ListarPersonas.SelectedRows[0].Index].Cells[0].Value));
+
+                this.lista = ConexionSQLPersona.Obtener();
+                this.ListarPersonas(this.lista);
+            }
+        }
         private void btn_Filtrar_Click(object sender, EventArgs e)
         {
             if(this.txtBox_Filtro.Text != "" && this.ObtenerCheckBox() != null)
@@ -51,7 +88,7 @@ namespace InterfazGrafica.Formulario_Crud_Personas
                 
             }
         }
-
+        #endregion
         private void BuscarPorFiltro(int index, string cadena)
         {
             for(int i=0;i<this.dtGdVw_ListarPersonas.Rows.Count;i++)
@@ -67,7 +104,7 @@ namespace InterfazGrafica.Formulario_Crud_Personas
         private void ListarPersonas(AlmacenamientoPersonas<Persona> lista)
         {
             
-            //this.DtGdVw_ListarPersonas.Rows.Clear();
+            this.dtGdVw_ListarPersonas.Rows.Clear();
 
             for(int i=0;i<lista.Total;i++)
             {
@@ -177,31 +214,6 @@ namespace InterfazGrafica.Formulario_Crud_Personas
 
         }
 
-        private void Btn_Modificar_Click(object sender, EventArgs e)
-        {
-            if(this.dtGdVw_ListarPersonas.SelectedRows.Count == 1)
-            {
-                Persona tripulante = null;
 
-                if( (string)this.dtGdVw_ListarPersonas.Rows[this.dtGdVw_ListarPersonas.SelectedRows[0].Index].Cells[7].Value == "Pasajero")
-                {
-                    tripulante = (Pasajero)ConexionSQLPersona.Obtener((int)this.dtGdVw_ListarPersonas.Rows[this.dtGdVw_ListarPersonas.SelectedRows[0].Index].Cells[0].Value);
-                }
-                else if ((string)this.dtGdVw_ListarPersonas.Rows[this.dtGdVw_ListarPersonas.SelectedRows[0].Index].Cells[7].Value == "Empleado")
-                {
-                    tripulante = (Empleado)ConexionSQLPersona.Obtener((int)this.dtGdVw_ListarPersonas.Rows[this.dtGdVw_ListarPersonas.SelectedRows[0].Index].Cells[0].Value);
-                }
-                else if ((string)this.dtGdVw_ListarPersonas.Rows[this.dtGdVw_ListarPersonas.SelectedRows[0].Index].Cells[7].Value == "Capitan")
-                {
-                    tripulante = (Capitan)ConexionSQLPersona.Obtener((int)this.dtGdVw_ListarPersonas.Rows[this.dtGdVw_ListarPersonas.SelectedRows[0].Index].Cells[0].Value);
-                }
-
-                    Frm_ModificarPersona formModificar = new Frm_ModificarPersona(tripulante);
-                formModificar.ShowDialog();
-                //id(int)this.dtGdVw_ListarPersonas.Rows[this.dtGdVw_ListarPersonas.SelectedRows[0].Index].Cells[0].Value;
-            }
-
-      
-        }
     }
 }

@@ -145,6 +145,124 @@ namespace Entidades.BaseDeDatos
             }
         }
 
+
+
+        #endregion
+
+        #region Modificar
+        public static void Modificar(Persona persona)
+        {
+            if (ConexionSQLPersona.ProbarConexion())
+            {
+                try
+                {
+                    string cadena = $"update Persona set " +
+                    $"Nombre = '{persona.Nombre}', " +
+                    $"Apellido = '{persona.Apellido}', " +
+                    $"Edad = {persona.Edad}, " +
+                    $"DNI = {persona.DNI}, " +
+                    $"Nacionalidad = {((int)persona.Nacionalidad)}, " +
+                    $"Celular = {persona.Celular}" +
+                    $"WHERE ID = {persona.ID}"; 
+
+                    if (persona is Pasajero)
+                    {
+                        ConexionSQLPasajeros conexionPasajero = new ConexionSQLPasajeros();
+
+                        conexionPasajero.Modificar(ConexionSQLPersona.Obtener(persona), (Pasajero)persona);
+                    }
+                    else if (persona is Empleado)
+                    {
+                        ConexionSQLEmpleado conexionEmpleado = new ConexionSQLEmpleado();
+
+                        conexionEmpleado.Modificar(ConexionSQLPersona.Obtener(persona), (Empleado)persona);
+                    }
+                    else if (persona is Capitan)
+                    {
+                        ConexionSQLCapitan conexionCapitan = new ConexionSQLCapitan();
+
+                        conexionCapitan.Modificar(ConexionSQLPersona.Obtener(persona), (Capitan)persona);
+
+                    }
+
+                    ConexionSQLPersona.comando = new SqlCommand();
+
+                    ConexionSQLPersona.comando.CommandType = CommandType.Text;
+                    ConexionSQLPersona.comando.CommandText = cadena;
+                    ConexionSQLPersona.comando.Connection = ConexionSQLPersona.conexion;
+
+                    ConexionSQLPersona.conexion.Open();
+
+                    ConexionSQLPersona.comando.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                finally
+                {
+                    if (ConexionSQLPersona.conexion.State == ConnectionState.Open)
+                    {
+                        ConexionSQLPersona.conexion.Close();
+                    }
+                }
+            }
+        }
+        #endregion
+
+        #region Eliminar
+        public static void Eliminar(Persona persona)
+        {
+            if (ConexionSQLPersona.ProbarConexion())
+            {
+                try
+                {
+                    int id = ConexionSQLPersona.Obtener(persona);
+                    string cadena = $"delete FROM Persona WHERE ID = {persona.ID} ";
+
+                    ConexionSQLPersona.comando = new SqlCommand();
+
+                    ConexionSQLPersona.comando.CommandType = CommandType.Text;
+                    ConexionSQLPersona.comando.CommandText = cadena;
+                    ConexionSQLPersona.comando.Connection = ConexionSQLPersona.conexion;
+
+                    ConexionSQLPersona.conexion.Open();
+
+                    ConexionSQLPersona.comando.ExecuteNonQuery();
+
+                    if (persona is Pasajero)
+                    {
+                        ConexionSQLPasajeros conexionPasajero = new ConexionSQLPasajeros();
+
+                        conexionPasajero.Eliminar(id, ((Pasajero)persona).Equipaje.ID);
+                    }
+                    else if (persona is Empleado)
+                    {
+                        ConexionSQLEmpleado conexionEmpleado = new ConexionSQLEmpleado();
+
+                        conexionEmpleado.Eliminar(id);
+                    }
+                    else if (persona is Capitan)
+                    {
+                        ConexionSQLCapitan conexionCapitan = new ConexionSQLCapitan();
+
+                        conexionCapitan.Eliminar(id);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                finally
+                {
+                    if (ConexionSQLPersona.conexion.State == ConnectionState.Open)
+                    {
+                        ConexionSQLPersona.conexion.Close();
+                    }
+                }
+            }
+        }
         #endregion
 
         #region Obtener
@@ -278,6 +396,7 @@ namespace Entidades.BaseDeDatos
 
                             retorno = new Pasajero
                                 (
+                                    (int)ConexionSQLPersona.lector["ID"],
                                     ConexionSQLPersona.lector["Nombre"].ToString(),
                                     ConexionSQLPersona.lector["Apellido"].ToString(),
                                     (int)ConexionSQLPersona.lector["Edad"],
@@ -329,6 +448,65 @@ namespace Entidades.BaseDeDatos
                                 );
                         }
                         
+
+                    }
+                    ConexionSQLPersona.lector.Close();
+
+                }
+                catch (Exception)
+                {
+
+                }
+                finally
+                {
+                    if (ConexionSQLPersona.conexion.State == ConnectionState.Open)
+                    {
+                        ConexionSQLPersona.conexion.Close();
+                    }
+                }
+            }
+
+            return retorno;
+        }
+
+        /// <summary>
+        /// Te retorna el id de la tabla a la cual esta enlazada
+        /// </summary>
+        public static int Obtener(Persona persona)
+        {
+            int retorno = -1;
+
+            if (ConexionSQLPersona.ProbarConexion())
+            {
+                try
+                {
+                    string cadena = $"SELECT * FROM Persona WHERE ID = {persona.ID}";
+
+                    ConexionSQLPersona.comando = new SqlCommand();
+
+                    ConexionSQLPersona.comando.CommandType = CommandType.Text;
+                    ConexionSQLPersona.comando.CommandText = cadena;
+                    ConexionSQLPersona.comando.Connection = ConexionSQLPersona.conexion;
+
+                    ConexionSQLPersona.conexion.Open();
+
+                    ConexionSQLPersona.lector = ConexionSQLPersona.comando.ExecuteReader();
+
+                    while (ConexionSQLPersona.lector.Read())
+                    {
+        
+                        if(persona is Pasajero)
+                        {
+                            retorno = (int)ConexionSQLPersona.lector["ID_Pasajero"];
+                        }
+                        else if (persona is Empleado)
+                        {
+                            retorno = (int)ConexionSQLPersona.lector["ID_Empleado"];
+                        }
+                        else if (persona is Capitan)
+                        {
+                            retorno = (int)ConexionSQLPersona.lector["ID_Capitan"];
+                        }
 
                     }
                     ConexionSQLPersona.lector.Close();

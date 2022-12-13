@@ -303,6 +303,7 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             this.btn_Eliminar.TabIndex = 12;
             this.btn_Eliminar.Text = "Eliminar";
             this.btn_Eliminar.UseVisualStyleBackColor = true;
+            this.btn_Eliminar.Click += new System.EventHandler(this.btn_Eliminar_Click);
             // 
             // Frm_ListarPersonas
             // 

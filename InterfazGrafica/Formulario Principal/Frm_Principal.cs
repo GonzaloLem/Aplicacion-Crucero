@@ -12,6 +12,7 @@ using InterfazGrafica.Formulario_Crud_Viajes;
 using InterfazGrafica.Formulario_Crud_Barcos;
 using Entidades;
 using Entidades.BaseDeDatos;
+using Entidades.BaseDeDatos.ConexionesPersonas;
 using Entidades.Personas;
 using Entidades.Viajes;
 using Entidades.Listas;
@@ -62,19 +63,7 @@ namespace InterfazGrafica
 
         private void Btn_EstadisticasHistoricas_Click(object sender, EventArgs e)
         {
-            ConexionSQLPersona.Insertar
-                (
-                    new Capitan
-                    (
-                       "Santino",
-                       "Gilardi",
-                       53,
-                       53235945,
-                       Nacionalidades.Argentina,
-                       15652091,
-                       2340
-                    )
-                );
+
         }
 
         private void Listar(AlmecenamientoViajes<Viaje> lista)

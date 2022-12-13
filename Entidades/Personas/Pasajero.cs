@@ -46,6 +46,11 @@ namespace Entidades.Personas
             this.gimnacio = gimnacio;
         }
 
+        public Pasajero(int id, string correo, Clases clase, Equipaje equipaje, bool casino, bool piscina, bool gimnacio) : this(correo, clase, equipaje, casino, piscina, gimnacio)
+        {
+            this.id = id;
+        }
+
         public string Correo { get => this.correo; }
         public Clases Clase { get => this.clase; }
         public Equipaje Equipaje { get => this.equipaje; }

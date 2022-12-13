@@ -104,6 +104,91 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
 
         #endregion
 
+        #region Modificar
+
+        public void Modificar(int id, Pasajero pasajero)
+        {
+            if (this.ProbarConexion())
+            {
+                try
+                {
+                    ConexionSQLEquipaje.Modificar(pasajero.Equipaje);
+
+                    string cadena = $"update Pasajero set " +
+                        $"Correo = '{pasajero.Correo}', " +
+                        $"Clase = {((int)pasajero.Clase)}, " +
+                        $"Casino = {new byte().Conversor(pasajero.Casino)}, " +
+                        $"Piscina = {new byte().Conversor(pasajero.Piscina)}, " +
+                        $"Gimnacio = {new byte().Conversor(pasajero.Gimnacio)} " +
+                        $"WHERE ID = {id}";
+
+                    this.comando = new SqlCommand();
+
+                    this.comando.CommandType = CommandType.Text;
+                    this.comando.CommandText = cadena;
+                    this.comando.Connection = this.conexion;
+
+                    this.conexion.Open();
+
+                    this.comando.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                finally
+                {
+                    if (this.conexion.State == ConnectionState.Open)
+                    {
+                        this.conexion.Close();
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region Eliminar
+
+        public void Eliminar(int idPasajero, int idEquipaje)
+        {
+            if (this.ProbarConexion())
+            {
+                try
+                {
+                    string cadena = $"delete FROM Pasajero WHERE ID = {idPasajero} ";
+
+                    this.comando = new SqlCommand();
+
+                    this.comando.CommandType = CommandType.Text;
+                    this.comando.CommandText = cadena;
+                    this.comando.Connection = this.conexion;
+
+                    this.conexion.Open();
+
+                    this.comando.ExecuteNonQuery();
+
+                    ConexionSQLEquipaje.Eliminar(idEquipaje);
+
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                finally
+                {
+                    if (this.conexion.State == ConnectionState.Open)
+                    {
+                        this.conexion.Close();
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region Obtener
         /// <summary>
         /// Busca la id mas alta de la Tabla Pasajeros
         /// </summary>
@@ -200,7 +285,7 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
             return retorno;
         }
 
-
+        #endregion
 
     }
 }

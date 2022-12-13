@@ -97,6 +97,84 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
 
         #endregion
 
+        #region Modificar
+
+        public void Modificar(int id, Capitan capitan)
+        {
+            if (this.ProbarConexion())
+            {
+                try
+                {
+
+                    string cadena = $"update Capitan set " +
+                        $"HorasDeViaje = {capitan.Horas}, " +
+                        $"ViajesRealizadosConLaEmpresa = {capitan.Viajes} " +
+                        $"WHERE ID = {id}";
+
+                    this.comando = new SqlCommand();
+
+                    this.comando.CommandType = CommandType.Text;
+                    this.comando.CommandText = cadena;
+                    this.comando.Connection = this.conexion;
+
+                    this.conexion.Open();
+
+                    this.comando.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                finally
+                {
+                    if (this.conexion.State == ConnectionState.Open)
+                    {
+                        this.conexion.Close();
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region Eliminar
+
+        public void Eliminar(int id)
+        {
+            if (this.ProbarConexion())
+            {
+                try
+                {
+
+                    string cadena = $"delete FROM Capitan WHERE ID {id}";
+
+                    this.comando = new SqlCommand();
+
+                    this.comando.CommandType = CommandType.Text;
+                    this.comando.CommandText = cadena;
+                    this.comando.Connection = this.conexion;
+
+                    this.conexion.Open();
+
+                    this.comando.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                finally
+                {
+                    if (this.conexion.State == ConnectionState.Open)
+                    {
+                        this.conexion.Close();
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region Obtener
         /// <summary>
         /// Busca la id mas alta de la Tabla Empleados
         /// </summary>
@@ -189,6 +267,8 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
 
             return retorno;
         }
+
+        #endregion
 
     }
 }
