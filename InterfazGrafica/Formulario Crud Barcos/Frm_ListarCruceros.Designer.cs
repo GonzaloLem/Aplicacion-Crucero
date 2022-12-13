@@ -30,10 +30,6 @@ namespace InterfazGrafica.Formulario_Crud_Barcos
         private void InitializeComponent()
         {
             this.dtGdVw_ListaCruceros = new System.Windows.Forms.DataGridView();
-            this.btn_CrearViaje = new System.Windows.Forms.Button();
-            this.btn_ModificarCrucero = new System.Windows.Forms.Button();
-            this.btn_EliminarCrucero = new System.Windows.Forms.Button();
-            this.btn_ListarTripilantes = new System.Windows.Forms.Button();
             this.Cruceros_Colum_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cruceros_Colum_Matricula = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cruceros_Colum_Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -46,6 +42,10 @@ namespace InterfazGrafica.Formulario_Crud_Barcos
             this.Cruceros_Colum_PesoBodega = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cruceros_Colum_Tripulantes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cruceros_Colum_Disponibilidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btn_CrearViaje = new System.Windows.Forms.Button();
+            this.btn_ModificarCrucero = new System.Windows.Forms.Button();
+            this.btn_EliminarCrucero = new System.Windows.Forms.Button();
+            this.btn_ListarTripilantes = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dtGdVw_ListaCruceros)).BeginInit();
             this.SuspendLayout();
             // 
@@ -77,47 +77,6 @@ namespace InterfazGrafica.Formulario_Crud_Barcos
             this.dtGdVw_ListaCruceros.RowTemplate.Height = 25;
             this.dtGdVw_ListaCruceros.Size = new System.Drawing.Size(1158, 223);
             this.dtGdVw_ListaCruceros.TabIndex = 0;
-            // 
-            // btn_CrearViaje
-            // 
-            this.btn_CrearViaje.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_CrearViaje.Location = new System.Drawing.Point(287, 241);
-            this.btn_CrearViaje.Name = "btn_CrearViaje";
-            this.btn_CrearViaje.Size = new System.Drawing.Size(151, 44);
-            this.btn_CrearViaje.TabIndex = 1;
-            this.btn_CrearViaje.Text = "¡Crear Crucero!";
-            this.btn_CrearViaje.UseVisualStyleBackColor = true;
-            this.btn_CrearViaje.Click += new System.EventHandler(this.btn_CrearViaje_Click);
-            // 
-            // btn_ModificarCrucero
-            // 
-            this.btn_ModificarCrucero.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_ModificarCrucero.Location = new System.Drawing.Point(444, 241);
-            this.btn_ModificarCrucero.Name = "btn_ModificarCrucero";
-            this.btn_ModificarCrucero.Size = new System.Drawing.Size(151, 44);
-            this.btn_ModificarCrucero.TabIndex = 2;
-            this.btn_ModificarCrucero.Text = "Modificar Crucero";
-            this.btn_ModificarCrucero.UseVisualStyleBackColor = true;
-            // 
-            // btn_EliminarCrucero
-            // 
-            this.btn_EliminarCrucero.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_EliminarCrucero.Location = new System.Drawing.Point(601, 241);
-            this.btn_EliminarCrucero.Name = "btn_EliminarCrucero";
-            this.btn_EliminarCrucero.Size = new System.Drawing.Size(151, 44);
-            this.btn_EliminarCrucero.TabIndex = 3;
-            this.btn_EliminarCrucero.Text = "Eliminar Crucero";
-            this.btn_EliminarCrucero.UseVisualStyleBackColor = true;
-            // 
-            // btn_ListarTripilantes
-            // 
-            this.btn_ListarTripilantes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_ListarTripilantes.Location = new System.Drawing.Point(758, 241);
-            this.btn_ListarTripilantes.Name = "btn_ListarTripilantes";
-            this.btn_ListarTripilantes.Size = new System.Drawing.Size(151, 44);
-            this.btn_ListarTripilantes.TabIndex = 4;
-            this.btn_ListarTripilantes.Text = "Listar Tripulantes";
-            this.btn_ListarTripilantes.UseVisualStyleBackColor = true;
             // 
             // Cruceros_Colum_ID
             // 
@@ -203,6 +162,49 @@ namespace InterfazGrafica.Formulario_Crud_Barcos
             this.Cruceros_Colum_Disponibilidad.HeaderText = "Disponibilidad";
             this.Cruceros_Colum_Disponibilidad.Name = "Cruceros_Colum_Disponibilidad";
             this.Cruceros_Colum_Disponibilidad.ReadOnly = true;
+            // 
+            // btn_CrearViaje
+            // 
+            this.btn_CrearViaje.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_CrearViaje.Location = new System.Drawing.Point(287, 241);
+            this.btn_CrearViaje.Name = "btn_CrearViaje";
+            this.btn_CrearViaje.Size = new System.Drawing.Size(151, 44);
+            this.btn_CrearViaje.TabIndex = 1;
+            this.btn_CrearViaje.Text = "¡Crear Crucero!";
+            this.btn_CrearViaje.UseVisualStyleBackColor = true;
+            this.btn_CrearViaje.Click += new System.EventHandler(this.btn_CrearViaje_Click);
+            // 
+            // btn_ModificarCrucero
+            // 
+            this.btn_ModificarCrucero.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_ModificarCrucero.Location = new System.Drawing.Point(444, 241);
+            this.btn_ModificarCrucero.Name = "btn_ModificarCrucero";
+            this.btn_ModificarCrucero.Size = new System.Drawing.Size(151, 44);
+            this.btn_ModificarCrucero.TabIndex = 2;
+            this.btn_ModificarCrucero.Text = "Modificar Crucero";
+            this.btn_ModificarCrucero.UseVisualStyleBackColor = true;
+            this.btn_ModificarCrucero.Click += new System.EventHandler(this.btn_ModificarCrucero_Click);
+            // 
+            // btn_EliminarCrucero
+            // 
+            this.btn_EliminarCrucero.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_EliminarCrucero.Location = new System.Drawing.Point(601, 241);
+            this.btn_EliminarCrucero.Name = "btn_EliminarCrucero";
+            this.btn_EliminarCrucero.Size = new System.Drawing.Size(151, 44);
+            this.btn_EliminarCrucero.TabIndex = 3;
+            this.btn_EliminarCrucero.Text = "Eliminar Crucero";
+            this.btn_EliminarCrucero.UseVisualStyleBackColor = true;
+            this.btn_EliminarCrucero.Click += new System.EventHandler(this.btn_EliminarCrucero_Click);
+            // 
+            // btn_ListarTripilantes
+            // 
+            this.btn_ListarTripilantes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_ListarTripilantes.Location = new System.Drawing.Point(758, 241);
+            this.btn_ListarTripilantes.Name = "btn_ListarTripilantes";
+            this.btn_ListarTripilantes.Size = new System.Drawing.Size(151, 44);
+            this.btn_ListarTripilantes.TabIndex = 4;
+            this.btn_ListarTripilantes.Text = "Listar Tripulantes";
+            this.btn_ListarTripilantes.UseVisualStyleBackColor = true;
             // 
             // Frm_ListarCruceros
             // 

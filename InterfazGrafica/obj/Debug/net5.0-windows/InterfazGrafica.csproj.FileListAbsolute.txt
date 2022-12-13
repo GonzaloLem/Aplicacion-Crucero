@@ -31,3 +31,5 @@ D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazG
 D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazGrafica\obj\Debug\net5.0-windows\InterfazGrafica.Formulario_Crud_Barcos.Frm_ListarCruceros.resources
 D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazGrafica\obj\Debug\net5.0-windows\InterfazGrafica.Formulario_Crud_Barcos.Frm_CrearCrucero.resources
 D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazGrafica\obj\Debug\net5.0-windows\InterfazGrafica.Formulario_Crud_Personas.Frm_ModificarPersona.resources
+D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazGrafica\obj\Debug\net5.0-windows\InterfazGrafica.Formulario_Crud_Barcos.Frm_ModificarCrucero.resources
+D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazGrafica\obj\Debug\net5.0-windows\InterfazGrafica.Formulario_Crud_Viajes.Frm_ModificarViaje.resources

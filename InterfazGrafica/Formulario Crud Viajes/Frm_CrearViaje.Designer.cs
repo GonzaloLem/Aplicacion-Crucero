@@ -201,18 +201,17 @@ namespace InterfazGrafica.Formulario_Crud_Viajes
         }
 
         #endregion
-
-        private System.Windows.Forms.ComboBox cbBox_CiudadPartida;
         private System.Windows.Forms.Label lbl_Texto1;
-        private System.Windows.Forms.ComboBox cbBox_Destino;
         private System.Windows.Forms.Label lbl_Texto2;
-        private System.Windows.Forms.ComboBox cbBox_Cruceros;
         private System.Windows.Forms.Label lbl_Texto3;
-        private System.Windows.Forms.DataGridView dtGdVw_Cruceros;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cruceros_Colum_Especificaciones;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cruceros_Colum_Valores;
-        private System.Windows.Forms.DateTimePicker dtTePk_Fecha;
         private System.Windows.Forms.Label lbl_Texto4;
-        private System.Windows.Forms.Button btn_CrearViaje;
+        protected System.Windows.Forms.ComboBox cbBox_CiudadPartida;
+        protected System.Windows.Forms.ComboBox cbBox_Destino;
+        protected System.Windows.Forms.ComboBox cbBox_Cruceros;
+        protected System.Windows.Forms.DataGridView dtGdVw_Cruceros;
+        protected System.Windows.Forms.DateTimePicker dtTePk_Fecha;
+        protected System.Windows.Forms.Button btn_CrearViaje;
     }
 }

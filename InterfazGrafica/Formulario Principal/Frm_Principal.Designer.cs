@@ -30,14 +30,6 @@ namespace InterfazGrafica
         private void InitializeComponent()
         {
             this.DtGdVw_ListaViajes = new System.Windows.Forms.DataGridView();
-            this.Btn_AgregarViaje = new System.Windows.Forms.Button();
-            this.Btn_ModificarViaje = new System.Windows.Forms.Button();
-            this.Btn_EliminarViaje = new System.Windows.Forms.Button();
-            this.Btn_AgregarPersona = new System.Windows.Forms.Button();
-            this.Btn_EstadisticasHistoricas = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.Btn_ListarPersonasSistema = new System.Windows.Forms.Button();
-            this.btn_CrudCrucero = new System.Windows.Forms.Button();
             this.Colum_ListaViajes_Partida_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Colum_ListaViajes_Partida = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Colum_ListaViajes_Destino = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -48,6 +40,14 @@ namespace InterfazGrafica
             this.Colum_ListaViajes_CostoPremium = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Colum_ListaViajes_CostoTurista = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Colum_ListaViajes_DuracionViaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Btn_AgregarViaje = new System.Windows.Forms.Button();
+            this.Btn_ModificarViaje = new System.Windows.Forms.Button();
+            this.Btn_EliminarViaje = new System.Windows.Forms.Button();
+            this.Btn_AgregarPersona = new System.Windows.Forms.Button();
+            this.Btn_EstadisticasHistoricas = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.Btn_ListarPersonasSistema = new System.Windows.Forms.Button();
+            this.btn_CrudCrucero = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DtGdVw_ListaViajes)).BeginInit();
             this.SuspendLayout();
             // 
@@ -76,83 +76,6 @@ namespace InterfazGrafica
             this.DtGdVw_ListaViajes.RowTemplate.Height = 25;
             this.DtGdVw_ListaViajes.Size = new System.Drawing.Size(1043, 228);
             this.DtGdVw_ListaViajes.TabIndex = 0;
-            // 
-            // Btn_AgregarViaje
-            // 
-            this.Btn_AgregarViaje.Location = new System.Drawing.Point(203, 244);
-            this.Btn_AgregarViaje.Name = "Btn_AgregarViaje";
-            this.Btn_AgregarViaje.Size = new System.Drawing.Size(140, 35);
-            this.Btn_AgregarViaje.TabIndex = 1;
-            this.Btn_AgregarViaje.Text = "Crear un Viaje";
-            this.Btn_AgregarViaje.UseVisualStyleBackColor = true;
-            this.Btn_AgregarViaje.Click += new System.EventHandler(this.Btn_AgregarViaje_Click);
-            // 
-            // Btn_ModificarViaje
-            // 
-            this.Btn_ModificarViaje.Location = new System.Drawing.Point(349, 244);
-            this.Btn_ModificarViaje.Name = "Btn_ModificarViaje";
-            this.Btn_ModificarViaje.Size = new System.Drawing.Size(140, 35);
-            this.Btn_ModificarViaje.TabIndex = 2;
-            this.Btn_ModificarViaje.Text = "Modificar un Viaje";
-            this.Btn_ModificarViaje.UseVisualStyleBackColor = true;
-            // 
-            // Btn_EliminarViaje
-            // 
-            this.Btn_EliminarViaje.Location = new System.Drawing.Point(495, 244);
-            this.Btn_EliminarViaje.Name = "Btn_EliminarViaje";
-            this.Btn_EliminarViaje.Size = new System.Drawing.Size(140, 35);
-            this.Btn_EliminarViaje.TabIndex = 3;
-            this.Btn_EliminarViaje.Text = "Eliminar Viaje";
-            this.Btn_EliminarViaje.UseVisualStyleBackColor = true;
-            // 
-            // Btn_AgregarPersona
-            // 
-            this.Btn_AgregarPersona.Location = new System.Drawing.Point(349, 285);
-            this.Btn_AgregarPersona.Name = "Btn_AgregarPersona";
-            this.Btn_AgregarPersona.Size = new System.Drawing.Size(140, 46);
-            this.Btn_AgregarPersona.TabIndex = 7;
-            this.Btn_AgregarPersona.Text = "Agregar persona al Sistema";
-            this.Btn_AgregarPersona.UseVisualStyleBackColor = true;
-            this.Btn_AgregarPersona.Click += new System.EventHandler(this.Btn_AgregarPersona_Click);
-            // 
-            // Btn_EstadisticasHistoricas
-            // 
-            this.Btn_EstadisticasHistoricas.Location = new System.Drawing.Point(203, 285);
-            this.Btn_EstadisticasHistoricas.Name = "Btn_EstadisticasHistoricas";
-            this.Btn_EstadisticasHistoricas.Size = new System.Drawing.Size(140, 46);
-            this.Btn_EstadisticasHistoricas.TabIndex = 8;
-            this.Btn_EstadisticasHistoricas.Text = "Estadisticas Historicas";
-            this.Btn_EstadisticasHistoricas.UseVisualStyleBackColor = true;
-            this.Btn_EstadisticasHistoricas.Click += new System.EventHandler(this.Btn_EstadisticasHistoricas_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(641, 285);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(140, 46);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Listar Tripulantes";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // Btn_ListarPersonasSistema
-            // 
-            this.Btn_ListarPersonasSistema.Location = new System.Drawing.Point(495, 285);
-            this.Btn_ListarPersonasSistema.Name = "Btn_ListarPersonasSistema";
-            this.Btn_ListarPersonasSistema.Size = new System.Drawing.Size(140, 46);
-            this.Btn_ListarPersonasSistema.TabIndex = 10;
-            this.Btn_ListarPersonasSistema.Text = "Listar Personas del Sistema";
-            this.Btn_ListarPersonasSistema.UseVisualStyleBackColor = true;
-            this.Btn_ListarPersonasSistema.Click += new System.EventHandler(this.Btn_ListarPersonasSistema_Click);
-            // 
-            // btn_CrudCrucero
-            // 
-            this.btn_CrudCrucero.Location = new System.Drawing.Point(641, 244);
-            this.btn_CrudCrucero.Name = "btn_CrudCrucero";
-            this.btn_CrudCrucero.Size = new System.Drawing.Size(140, 35);
-            this.btn_CrudCrucero.TabIndex = 11;
-            this.btn_CrudCrucero.Text = "Opciones Crucero";
-            this.btn_CrudCrucero.UseVisualStyleBackColor = true;
-            this.btn_CrudCrucero.Click += new System.EventHandler(this.btn_CrudCrucero_Click);
             // 
             // Colum_ListaViajes_Partida_ID
             // 
@@ -232,6 +155,85 @@ namespace InterfazGrafica
             this.Colum_ListaViajes_DuracionViaje.Name = "Colum_ListaViajes_DuracionViaje";
             this.Colum_ListaViajes_DuracionViaje.ReadOnly = true;
             this.Colum_ListaViajes_DuracionViaje.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Btn_AgregarViaje
+            // 
+            this.Btn_AgregarViaje.Location = new System.Drawing.Point(203, 244);
+            this.Btn_AgregarViaje.Name = "Btn_AgregarViaje";
+            this.Btn_AgregarViaje.Size = new System.Drawing.Size(140, 35);
+            this.Btn_AgregarViaje.TabIndex = 1;
+            this.Btn_AgregarViaje.Text = "Crear un Viaje";
+            this.Btn_AgregarViaje.UseVisualStyleBackColor = true;
+            this.Btn_AgregarViaje.Click += new System.EventHandler(this.Btn_AgregarViaje_Click);
+            // 
+            // Btn_ModificarViaje
+            // 
+            this.Btn_ModificarViaje.Location = new System.Drawing.Point(349, 244);
+            this.Btn_ModificarViaje.Name = "Btn_ModificarViaje";
+            this.Btn_ModificarViaje.Size = new System.Drawing.Size(140, 35);
+            this.Btn_ModificarViaje.TabIndex = 2;
+            this.Btn_ModificarViaje.Text = "Modificar un Viaje";
+            this.Btn_ModificarViaje.UseVisualStyleBackColor = true;
+            this.Btn_ModificarViaje.Click += new System.EventHandler(this.Btn_ModificarViaje_Click);
+            // 
+            // Btn_EliminarViaje
+            // 
+            this.Btn_EliminarViaje.Location = new System.Drawing.Point(495, 244);
+            this.Btn_EliminarViaje.Name = "Btn_EliminarViaje";
+            this.Btn_EliminarViaje.Size = new System.Drawing.Size(140, 35);
+            this.Btn_EliminarViaje.TabIndex = 3;
+            this.Btn_EliminarViaje.Text = "Eliminar Viaje";
+            this.Btn_EliminarViaje.UseVisualStyleBackColor = true;
+            this.Btn_EliminarViaje.Click += new System.EventHandler(this.Btn_EliminarViaje_Click);
+            // 
+            // Btn_AgregarPersona
+            // 
+            this.Btn_AgregarPersona.Location = new System.Drawing.Point(349, 285);
+            this.Btn_AgregarPersona.Name = "Btn_AgregarPersona";
+            this.Btn_AgregarPersona.Size = new System.Drawing.Size(140, 46);
+            this.Btn_AgregarPersona.TabIndex = 7;
+            this.Btn_AgregarPersona.Text = "Agregar persona al Sistema";
+            this.Btn_AgregarPersona.UseVisualStyleBackColor = true;
+            this.Btn_AgregarPersona.Click += new System.EventHandler(this.Btn_AgregarPersona_Click);
+            // 
+            // Btn_EstadisticasHistoricas
+            // 
+            this.Btn_EstadisticasHistoricas.Location = new System.Drawing.Point(203, 285);
+            this.Btn_EstadisticasHistoricas.Name = "Btn_EstadisticasHistoricas";
+            this.Btn_EstadisticasHistoricas.Size = new System.Drawing.Size(140, 46);
+            this.Btn_EstadisticasHistoricas.TabIndex = 8;
+            this.Btn_EstadisticasHistoricas.Text = "Estadisticas Historicas";
+            this.Btn_EstadisticasHistoricas.UseVisualStyleBackColor = true;
+            this.Btn_EstadisticasHistoricas.Click += new System.EventHandler(this.Btn_EstadisticasHistoricas_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(641, 285);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(140, 46);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "Listar Tripulantes";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // Btn_ListarPersonasSistema
+            // 
+            this.Btn_ListarPersonasSistema.Location = new System.Drawing.Point(495, 285);
+            this.Btn_ListarPersonasSistema.Name = "Btn_ListarPersonasSistema";
+            this.Btn_ListarPersonasSistema.Size = new System.Drawing.Size(140, 46);
+            this.Btn_ListarPersonasSistema.TabIndex = 10;
+            this.Btn_ListarPersonasSistema.Text = "Listar Personas del Sistema";
+            this.Btn_ListarPersonasSistema.UseVisualStyleBackColor = true;
+            this.Btn_ListarPersonasSistema.Click += new System.EventHandler(this.Btn_ListarPersonasSistema_Click);
+            // 
+            // btn_CrudCrucero
+            // 
+            this.btn_CrudCrucero.Location = new System.Drawing.Point(641, 244);
+            this.btn_CrudCrucero.Name = "btn_CrudCrucero";
+            this.btn_CrudCrucero.Size = new System.Drawing.Size(140, 35);
+            this.btn_CrudCrucero.TabIndex = 11;
+            this.btn_CrudCrucero.Text = "Opciones Crucero";
+            this.btn_CrudCrucero.UseVisualStyleBackColor = true;
+            this.btn_CrudCrucero.Click += new System.EventHandler(this.btn_CrudCrucero_Click);
             // 
             // Frm_Principal
             // 

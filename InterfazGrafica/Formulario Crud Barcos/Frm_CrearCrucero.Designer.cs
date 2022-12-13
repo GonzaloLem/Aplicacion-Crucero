@@ -246,22 +246,21 @@ namespace InterfazGrafica.Formulario_Crud_Barcos
         }
 
         #endregion
-
-        private System.Windows.Forms.GroupBox grpBox_Datos;
         private System.Windows.Forms.Label lbl_Texto1;
-        private System.Windows.Forms.TextBox txtBox_Nombre;
         private System.Windows.Forms.Label lbl_Texto2;
-        private System.Windows.Forms.TextBox txtBox_Camarotes;
-        private System.Windows.Forms.TextBox txtBox_Salones;
         private System.Windows.Forms.Label lbl_Texto3;
         private System.Windows.Forms.Label lbl_Texto4;
-        private System.Windows.Forms.TextBox txtBox_Capacidad;
         private System.Windows.Forms.Label lbl_Texto5;
-        private System.Windows.Forms.TextBox txtBox_Casinos;
         private System.Windows.Forms.Label lbl_Texto7;
         private System.Windows.Forms.Label lbl_Texto6;
-        private System.Windows.Forms.TextBox txtBox_Gimnacios;
-        private System.Windows.Forms.TextBox txtBox_Piscinas;
-        private System.Windows.Forms.Button btn_CrearCrucero;
+        protected System.Windows.Forms.GroupBox grpBox_Datos;
+        protected System.Windows.Forms.TextBox txtBox_Nombre;
+        protected System.Windows.Forms.TextBox txtBox_Camarotes;
+        protected System.Windows.Forms.TextBox txtBox_Salones;
+        protected System.Windows.Forms.TextBox txtBox_Capacidad;
+        protected System.Windows.Forms.TextBox txtBox_Casinos;
+        protected System.Windows.Forms.TextBox txtBox_Gimnacios;
+        protected System.Windows.Forms.TextBox txtBox_Piscinas;
+        protected System.Windows.Forms.Button btn_CrearCrucero;
     }
 }

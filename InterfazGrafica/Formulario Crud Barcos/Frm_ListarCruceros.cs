@@ -58,5 +58,23 @@ namespace InterfazGrafica.Formulario_Crud_Barcos
 
         }
 
+        private void btn_ModificarCrucero_Click(object sender, EventArgs e)
+        {
+            if(this.dtGdVw_ListaCruceros.SelectedRows.Count == 1)
+            {
+                Frm_ModificarCrucero formModificarCrucero = new Frm_ModificarCrucero(ConexionSQLCrucero.Obtener((int)this.dtGdVw_ListaCruceros.Rows[this.dtGdVw_ListaCruceros.SelectedRows[0].Index].Cells[0].Value));
+                formModificarCrucero.ShowDialog();
+                this.Listar(ConexionSQLCrucero.Obtener());
+            }
+        }
+
+        private void btn_EliminarCrucero_Click(object sender, EventArgs e)
+        {
+            if (this.dtGdVw_ListaCruceros.SelectedRows.Count == 1)
+            {
+                ConexionSQLCrucero.Elminar(ConexionSQLCrucero.Obtener((int)this.dtGdVw_ListaCruceros.Rows[this.dtGdVw_ListaCruceros.SelectedRows[0].Index].Cells[0].Value));
+                this.Listar(ConexionSQLCrucero.Obtener());
+            }
+        }
     }
 }

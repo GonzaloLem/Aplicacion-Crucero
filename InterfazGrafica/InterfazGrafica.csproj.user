@@ -7,6 +7,9 @@
     <Compile Update="Formulario Crud Barcos\Frm_ListarCruceros.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Formulario Crud Barcos\Frm_ModificarCrucero.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Formulario Crud Personas\Frm_AgregarPersona.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -17,6 +20,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Formulario Crud Viajes\Frm_CrearViaje.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Formulario Crud Viajes\Frm_ModificarViaje.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Formulario Principal\Frm_Principal.cs">

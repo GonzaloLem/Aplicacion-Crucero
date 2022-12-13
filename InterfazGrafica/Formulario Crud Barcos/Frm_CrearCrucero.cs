@@ -19,7 +19,7 @@ namespace InterfazGrafica.Formulario_Crud_Barcos
             InitializeComponent();
         }
 
-        private void btn_CrearCrucero_Click(object sender, EventArgs e)
+        private protected virtual void btn_CrearCrucero_Click(object sender, EventArgs e)
         {
             if (this.ValidarTexBox())
             {
@@ -46,7 +46,7 @@ namespace InterfazGrafica.Formulario_Crud_Barcos
         }
 
 
-        private bool ValidarTexBox()
+        private protected bool ValidarTexBox()
         {
             bool retorno = true;
 

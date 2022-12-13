@@ -26,6 +26,7 @@ namespace InterfazGrafica
             InitializeComponent();
         }
 
+        #region Eventos
         private void Frm_Principal_Load(object sender, EventArgs e)
         {
 
@@ -54,6 +55,16 @@ namespace InterfazGrafica
             this.Listar(ConexionSQLViajes.Obtener());
         }
 
+        private void Btn_ModificarViaje_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Btn_EliminarViaje_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void btn_CrudCrucero_Click(object sender, EventArgs e)
         {
             Frm_ListarCruceros formCruceros = new Frm_ListarCruceros();
@@ -66,6 +77,9 @@ namespace InterfazGrafica
 
         }
 
+        #endregion
+
+        #region Metodos Extras
         private void Listar(AlmecenamientoViajes<Viaje> lista)
         {
             this.DtGdVw_ListaViajes.Rows.Clear();
@@ -86,6 +100,7 @@ namespace InterfazGrafica
 
             }
         }
+        #endregion
 
     }
 }

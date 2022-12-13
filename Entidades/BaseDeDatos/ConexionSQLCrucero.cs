@@ -104,6 +104,89 @@ namespace Entidades.BaseDeDatos
 
         #endregion
 
+        #region Modificar
+
+        public static void Modificar(Crucero crucero)
+        {
+            if (ConexionSQLCrucero.ProbarConexion())
+            {
+                try
+                {
+                    string cadena = $"update Crucero set " +
+                        $"Matricula = '{crucero.Matricula}', " +
+                        $"Nombre = '{crucero.Nombre}', " +
+                        $"Camarotes = {crucero.Camarotes}, " +
+                        $"Salones = {crucero.Salones}, " +
+                        $"Casinos = {crucero.Salones}, " +
+                        $"Piscinas = {crucero.Salones}, " +
+                        $"Gimnacios = {crucero.Gimnacios}, " +
+                        $"CapacidadBodega = {crucero.Capacidad}, " +
+                        $"PesoTotalDeLaBodega = {crucero.Peso}, " +
+                        $"ListaTripulantes = '{crucero.ObtenerIdsTripulantes()}'" +
+                        $"WHERE ID = {crucero.ID}";
+
+                    ConexionSQLCrucero.comando = new SqlCommand();
+
+                    ConexionSQLCrucero.comando.CommandType = CommandType.Text;
+                    ConexionSQLCrucero.comando.CommandText = cadena;
+                    ConexionSQLCrucero.comando.Connection = ConexionSQLCrucero.conexion;
+
+                    ConexionSQLCrucero.conexion.Open();
+
+                    ConexionSQLCrucero.comando.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                finally
+                {
+                    if (ConexionSQLCrucero.conexion.State == ConnectionState.Open)
+                    {
+                        ConexionSQLCrucero.conexion.Close();
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region Eliminar
+
+        public static void Elminar(Crucero crucero)
+        {
+            if (ConexionSQLCrucero.ProbarConexion())
+            {
+                try
+                {
+                    string cadena = $"delete FROM Crucero WHERE ID = {crucero.ID}";
+
+                    ConexionSQLCrucero.comando = new SqlCommand();
+
+                    ConexionSQLCrucero.comando.CommandType = CommandType.Text;
+                    ConexionSQLCrucero.comando.CommandText = cadena;
+                    ConexionSQLCrucero.comando.Connection = ConexionSQLCrucero.conexion;
+
+                    ConexionSQLCrucero.conexion.Open();
+
+                    ConexionSQLCrucero.comando.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                finally
+                {
+                    if (ConexionSQLCrucero.conexion.State == ConnectionState.Open)
+                    {
+                        ConexionSQLCrucero.conexion.Close();
+                    }
+                }
+            }
+        }
+
+        #endregion
+
         #region Obtener
 
         public static Embarcadero<Crucero> Obtener()
