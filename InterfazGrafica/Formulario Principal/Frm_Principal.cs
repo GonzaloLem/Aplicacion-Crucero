@@ -57,12 +57,21 @@ namespace InterfazGrafica
 
         private void Btn_ModificarViaje_Click(object sender, EventArgs e)
         {
-
+            if(this.DtGdVw_ListaViajes.SelectedRows.Count == 1)
+            {
+                Frm_ViajesModificar formModifciarViaje = new Frm_ViajesModificar(ConexionSQLViajes.Obtener((int)this.DtGdVw_ListaViajes.Rows[this.DtGdVw_ListaViajes.SelectedRows[0].Index].Cells[0].Value));
+                formModifciarViaje.ShowDialog();
+                this.Listar(ConexionSQLViajes.Obtener());
+            }
         }
 
         private void Btn_EliminarViaje_Click(object sender, EventArgs e)
         {
-
+            if (this.DtGdVw_ListaViajes.SelectedRows.Count == 1)
+            {
+                ConexionSQLViajes.Eliminar((ConexionSQLViajes.Obtener((int)this.DtGdVw_ListaViajes.Rows[this.DtGdVw_ListaViajes.SelectedRows[0].Index].Cells[0].Value)));
+                this.Listar(ConexionSQLViajes.Obtener());
+            }
         }
 
         private void btn_CrudCrucero_Click(object sender, EventArgs e)

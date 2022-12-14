@@ -104,6 +104,88 @@ namespace Entidades.BaseDeDatos
 
         #endregion
 
+        #region Modificar
+
+        public static void Modificar(Viaje viaje)
+        {
+            if (ConexionSQLViajes.ProbarConexion())
+            {
+                try
+                {
+                    string cadena = $"update Viaje set " +
+                        $"CiudadDePartida = {((int)viaje.Partida)}, " +
+                        $"Destino = {((uint)viaje.Destino)}, " +
+                        $"FechaDeInicio = '{viaje.Inicio.ToString()}', " +
+                        $"ID_Crucero = {viaje.Crucero.ID}, " +
+                        $"CamarotesPremium = {viaje.CamarotesPremium}, " +
+                        $"CamarotesTurista = {viaje.CamarotesTurista}, " +
+                        $"CostoPremium = {viaje.CostoPremium}, " +
+                        $"CostoTurista = {viaje.CostoTurista}, " +
+                        $"DuracionDelViaje = {viaje.Duracion} " +
+                        $"WHERE ID = {viaje.ID}";
+
+                    ConexionSQLViajes.comando = new SqlCommand();
+
+                    ConexionSQLViajes.comando.CommandType = CommandType.Text;
+                    ConexionSQLViajes.comando.CommandText = cadena;
+                    ConexionSQLViajes.comando.Connection = ConexionSQLViajes.conexion;
+
+                    ConexionSQLViajes.conexion.Open();
+
+                    ConexionSQLViajes.comando.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                finally
+                {
+                    if (ConexionSQLViajes.conexion.State == ConnectionState.Open)
+                    {
+                        ConexionSQLViajes.conexion.Close();
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region Eliminar
+
+        public static void Eliminar(Viaje viaje)
+        {
+            if (ConexionSQLViajes.ProbarConexion())
+            {
+                try
+                {
+                    string cadena = $"delete FROM Viaje WHERE ID = {viaje.ID} ";
+
+                    ConexionSQLViajes.comando = new SqlCommand();
+
+                    ConexionSQLViajes.comando.CommandType = CommandType.Text;
+                    ConexionSQLViajes.comando.CommandText = cadena;
+                    ConexionSQLViajes.comando.Connection = ConexionSQLViajes.conexion;
+
+                    ConexionSQLViajes.conexion.Open();
+
+                    ConexionSQLViajes.comando.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                finally
+                {
+                    if (ConexionSQLViajes.conexion.State == ConnectionState.Open)
+                    {
+                        ConexionSQLViajes.conexion.Close();
+                    }
+                }
+            }
+        }
+
+        #endregion
+
         #region Obtener
 
         public static AlmecenamientoViajes<Viaje> Obtener()

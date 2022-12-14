@@ -92,7 +92,7 @@ namespace InterfazGrafica.Formulario_Crud_Viajes
             this.cbBox_Cruceros.Name = "cbBox_Cruceros";
             this.cbBox_Cruceros.Size = new System.Drawing.Size(121, 23);
             this.cbBox_Cruceros.TabIndex = 4;
-            this.cbBox_Cruceros.SelectedIndexChanged += new System.EventHandler(this.MostrarCrucero);
+            this.cbBox_Cruceros.SelectedValueChanged += new System.EventHandler(this.MostrarCrucero);
             // 
             // lbl_Texto3
             // 
@@ -201,17 +201,17 @@ namespace InterfazGrafica.Formulario_Crud_Viajes
         }
 
         #endregion
-        private System.Windows.Forms.Label lbl_Texto1;
-        private System.Windows.Forms.Label lbl_Texto2;
-        private System.Windows.Forms.Label lbl_Texto3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Cruceros_Colum_Especificaciones;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Cruceros_Colum_Valores;
-        private System.Windows.Forms.Label lbl_Texto4;
-        protected System.Windows.Forms.ComboBox cbBox_CiudadPartida;
-        protected System.Windows.Forms.ComboBox cbBox_Destino;
-        protected System.Windows.Forms.ComboBox cbBox_Cruceros;
-        protected System.Windows.Forms.DataGridView dtGdVw_Cruceros;
-        protected System.Windows.Forms.DateTimePicker dtTePk_Fecha;
-        protected System.Windows.Forms.Button btn_CrearViaje;
+        private protected System.Windows.Forms.Label lbl_Texto1;
+        private protected System.Windows.Forms.Label lbl_Texto2;
+        private protected System.Windows.Forms.Label lbl_Texto3;
+        private protected System.Windows.Forms.DataGridViewTextBoxColumn Cruceros_Colum_Especificaciones;
+        private protected System.Windows.Forms.DataGridViewTextBoxColumn Cruceros_Colum_Valores;
+        private protected System.Windows.Forms.Label lbl_Texto4;
+        private protected System.Windows.Forms.ComboBox cbBox_CiudadPartida;
+        private protected System.Windows.Forms.ComboBox cbBox_Destino;
+        private protected System.Windows.Forms.ComboBox cbBox_Cruceros;
+        private protected System.Windows.Forms.DataGridView dtGdVw_Cruceros;
+        private protected System.Windows.Forms.DateTimePicker dtTePk_Fecha;
+        private protected System.Windows.Forms.Button btn_CrearViaje;
     }
 }
