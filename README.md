@@ -16,6 +16,6 @@ Un crud de Cruceros, en el cual se va a poder elegir su capacidad de bodega, can
 
 Estadísticas Históricas(Sin hacer)
 
-Un crud de Viajes(Incompleto, solo tiene el alta), en el cual se va a poder elegir los destinos, la fecha en el cual comenzara el viaje(Para crearlo tiene que ser con 16 días de anticipación no puede ser el mismo día y como fecha limite se pueden programar viajes con un año de anticipación) y el crucero que va a realizar el viaje. Al crear el viaje automaticamente se calcularan los datos necesarios para este como por ejemplo la cantidad de camarotes que se le asignara a la clase Turista y la Premium(35% de los camarotes para los premiums), el costo del pasaje turista y premium, este va a depender del destino y por ultimo se calculara la duracion del viaje.
+Un crud de Viajes, en el cual se va a poder elegir los destinos, la fecha en el cual comenzara el viaje(Para crearlo tiene que ser con 16 días de anticipación no puede ser el mismo día y como fecha limite se pueden programar viajes con un año de anticipación) y el crucero que va a realizar el viaje. Al crear el viaje automaticamente se calcularan los datos necesarios para este como por ejemplo la cantidad de camarotes que se le asignara a la clase Turista y la Premium(35% de los camarotes para los premiums), el costo del pasaje turista y premium, este va a depender del destino y por ultimo se calculara la duracion del viaje.
 # Diagrama de la Aplicación
 
