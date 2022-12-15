@@ -7,9 +7,6 @@
     <Compile Update="Formulario Crud Barcos\Frm_ListarCruceros.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Formulario Crud Barcos\Frm_ListarTripulantes.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="Formulario Crud Barcos\Frm_ModificarCrucero.cs">
       <SubType>Form</SubType>
     </Compile>

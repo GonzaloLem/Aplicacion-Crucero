@@ -205,6 +205,7 @@ namespace InterfazGrafica.Formulario_Crud_Barcos
             this.btn_ListarTripilantes.TabIndex = 4;
             this.btn_ListarTripilantes.Text = "Listar Tripulantes";
             this.btn_ListarTripilantes.UseVisualStyleBackColor = true;
+            this.btn_ListarTripilantes.Click += new System.EventHandler(this.btn_ListarTripilantes_Click);
             // 
             // Frm_ListarCruceros
             // 

@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using Entidades.BaseDeDatos;
 using Entidades.Barcos;
 using Entidades.Listas;
+using Entidades.BaseDeDatos.ConexionesPersonas;
+using InterfazGrafica.Formulario_Crud_Personas;
 
 namespace InterfazGrafica.Formulario_Crud_Barcos
 {
@@ -74,6 +76,15 @@ namespace InterfazGrafica.Formulario_Crud_Barcos
             {
                 ConexionSQLCrucero.Elminar(ConexionSQLCrucero.Obtener((int)this.dtGdVw_ListaCruceros.Rows[this.dtGdVw_ListaCruceros.SelectedRows[0].Index].Cells[0].Value));
                 this.Listar(ConexionSQLCrucero.Obtener());
+            }
+        }
+
+        private void btn_ListarTripilantes_Click(object sender, EventArgs e)
+        {
+            if (this.dtGdVw_ListaCruceros.SelectedRows.Count == 1 && ConexionSQLTripulantes.Obtener((int)this.dtGdVw_ListaCruceros.Rows[this.dtGdVw_ListaCruceros.SelectedRows[0].Index].Cells[0].Value).Total > 0)
+            {
+                Frm_ListarPersonas formListarPersonas = new Frm_ListarPersonas(ConexionSQLTripulantes.Obtener((int)this.dtGdVw_ListaCruceros.Rows[this.dtGdVw_ListaCruceros.SelectedRows[0].Index].Cells[0].Value));
+                formListarPersonas.ShowDialog();  
             }
         }
     }

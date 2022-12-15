@@ -25,6 +25,16 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             this.orden = ListSortDirection.Ascending;
         }
 
+        public Frm_ListarPersonas(AlmacenamientoPersonas<Persona> lista)
+        {
+            InitializeComponent();
+            this.lista = lista;
+            this.orden = ListSortDirection.Ascending;
+            this.btn_Eliminar.Visible = false;
+            this.btn_ModificarPersona.Visible = false;
+            this.Size = new System.Drawing.Size(860, 550);
+        }
+
         #region Eventos
         private void Frm_ListarPersonas_Load(object sender, EventArgs e)
         {

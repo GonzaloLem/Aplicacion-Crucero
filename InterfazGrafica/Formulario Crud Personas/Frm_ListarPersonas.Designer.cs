@@ -332,28 +332,27 @@ namespace InterfazGrafica.Formulario_Crud_Personas
         }
 
         #endregion
-
-        private System.Windows.Forms.DataGridView dtGdVw_ListarPersonas;
-        private System.Windows.Forms.CheckBox ckBox_Apellido;
-        private System.Windows.Forms.CheckBox ckBox_Nacionalidad;
-        private System.Windows.Forms.CheckBox ckBox_Rol;
-        private System.Windows.Forms.TextBox txtBox_Filtro;
-        private System.Windows.Forms.Button btn_Filtrar;
-        private System.Windows.Forms.CheckBox ckBox_Id;
-        private System.Windows.Forms.GroupBox grpBox_Ordenar;
-        private System.Windows.Forms.CheckBox ckBox_Dni;
-        private System.Windows.Forms.CheckBox ckBox_Nombre;
-        private System.Windows.Forms.CheckBox ckBox_Ascendente;
-        private System.Windows.Forms.CheckBox ckBox_Descendente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Colum_Personas_Id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Colum_Personas_Nombre;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Colum_Personas_Apellido;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Colum_Personas_Edad;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Colum_Personas_Dni;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Colum_Personas_Nacionalidad;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Colum_Personas_Celular;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Colum_Personas_Rol;
-        private System.Windows.Forms.Button btn_ModificarPersona;
-        private System.Windows.Forms.Button btn_Eliminar;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn Colum_Personas_Id;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn Colum_Personas_Nombre;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn Colum_Personas_Apellido;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn Colum_Personas_Edad;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn Colum_Personas_Dni;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn Colum_Personas_Nacionalidad;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn Colum_Personas_Celular;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn Colum_Personas_Rol;
+        protected System.Windows.Forms.DataGridView dtGdVw_ListarPersonas;
+        protected System.Windows.Forms.CheckBox ckBox_Apellido;
+        protected System.Windows.Forms.CheckBox ckBox_Nacionalidad;
+        protected System.Windows.Forms.CheckBox ckBox_Rol;
+        protected System.Windows.Forms.TextBox txtBox_Filtro;
+        protected System.Windows.Forms.Button btn_Filtrar;
+        protected System.Windows.Forms.CheckBox ckBox_Id;
+        protected System.Windows.Forms.GroupBox grpBox_Ordenar;
+        protected System.Windows.Forms.CheckBox ckBox_Dni;
+        protected System.Windows.Forms.CheckBox ckBox_Nombre;
+        protected System.Windows.Forms.CheckBox ckBox_Ascendente;
+        protected System.Windows.Forms.CheckBox ckBox_Descendente;
+        protected System.Windows.Forms.Button btn_ModificarPersona;
+        protected System.Windows.Forms.Button btn_Eliminar;
     }
 }
