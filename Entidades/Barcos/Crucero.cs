@@ -48,6 +48,7 @@ namespace Entidades.Barcos
             this.listaTripulantes = tripulantes;
         }
 
+        #region Propiedades
         public int ID { get => this.id; }
         public string Matricula { get => this.matricula; }
         public string Nombre { get => this.nombre; }
@@ -89,8 +90,28 @@ namespace Entidades.Barcos
             }
         }
 
+        /// <summary>
+        /// Te dice si se pueden agregar mas tripulantes o no
+        /// </summary>
+        public bool Estado
+        {
+            get
+            {
+                bool retorno = false;
 
+                if (this.listaTripulantes.Total < this.CapacidadPersonas(this.camarotes))
+                {
+                    retorno = true;
+                }
 
+                return retorno;
+            }
+
+        }
+
+        #endregion
+
+        #region Metodos
         private int CapacidadPersonas(int camarotes)
         {
             return camarotes * 4;
@@ -156,6 +177,30 @@ namespace Entidades.Barcos
 
             return retorno;
         }
+
+        public string ObtenerIdsTripulantes()
+        {
+            string retorno = null;
+
+            for (int i = 0; i < this.listaTripulantes.Total; i++)
+            {
+                if (i != this.listaTripulantes.Total - 1)
+                {
+                    retorno += this.listaTripulantes[i].ID + ",";
+                }
+                else
+                {
+                    retorno += this.listaTripulantes[i].ID;
+                }
+
+            }
+
+            return retorno;
+        }
+
+        #endregion
+
+        #region Comparadores
         public static bool operator ==(Crucero crucero1, Crucero crucero2)
         {
             return (crucero1.matricula == crucero2.matricula);
@@ -166,6 +211,9 @@ namespace Entidades.Barcos
             return !(crucero1==crucero2);
         }
 
+        #endregion
+
+        #region Overrides
         public override string ToString()
         {
             StringBuilder cadena = new StringBuilder();
@@ -191,26 +239,8 @@ namespace Entidades.Barcos
         {
             return base.GetHashCode();
         }
+        #endregion
 
-        public string ObtenerIdsTripulantes()
-        {
-            string retorno = null;
-
-                for(int i=0;i<this.listaTripulantes.Total;i++)
-                {
-                    if(i!=this.listaTripulantes.Total-1)
-                    {
-                        retorno += this.listaTripulantes[i].ID + ",";
-                    }
-                    else
-                    {
-                        retorno += this.listaTripulantes[i].ID;
-                    }
-                    
-                }
-                
-            return retorno;
-        }
 
 
     }

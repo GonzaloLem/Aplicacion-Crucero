@@ -21,6 +21,33 @@ namespace Entidades.Extensiones
             return retorno;
         }
 
+        /// <summary>
+        /// Se fija si tiene la cantidad que se le pide
+        /// </summary>
+        public static string Tiene(this bool bl, int valor, int cantidad)
+        {
+            string retorno = "No";
+
+                if(valor > cantidad)
+                {
+                    retorno = "Si";
+                }
+
+            return retorno;
+        }
+
+        public static string Traductor(this bool bl, bool valor)
+        {
+            string retorno = "No";
+
+                if(valor == true)
+                {
+                    retorno = "Si";
+                }
+
+            return retorno;
+        }
+
         public static bool Validar(this string str, string cadena)
         {
             bool retorno = false;

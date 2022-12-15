@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.SqlClient;
 using Entidades.Barcos;
 using Entidades.Listas;
+using Entidades.BaseDeDatos.ConexionesPersonas;
 
 namespace Entidades.BaseDeDatos
 {
@@ -74,8 +75,7 @@ namespace Entidades.BaseDeDatos
                             + crucero.Piscinas + ","
                             + crucero.Gimnacios + ","
                             + crucero.Capacidad + ","
-                            + crucero.Peso + ","
-                            + "'" + crucero.ObtenerIdsTripulantes() + "'"
+                            + crucero.Peso + ""
                         + ")";
 
                     ConexionSQLCrucero.comando = new SqlCommand();
@@ -121,8 +121,7 @@ namespace Entidades.BaseDeDatos
                         $"Piscinas = {crucero.Salones}, " +
                         $"Gimnacios = {crucero.Gimnacios}, " +
                         $"CapacidadBodega = {crucero.Capacidad}, " +
-                        $"PesoTotalDeLaBodega = {crucero.Peso}, " +
-                        $"ListaTripulantes = '{crucero.ObtenerIdsTripulantes()}'" +
+                        $"PesoTotalDeLaBodega = {crucero.Peso} " +
                         $"WHERE ID = {crucero.ID}";
 
                     ConexionSQLCrucero.comando = new SqlCommand();
@@ -223,7 +222,7 @@ namespace Entidades.BaseDeDatos
                                 (int)ConexionSQLCrucero.lector["Gimnacios"],
                                 (double)ConexionSQLCrucero.lector["CapacidadBodega"],
                                 (double)ConexionSQLCrucero.lector["PesoTotalDeLaBodega"],
-                                new AlmacenamientoPersonas<Personas.Persona>(1)
+                                ConexionSQLTripulantes.Obtener((int)ConexionSQLCrucero.lector["ID"])
                             );
                     }
                     ConexionSQLCrucero.lector.Close();

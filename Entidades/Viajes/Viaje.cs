@@ -2,6 +2,7 @@
 using Entidades.Viajes;
 using Entidades.Barcos;
 using System.Text;
+using Entidades.Personas;
 
 namespace Entidades
 {
@@ -38,6 +39,7 @@ namespace Entidades
             this.id = id;
         }
 
+        #region Propiedades
         public int ID { get => this.id; }
         public CiudadesDePartida Partida { get => this.partida; }
 
@@ -74,8 +76,38 @@ namespace Entidades
         /// Duracion del viaje en horas
         /// </summary>
         public int Duracion { get => this.duracionDelViaje; }
+        public DateTime Llegada { get => this.fechaInicio + new TimeSpan(this.duracionDelViaje, 0, 0); }
 
+        /// <summary>
+        /// Te dice la disponibilidad actual que tiene el viaje
+        /// </summary>
+        public Disponibilidad Estado
+        {
+            get
+            {
+                Disponibilidad retorno = Disponibilidad.Disponible;
 
+                if (this.fechaInicio <= DateTime.Now && DateTime.Now <= this.Llegada)
+                {
+                    retorno = Disponibilidad.Navegando;
+
+                }
+                else if (DateTime.Now >= this.Llegada)
+                {
+                    retorno = Disponibilidad.Terminado;
+                }
+                else if (!this.crucero.Estado)
+                {
+                    retorno = Disponibilidad.Lleno;
+                }
+
+                return retorno;
+            }
+        }
+
+        #endregion
+
+        #region Calculos
         public static int Calcular(Destino destino)
         {
             int retorno = -1;
@@ -128,6 +160,39 @@ namespace Entidades
             return retorno;
         }
 
+        #endregion
+
+        #region Metodos
+
+        /// <summary>
+        /// Se encarga de saber si el viaje tiene lo que el pasajero quiere
+        /// </summary>
+
+        public bool Requisitos(Pasajero pasajero)
+        {
+            bool retorno = true;
+
+                if(pasajero.Casino == true && this.crucero.Casinos < 1)
+                {
+                    retorno = false;
+                }
+
+                if(pasajero.Piscina == true && this.crucero.Piscinas < 1)
+                {
+                    retorno = false;
+                }
+
+                if(pasajero.Gimnacio == true && this.crucero.Gimnacios < 1)
+                {
+                    retorno = false;
+                }
+
+            return retorno;
+        }
+
+        #endregion
+
+        #region Comparador
         public static bool operator ==(Viaje viaje1, Viaje viaje2)
         {
             return (viaje1.Destino == viaje2.Destino && viaje1.fechaInicio.ToShortDateString() == viaje2.fechaInicio.ToShortDateString());
@@ -138,6 +203,9 @@ namespace Entidades
             return !(viaje1==viaje2);
         }
 
+        #endregion
+
+        #region Overrides
         public override string ToString()
         {
             StringBuilder cadena = new StringBuilder();
@@ -172,6 +240,7 @@ namespace Entidades
         {
             return base.GetHashCode();
         }
+        #endregion
 
     }
 }

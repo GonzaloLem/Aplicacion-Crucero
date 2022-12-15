@@ -40,12 +40,13 @@ namespace InterfazGrafica
             this.Colum_ListaViajes_CostoPremium = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Colum_ListaViajes_CostoTurista = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Colum_ListaViajes_DuracionViaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Colum_ListaViajes_Partida_Llegada = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Btn_AgregarViaje = new System.Windows.Forms.Button();
             this.Btn_ModificarViaje = new System.Windows.Forms.Button();
             this.Btn_EliminarViaje = new System.Windows.Forms.Button();
             this.Btn_AgregarPersona = new System.Windows.Forms.Button();
             this.Btn_EstadisticasHistoricas = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn_AgregarPersona_AlViaje = new System.Windows.Forms.Button();
             this.Btn_ListarPersonasSistema = new System.Windows.Forms.Button();
             this.btn_CrudCrucero = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DtGdVw_ListaViajes)).BeginInit();
@@ -57,7 +58,8 @@ namespace InterfazGrafica
             this.DtGdVw_ListaViajes.AllowUserToDeleteRows = false;
             this.DtGdVw_ListaViajes.AllowUserToResizeColumns = false;
             this.DtGdVw_ListaViajes.AllowUserToResizeRows = false;
-            this.DtGdVw_ListaViajes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.DtGdVw_ListaViajes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DtGdVw_ListaViajes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DtGdVw_ListaViajes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -70,11 +72,12 @@ namespace InterfazGrafica
             this.Colum_ListaViajes_CamarotesTurista,
             this.Colum_ListaViajes_CostoPremium,
             this.Colum_ListaViajes_CostoTurista,
-            this.Colum_ListaViajes_DuracionViaje});
+            this.Colum_ListaViajes_DuracionViaje,
+            this.Colum_ListaViajes_Partida_Llegada});
             this.DtGdVw_ListaViajes.Location = new System.Drawing.Point(13, 13);
             this.DtGdVw_ListaViajes.Name = "DtGdVw_ListaViajes";
             this.DtGdVw_ListaViajes.RowTemplate.Height = 25;
-            this.DtGdVw_ListaViajes.Size = new System.Drawing.Size(1043, 228);
+            this.DtGdVw_ListaViajes.Size = new System.Drawing.Size(1091, 228);
             this.DtGdVw_ListaViajes.TabIndex = 0;
             // 
             // Colum_ListaViajes_Partida_ID
@@ -82,6 +85,7 @@ namespace InterfazGrafica
             this.Colum_ListaViajes_Partida_ID.HeaderText = "ID";
             this.Colum_ListaViajes_Partida_ID.Name = "Colum_ListaViajes_Partida_ID";
             this.Colum_ListaViajes_Partida_ID.ReadOnly = true;
+            this.Colum_ListaViajes_Partida_ID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             this.Colum_ListaViajes_Partida_ID.Width = 50;
             // 
             // Colum_ListaViajes_Partida
@@ -90,7 +94,7 @@ namespace InterfazGrafica
             this.Colum_ListaViajes_Partida.HeaderText = "Partida";
             this.Colum_ListaViajes_Partida.Name = "Colum_ListaViajes_Partida";
             this.Colum_ListaViajes_Partida.ReadOnly = true;
-            this.Colum_ListaViajes_Partida.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Colum_ListaViajes_Partida.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // Colum_ListaViajes_Destino
             // 
@@ -98,15 +102,15 @@ namespace InterfazGrafica
             this.Colum_ListaViajes_Destino.HeaderText = "Destino";
             this.Colum_ListaViajes_Destino.Name = "Colum_ListaViajes_Destino";
             this.Colum_ListaViajes_Destino.ReadOnly = true;
-            this.Colum_ListaViajes_Destino.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Colum_ListaViajes_Destino.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // Colum_ListaViajes_FechaInicio
             // 
-            this.Colum_ListaViajes_FechaInicio.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Colum_ListaViajes_FechaInicio.HeaderText = "Fecha de Inicio";
             this.Colum_ListaViajes_FechaInicio.Name = "Colum_ListaViajes_FechaInicio";
             this.Colum_ListaViajes_FechaInicio.ReadOnly = true;
-            this.Colum_ListaViajes_FechaInicio.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Colum_ListaViajes_FechaInicio.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.Colum_ListaViajes_FechaInicio.Width = 115;
             // 
             // Colum_ListaViajes_Crucero
             // 
@@ -114,7 +118,7 @@ namespace InterfazGrafica
             this.Colum_ListaViajes_Crucero.HeaderText = "Crucero";
             this.Colum_ListaViajes_Crucero.Name = "Colum_ListaViajes_Crucero";
             this.Colum_ListaViajes_Crucero.ReadOnly = true;
-            this.Colum_ListaViajes_Crucero.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Colum_ListaViajes_Crucero.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // Colum_ListaViajes_CamarotesPremium
             // 
@@ -122,7 +126,7 @@ namespace InterfazGrafica
             this.Colum_ListaViajes_CamarotesPremium.HeaderText = "Camarotes Premium";
             this.Colum_ListaViajes_CamarotesPremium.Name = "Colum_ListaViajes_CamarotesPremium";
             this.Colum_ListaViajes_CamarotesPremium.ReadOnly = true;
-            this.Colum_ListaViajes_CamarotesPremium.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Colum_ListaViajes_CamarotesPremium.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // Colum_ListaViajes_CamarotesTurista
             // 
@@ -130,7 +134,7 @@ namespace InterfazGrafica
             this.Colum_ListaViajes_CamarotesTurista.HeaderText = "Camarotes Turista";
             this.Colum_ListaViajes_CamarotesTurista.Name = "Colum_ListaViajes_CamarotesTurista";
             this.Colum_ListaViajes_CamarotesTurista.ReadOnly = true;
-            this.Colum_ListaViajes_CamarotesTurista.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Colum_ListaViajes_CamarotesTurista.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // Colum_ListaViajes_CostoPremium
             // 
@@ -138,7 +142,7 @@ namespace InterfazGrafica
             this.Colum_ListaViajes_CostoPremium.HeaderText = "Costo Premium";
             this.Colum_ListaViajes_CostoPremium.Name = "Colum_ListaViajes_CostoPremium";
             this.Colum_ListaViajes_CostoPremium.ReadOnly = true;
-            this.Colum_ListaViajes_CostoPremium.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Colum_ListaViajes_CostoPremium.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // Colum_ListaViajes_CostoTurista
             // 
@@ -146,7 +150,7 @@ namespace InterfazGrafica
             this.Colum_ListaViajes_CostoTurista.HeaderText = "Costo Turista";
             this.Colum_ListaViajes_CostoTurista.Name = "Colum_ListaViajes_CostoTurista";
             this.Colum_ListaViajes_CostoTurista.ReadOnly = true;
-            this.Colum_ListaViajes_CostoTurista.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Colum_ListaViajes_CostoTurista.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // Colum_ListaViajes_DuracionViaje
             // 
@@ -154,13 +158,23 @@ namespace InterfazGrafica
             this.Colum_ListaViajes_DuracionViaje.HeaderText = "Duracion del Viaje";
             this.Colum_ListaViajes_DuracionViaje.Name = "Colum_ListaViajes_DuracionViaje";
             this.Colum_ListaViajes_DuracionViaje.ReadOnly = true;
-            this.Colum_ListaViajes_DuracionViaje.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Colum_ListaViajes_DuracionViaje.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // Colum_ListaViajes_Partida_Llegada
+            // 
+            this.Colum_ListaViajes_Partida_Llegada.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Colum_ListaViajes_Partida_Llegada.HeaderText = "Fecha de Llegada";
+            this.Colum_ListaViajes_Partida_Llegada.Name = "Colum_ListaViajes_Partida_Llegada";
+            this.Colum_ListaViajes_Partida_Llegada.ReadOnly = true;
+            this.Colum_ListaViajes_Partida_Llegada.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.Colum_ListaViajes_Partida_Llegada.Width = 115;
             // 
             // Btn_AgregarViaje
             // 
-            this.Btn_AgregarViaje.Location = new System.Drawing.Point(203, 244);
+            this.Btn_AgregarViaje.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Btn_AgregarViaje.Location = new System.Drawing.Point(278, 244);
             this.Btn_AgregarViaje.Name = "Btn_AgregarViaje";
-            this.Btn_AgregarViaje.Size = new System.Drawing.Size(140, 35);
+            this.Btn_AgregarViaje.Size = new System.Drawing.Size(140, 43);
             this.Btn_AgregarViaje.TabIndex = 1;
             this.Btn_AgregarViaje.Text = "Crear un Viaje";
             this.Btn_AgregarViaje.UseVisualStyleBackColor = true;
@@ -168,9 +182,10 @@ namespace InterfazGrafica
             // 
             // Btn_ModificarViaje
             // 
-            this.Btn_ModificarViaje.Location = new System.Drawing.Point(349, 244);
+            this.Btn_ModificarViaje.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Btn_ModificarViaje.Location = new System.Drawing.Point(424, 244);
             this.Btn_ModificarViaje.Name = "Btn_ModificarViaje";
-            this.Btn_ModificarViaje.Size = new System.Drawing.Size(140, 35);
+            this.Btn_ModificarViaje.Size = new System.Drawing.Size(140, 43);
             this.Btn_ModificarViaje.TabIndex = 2;
             this.Btn_ModificarViaje.Text = "Modificar un Viaje";
             this.Btn_ModificarViaje.UseVisualStyleBackColor = true;
@@ -178,9 +193,10 @@ namespace InterfazGrafica
             // 
             // Btn_EliminarViaje
             // 
-            this.Btn_EliminarViaje.Location = new System.Drawing.Point(495, 244);
+            this.Btn_EliminarViaje.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Btn_EliminarViaje.Location = new System.Drawing.Point(570, 244);
             this.Btn_EliminarViaje.Name = "Btn_EliminarViaje";
-            this.Btn_EliminarViaje.Size = new System.Drawing.Size(140, 35);
+            this.Btn_EliminarViaje.Size = new System.Drawing.Size(140, 43);
             this.Btn_EliminarViaje.TabIndex = 3;
             this.Btn_EliminarViaje.Text = "Eliminar Viaje";
             this.Btn_EliminarViaje.UseVisualStyleBackColor = true;
@@ -188,7 +204,8 @@ namespace InterfazGrafica
             // 
             // Btn_AgregarPersona
             // 
-            this.Btn_AgregarPersona.Location = new System.Drawing.Point(349, 285);
+            this.Btn_AgregarPersona.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Btn_AgregarPersona.Location = new System.Drawing.Point(424, 293);
             this.Btn_AgregarPersona.Name = "Btn_AgregarPersona";
             this.Btn_AgregarPersona.Size = new System.Drawing.Size(140, 46);
             this.Btn_AgregarPersona.TabIndex = 7;
@@ -198,7 +215,8 @@ namespace InterfazGrafica
             // 
             // Btn_EstadisticasHistoricas
             // 
-            this.Btn_EstadisticasHistoricas.Location = new System.Drawing.Point(203, 285);
+            this.Btn_EstadisticasHistoricas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Btn_EstadisticasHistoricas.Location = new System.Drawing.Point(278, 293);
             this.Btn_EstadisticasHistoricas.Name = "Btn_EstadisticasHistoricas";
             this.Btn_EstadisticasHistoricas.Size = new System.Drawing.Size(140, 46);
             this.Btn_EstadisticasHistoricas.TabIndex = 8;
@@ -206,18 +224,21 @@ namespace InterfazGrafica
             this.Btn_EstadisticasHistoricas.UseVisualStyleBackColor = true;
             this.Btn_EstadisticasHistoricas.Click += new System.EventHandler(this.Btn_EstadisticasHistoricas_Click);
             // 
-            // button1
+            // btn_AgregarPersona_AlViaje
             // 
-            this.button1.Location = new System.Drawing.Point(641, 285);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(140, 46);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Listar Tripulantes";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btn_AgregarPersona_AlViaje.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_AgregarPersona_AlViaje.Location = new System.Drawing.Point(716, 244);
+            this.btn_AgregarPersona_AlViaje.Name = "btn_AgregarPersona_AlViaje";
+            this.btn_AgregarPersona_AlViaje.Size = new System.Drawing.Size(140, 43);
+            this.btn_AgregarPersona_AlViaje.TabIndex = 9;
+            this.btn_AgregarPersona_AlViaje.Text = "Agregar Persona al Viaje";
+            this.btn_AgregarPersona_AlViaje.UseVisualStyleBackColor = true;
+            this.btn_AgregarPersona_AlViaje.Click += new System.EventHandler(this.btn_AgregarPersona_AlViaje_Click);
             // 
             // Btn_ListarPersonasSistema
             // 
-            this.Btn_ListarPersonasSistema.Location = new System.Drawing.Point(495, 285);
+            this.Btn_ListarPersonasSistema.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Btn_ListarPersonasSistema.Location = new System.Drawing.Point(570, 293);
             this.Btn_ListarPersonasSistema.Name = "Btn_ListarPersonasSistema";
             this.Btn_ListarPersonasSistema.Size = new System.Drawing.Size(140, 46);
             this.Btn_ListarPersonasSistema.TabIndex = 10;
@@ -227,9 +248,10 @@ namespace InterfazGrafica
             // 
             // btn_CrudCrucero
             // 
-            this.btn_CrudCrucero.Location = new System.Drawing.Point(641, 244);
+            this.btn_CrudCrucero.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_CrudCrucero.Location = new System.Drawing.Point(716, 293);
             this.btn_CrudCrucero.Name = "btn_CrudCrucero";
-            this.btn_CrudCrucero.Size = new System.Drawing.Size(140, 35);
+            this.btn_CrudCrucero.Size = new System.Drawing.Size(140, 46);
             this.btn_CrudCrucero.TabIndex = 11;
             this.btn_CrudCrucero.Text = "Opciones Crucero";
             this.btn_CrudCrucero.UseVisualStyleBackColor = true;
@@ -239,10 +261,10 @@ namespace InterfazGrafica
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1068, 343);
+            this.ClientSize = new System.Drawing.Size(1116, 343);
             this.Controls.Add(this.btn_CrudCrucero);
             this.Controls.Add(this.Btn_ListarPersonasSistema);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_AgregarPersona_AlViaje);
             this.Controls.Add(this.Btn_EstadisticasHistoricas);
             this.Controls.Add(this.Btn_AgregarPersona);
             this.Controls.Add(this.Btn_EliminarViaje);
@@ -252,7 +274,6 @@ namespace InterfazGrafica
             this.MinimumSize = new System.Drawing.Size(985, 382);
             this.Name = "Frm_Principal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Bienvenido!";
             this.Load += new System.EventHandler(this.Frm_Principal_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DtGdVw_ListaViajes)).EndInit();
             this.ResumeLayout(false);
@@ -267,7 +288,7 @@ namespace InterfazGrafica
         private System.Windows.Forms.Button Btn_EliminarViaje;
         private System.Windows.Forms.Button Btn_AgregarPersona;
         private System.Windows.Forms.Button Btn_EstadisticasHistoricas;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_AgregarPersona_AlViaje;
         private System.Windows.Forms.Button Btn_ListarPersonasSistema;
         private System.Windows.Forms.Button btn_CrudCrucero;
         private System.Windows.Forms.DataGridViewTextBoxColumn Colum_ListaViajes_Partida_ID;
@@ -280,6 +301,7 @@ namespace InterfazGrafica
         private System.Windows.Forms.DataGridViewTextBoxColumn Colum_ListaViajes_CostoPremium;
         private System.Windows.Forms.DataGridViewTextBoxColumn Colum_ListaViajes_CostoTurista;
         private System.Windows.Forms.DataGridViewTextBoxColumn Colum_ListaViajes_DuracionViaje;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Colum_ListaViajes_Partida_Llegada;
     }
 }
 

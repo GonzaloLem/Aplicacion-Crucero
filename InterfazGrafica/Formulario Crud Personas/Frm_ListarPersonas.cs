@@ -108,19 +108,20 @@ namespace InterfazGrafica.Formulario_Crud_Personas
 
             for(int i=0;i<lista.Total;i++)
             {
-                int index = this.dtGdVw_ListarPersonas.Rows.Add();
+                //if(lista[i].Disponibilidad)
+                
+                    int index = this.dtGdVw_ListarPersonas.Rows.Add();
 
-                this.dtGdVw_ListarPersonas.Rows[index].Cells[0].Value = lista[i].ID;
-                this.dtGdVw_ListarPersonas.Rows[index].Cells[1].Value = lista[i].Nombre;
-                this.dtGdVw_ListarPersonas.Rows[index].Cells[2].Value = lista[i].Apellido;
-                this.dtGdVw_ListarPersonas.Rows[index].Cells[3].Value = lista[i].Edad;
-                this.dtGdVw_ListarPersonas.Rows[index].Cells[4].Value = lista[i].DNI;
-                this.dtGdVw_ListarPersonas.Rows[index].Cells[5].Value = lista[i].Nacionalidad;
-                this.dtGdVw_ListarPersonas.Rows[index].Cells[6].Value = lista[i].Celular;
-                this.dtGdVw_ListarPersonas.Rows[index].Cells[7].Value = lista[i].Tipo;
-
+                    this.dtGdVw_ListarPersonas.Rows[index].Cells[0].Value = lista[i].ID;
+                    this.dtGdVw_ListarPersonas.Rows[index].Cells[1].Value = lista[i].Nombre;
+                    this.dtGdVw_ListarPersonas.Rows[index].Cells[2].Value = lista[i].Apellido;
+                    this.dtGdVw_ListarPersonas.Rows[index].Cells[3].Value = lista[i].Edad;
+                    this.dtGdVw_ListarPersonas.Rows[index].Cells[4].Value = lista[i].DNI;
+                    this.dtGdVw_ListarPersonas.Rows[index].Cells[5].Value = lista[i].Nacionalidad;
+                    this.dtGdVw_ListarPersonas.Rows[index].Cells[6].Value = lista[i].Celular;
+                    this.dtGdVw_ListarPersonas.Rows[index].Cells[7].Value = lista[i].Tipo;
+                
             }
-
         }
 
         private void Validar(object sender, EventArgs e)

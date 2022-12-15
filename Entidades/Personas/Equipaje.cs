@@ -33,13 +33,7 @@ namespace Entidades.Personas
 
         public override string ToString()
         {
-            StringBuilder cadena = new StringBuilder();
-
-            cadena.AppendLine($"Bolsos: {this.bolsos}");
-            cadena.AppendLine($"Maletas: {this.maletas}");
-            cadena.AppendLine($"Peso de la/s Maletas: {this.pesoMaleta}");
-
-            return cadena.ToString();
+            return "Equipaje";
         }
 
     }
