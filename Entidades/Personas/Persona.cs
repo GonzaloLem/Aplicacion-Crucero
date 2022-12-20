@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Entidades.Listas;
 
 
 namespace Entidades.Personas
@@ -46,6 +47,26 @@ namespace Entidades.Personas
         public double Celular { get => this.celular; }
         public virtual string Tipo { get => "Persona"; }
         public virtual Roles Rol { get => Roles.Admin; }
+
+        #endregion
+
+        #region Metodos
+
+        public static int Comparar(Almacenamiento<Persona> lista, Persona persona)
+        {
+            int retorno = -1;
+
+            for (int i = 0; i < lista.Contar; i++)
+            {
+                if (lista[i] == persona)
+                {
+                    retorno = i;
+                    break;
+                }
+            }
+
+            return retorno;
+        }
 
         #endregion
 

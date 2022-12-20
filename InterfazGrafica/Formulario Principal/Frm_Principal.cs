@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using InterfazGrafica.Formulario_Crud_Personas;
 using InterfazGrafica.Formulario_Crud_Viajes;
 using InterfazGrafica.Formulario_Crud_Barcos;
+using InterfazGrafica.Formulario_Estadisticas;
 using Entidades;
 using Entidades.BaseDeDatos;
 using Entidades.BaseDeDatos.ConexionesPersonas;
@@ -93,17 +94,19 @@ namespace InterfazGrafica
 
         private void Btn_EstadisticasHistoricas_Click(object sender, EventArgs e)
         {
-
+            Frm_EstadisticasHistoricas formEstadisticas = new Frm_EstadisticasHistoricas();
+            formEstadisticas.ShowDialog();
         }
 
         #endregion
 
         #region Metodos Extras
-        private void Listar(AlmecenamientoViajes<Viaje> lista)
+
+        private void Listar(Almacenamiento<Viaje> lista)
         {
             this.DtGdVw_ListaViajes.Rows.Clear();
-           for(int i=0;i<lista.Total;i++)
-           {
+            for (int i = 0; i < lista.Contar; i++)
+            {
                 if (lista[i].Estado != Disponibilidad.Terminado)
                 {
                     int index = this.DtGdVw_ListaViajes.Rows.Add();
@@ -120,20 +123,22 @@ namespace InterfazGrafica
                     this.DtGdVw_ListaViajes.Rows[index].Cells[9].Value = lista[i].Duracion;
                     this.DtGdVw_ListaViajes.Rows[index].Cells[10].Value = lista[i].Llegada;
 
-                        this.DtGdVw_ListaViajes.Rows[index].DefaultCellStyle.BackColor = Color.Green;
-                        if (lista[i].Estado == Disponibilidad.Navegando)
-                        {
-                            this.DtGdVw_ListaViajes.Rows[index].DefaultCellStyle.BackColor = Color.Yellow;
-                        }
-                        else if (lista[i].Estado == Disponibilidad.Lleno)
-                        {
-                            this.DtGdVw_ListaViajes.Rows[index].DefaultCellStyle.BackColor = Color.Red;
-                        }
+                    this.DtGdVw_ListaViajes.Rows[index].DefaultCellStyle.BackColor = Color.Green;
+                    if (lista[i].Estado == Disponibilidad.Navegando)
+                    {
+                        this.DtGdVw_ListaViajes.Rows[index].DefaultCellStyle.BackColor = Color.Yellow;
+                    }
+                    else if (lista[i].Estado == Disponibilidad.Lleno)
+                    {
+                        this.DtGdVw_ListaViajes.Rows[index].DefaultCellStyle.BackColor = Color.Red;
+                    }
 
                 }
 
             }
         }
+
+
         #endregion
 
     }

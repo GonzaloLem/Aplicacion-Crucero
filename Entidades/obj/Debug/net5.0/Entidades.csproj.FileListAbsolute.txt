@@ -1,6 +1,5 @@
 D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\Entidades\bin\Debug\net5.0\Entidades.deps.json
 D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\Entidades\bin\Debug\net5.0\Entidades.dll
-D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\Entidades\bin\Debug\net5.0\ref\Entidades.dll
 D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\Entidades\bin\Debug\net5.0\Entidades.pdb
 D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\Entidades\obj\Debug\net5.0\Entidades.csproj.AssemblyReference.cache
 D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\Entidades\obj\Debug\net5.0\Entidades.GeneratedMSBuildEditorConfig.editorconfig
@@ -10,3 +9,4 @@ D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\Entidades
 D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\Entidades\obj\Debug\net5.0\Entidades.dll
 D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\Entidades\obj\Debug\net5.0\ref\Entidades.dll
 D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\Entidades\obj\Debug\net5.0\Entidades.pdb
+D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\Entidades\obj\Debug\net5.0\refint\Entidades.dll

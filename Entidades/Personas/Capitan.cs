@@ -11,6 +11,13 @@ namespace Entidades.Personas
 
         private int horasDeViaje;
         private int viajesRealizadosConLaEmpresa;
+
+        public Capitan() :base(null, null, 0, 0, 0, 0)
+        {
+            this.horasDeViaje = 0;
+            this.viajesRealizadosConLaEmpresa = 0;
+        }
+        
         public Capitan(string nombre, string apellido, int edad, int dni, Nacionalidades nacionalidad, double celular, int horasViaje) : base(nombre, apellido, edad, dni, nacionalidad, celular)
         {
             this.horasDeViaje = horasViaje;

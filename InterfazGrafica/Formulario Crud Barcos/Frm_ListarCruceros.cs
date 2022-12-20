@@ -7,10 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Entidades;
 using Entidades.BaseDeDatos;
 using Entidades.Barcos;
 using Entidades.Listas;
 using Entidades.BaseDeDatos.ConexionesPersonas;
+using Entidades.Viajes;
 using InterfazGrafica.Formulario_Crud_Personas;
 
 namespace InterfazGrafica.Formulario_Crud_Barcos
@@ -35,11 +37,11 @@ namespace InterfazGrafica.Formulario_Crud_Barcos
             this.Listar(ConexionSQLCrucero.Obtener());
         }
 
-        private void Listar(Embarcadero<Crucero> embarcadero)
+        private void Listar(Almacenamiento<Crucero> embarcadero)
         {
             this.dtGdVw_ListaCruceros.Rows.Clear();
 
-            for(int i=0;i<embarcadero.Total;i++)
+            for(int i=0;i<embarcadero.Contar;i++)
             {
                 int index = this.dtGdVw_ListaCruceros.Rows.Add();
 
@@ -53,7 +55,7 @@ namespace InterfazGrafica.Formulario_Crud_Barcos
                 this.dtGdVw_ListaCruceros.Rows[index].Cells[7].Value = embarcadero[i].Gimnacios;
                 this.dtGdVw_ListaCruceros.Rows[index].Cells[8].Value = embarcadero[i].Capacidad;
                 this.dtGdVw_ListaCruceros.Rows[index].Cells[9].Value = embarcadero[i].Peso;
-                this.dtGdVw_ListaCruceros.Rows[index].Cells[10].Value = embarcadero[i].Tripulantes.Total;
+                this.dtGdVw_ListaCruceros.Rows[index].Cells[10].Value = embarcadero[i].Tripulantes.Contar;
                 this.dtGdVw_ListaCruceros.Rows[index].Cells[11].Value = "X";
 
             }
@@ -79,11 +81,12 @@ namespace InterfazGrafica.Formulario_Crud_Barcos
             }
         }
 
+
         private void btn_ListarTripilantes_Click(object sender, EventArgs e)
         {
-            if (this.dtGdVw_ListaCruceros.SelectedRows.Count == 1 && ConexionSQLTripulantes.Obtener((int)this.dtGdVw_ListaCruceros.Rows[this.dtGdVw_ListaCruceros.SelectedRows[0].Index].Cells[0].Value).Total > 0)
+            if (this.dtGdVw_ListaCruceros.SelectedRows.Count == 1 && ConexionSQLTripulantes.Obtener((int)this.dtGdVw_ListaCruceros.Rows[this.dtGdVw_ListaCruceros.SelectedRows[0].Index].Cells[0].Value).Contar > 0)
             {
-                Frm_ListarPersonas formListarPersonas = new Frm_ListarPersonas(ConexionSQLTripulantes.Obtener((int)this.dtGdVw_ListaCruceros.Rows[this.dtGdVw_ListaCruceros.SelectedRows[0].Index].Cells[0].Value));
+                Frm_ListarTripulantes formListarPersonas = new Frm_ListarTripulantes(ConexionSQLTripulantes.Obtener((int)this.dtGdVw_ListaCruceros.Rows[this.dtGdVw_ListaCruceros.SelectedRows[0].Index].Cells[0].Value));
                 formListarPersonas.ShowDialog();  
             }
         }

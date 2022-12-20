@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using Entidades;
+using Entidades.Listas;
 using Entidades.Personas;
 using Entidades.Barcos;
 
@@ -58,18 +59,20 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
 
         #region Insertar
 
-        public static void Insertar(Persona persona, Crucero crucero)
+        public static void Insertar(Persona persona, Viaje viaje, Crucero crucero)
         {
 
             if (ConexionSQLTripulantes.ProbarConexion())
             {
                 try
                 {
-                    string cadena = "INSERT INTO Tripulante (ID_Persona, ID_Crucero) VALUES";
+                    string cadena = "INSERT INTO Tripulante (ID_Persona, ID_Viaje, ID_Crucero, Estado) VALUES";
                     cadena +=
                     "("
                         + persona.ID + ","
-                        + crucero.ID
+                        + viaje.ID + ","
+                        + crucero.ID + ","
+                        + 1
                     + ")";
 
                     ConexionSQLTripulantes.comando = new SqlCommand();
@@ -222,15 +225,17 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
 
         #region Obtener
 
-        public static AlmacenamientoPersonas<Persona> Obtener(int idCrucero)
+        public static Almacenamiento<Persona> Obtener(int idCrucero)
         {
-            AlmacenamientoPersonas<Persona> lista = new AlmacenamientoPersonas<Persona>(100000);
+            //Func<Almacenamiento<Persona>, Persona, int> comparador = Persona.Comparar;
+
+            Almacenamiento<Persona> lista = new Almacenamiento<Persona>(Persona.Comparar);
 
             if (ConexionSQLTripulantes.ProbarConexion())
             {
                 try
                 {
-                    string cadena = $"SELECT * From Tripulante";
+                    string cadena = $"SELECT * From Tripulante where ID_Crucero = {idCrucero}";
 
                     ConexionSQLTripulantes.comando = new SqlCommand();
 
@@ -244,11 +249,53 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
 
                     while (ConexionSQLTripulantes.lector.Read())
                     {
-                        if((int)ConexionSQLTripulantes.lector["ID_Crucero"] == idCrucero)
-                        {
-                            lista += ConexionSQLPersona.Obtener((int)ConexionSQLTripulantes.lector["ID_Persona"]);
-                        }
-                        
+                        lista += ConexionSQLPersona.Obtener((int)ConexionSQLTripulantes.lector["ID_Persona"]);   
+                    }
+                    ConexionSQLTripulantes.lector.Close();
+
+                }
+                catch (Exception)
+                {
+
+                }
+                finally
+                {
+                    if (ConexionSQLTripulantes.conexion.State == ConnectionState.Open)
+                    {
+                        ConexionSQLTripulantes.conexion.Close();
+                    }
+                }
+            }
+
+            return lista;
+        }
+
+        public static Almacenamiento<Persona> Obtener(int idCrucero, int idViaje)
+        {
+            Almacenamiento<Persona> lista = new Almacenamiento<Persona>(Persona.Comparar);
+
+            if (ConexionSQLTripulantes.ProbarConexion())
+            {
+                try
+                {
+                    string cadena = $"SELECT * From Tripulante where ID_Crucero = {idCrucero} and ID_Viaje = {idViaje}";
+
+                    ConexionSQLTripulantes.comando = new SqlCommand();
+
+                    ConexionSQLTripulantes.comando.CommandType = CommandType.Text;
+                    ConexionSQLTripulantes.comando.CommandText = cadena;
+                    ConexionSQLTripulantes.comando.Connection = ConexionSQLTripulantes.conexion;
+
+                    ConexionSQLTripulantes.conexion.Open();
+
+                    ConexionSQLTripulantes.lector = ConexionSQLTripulantes.comando.ExecuteReader();
+
+                    while (ConexionSQLTripulantes.lector.Read())
+                    {
+
+                        lista += ConexionSQLPersona.Obtener((int)ConexionSQLTripulantes.lector["ID_Persona"]);
+
+
                     }
                     ConexionSQLTripulantes.lector.Close();
 

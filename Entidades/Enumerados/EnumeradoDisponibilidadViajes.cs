@@ -3,5 +3,6 @@
     Disponible,
     Navegando,
     Lleno,
-    Terminado
+    Terminado,
+    Todos
 }

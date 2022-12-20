@@ -25,7 +25,7 @@ namespace InterfazGrafica.Formulario_Crud_Viajes
 
         private void Frm_CrearViaje_Load(object sender, EventArgs e)
         {
-            Embarcadero<Crucero> embacadero = ConexionSQLCrucero.Obtener();
+            Almacenamiento<Crucero> embacadero = ConexionSQLCrucero.Obtener();
 
             this.InformacionCrucero();
             this.AsignarFechasDeViaje();
@@ -140,7 +140,7 @@ namespace InterfazGrafica.Formulario_Crud_Viajes
             this.dtGdVw_Cruceros.Rows[5].Cells[1].Value = crucero.Piscinas;
             this.dtGdVw_Cruceros.Rows[6].Cells[1].Value = crucero.Gimnacios;
             this.dtGdVw_Cruceros.Rows[7].Cells[1].Value = crucero.Capacidad;
-            this.dtGdVw_Cruceros.Rows[8].Cells[1].Value = crucero.Tripulantes.Total;
+            this.dtGdVw_Cruceros.Rows[8].Cells[1].Value = crucero.Tripulantes.Contar;
         }
     }
 }

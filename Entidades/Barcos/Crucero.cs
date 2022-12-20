@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Entidades.BaseDeDatos;
 using Entidades.Personas;
+using Entidades.Listas;
 
 namespace Entidades.Barcos
 {
@@ -21,12 +22,27 @@ namespace Entidades.Barcos
         private int gimnacios;
         private double bodegaCapacidad;
         private double bodegaPeso;
-        private AlmacenamientoPersonas<Persona> listaTripulantes;
-        
+        private Almacenamiento<Persona> listaTripulantes;
+
+        #region Constructores
+        public Crucero()
+        {
+            this.id = 0;
+            this.matricula = null;
+            this.nombre = null;
+            this.camarotes = 0;
+            this.salones = 0;
+            this.casinos = 0;
+            this.piscinas = 0;
+            this.gimnacios = 0;
+            this.bodegaCapacidad = 0;
+            this.bodegaPeso = 0;
+            this.listaTripulantes = null;
+        }
         private Crucero(int camarotes)
         {
             this.id = 0;
-            this.listaTripulantes = new AlmacenamientoPersonas<Persona>(this.CapacidadPersonas(camarotes));
+            this.listaTripulantes = new Almacenamiento<Persona>(Persona.Comparar, this.CapacidadPersonas(camarotes));
             this.bodegaPeso = 0;
         }
         public Crucero(string matricula, string nombre, int camarotes, int salones, int casinos, int piscinas, int gimnacios, double capacidadBodega) : this(camarotes)
@@ -41,12 +57,13 @@ namespace Entidades.Barcos
             this.bodegaCapacidad = capacidadBodega;
         }
 
-        public Crucero(int id, string matricula, string nombre, int camarotes, int salones, int casinos, int piscinas, int gimnacios, double capacidadBodega, double pesoTotalBodega, AlmacenamientoPersonas<Persona> tripulantes) : this(matricula, nombre, camarotes, salones, casinos, piscinas, gimnacios, capacidadBodega)
+        public Crucero(int id, string matricula, string nombre, int camarotes, int salones, int casinos, int piscinas, int gimnacios, double capacidadBodega, double pesoTotalBodega, Almacenamiento<Persona> tripulantes) : this(matricula, nombre, camarotes, salones, casinos, piscinas, gimnacios, capacidadBodega)
         {
             this.id = id;
             this.bodegaPeso = pesoTotalBodega;
             this.listaTripulantes = tripulantes;
         }
+        #endregion
 
         #region Propiedades
         public int ID { get => this.id; }
@@ -66,7 +83,7 @@ namespace Entidades.Barcos
         /// </summary>
         public double Peso { get => this.bodegaPeso; }
 
-        public AlmacenamientoPersonas<Persona> Tripulantes { get => this.listaTripulantes; }
+        public Almacenamiento<Persona> Tripulantes { get => this.listaTripulantes; }
 
         /// <summary>
         /// Retorna el total de clientes a bordo que tiene el crucero
@@ -99,7 +116,7 @@ namespace Entidades.Barcos
             {
                 bool retorno = false;
 
-                if (this.listaTripulantes.Total < this.CapacidadPersonas(this.camarotes))
+                if (this.listaTripulantes.Contar < this.CapacidadPersonas(this.camarotes))
                 {
                     retorno = true;
                 }
@@ -112,6 +129,23 @@ namespace Entidades.Barcos
         #endregion
 
         #region Metodos
+
+        public static int Comparar(Almacenamiento<Crucero> lista, Crucero crucero)
+        {
+            int retorno = -1;
+
+            for (int i = 0; i < lista.Contar; i++)
+            {
+                if (lista[i] == crucero)
+                {
+                    retorno = i;
+                    break;
+                }
+            }
+
+            return retorno;
+        }
+
         private int CapacidadPersonas(int camarotes)
         {
             return camarotes * 4;
@@ -182,9 +216,9 @@ namespace Entidades.Barcos
         {
             string retorno = null;
 
-            for (int i = 0; i < this.listaTripulantes.Total; i++)
+            for (int i = 0; i < this.listaTripulantes.Contar; i++)
             {
-                if (i != this.listaTripulantes.Total - 1)
+                if (i != this.listaTripulantes.Contar - 1)
                 {
                     retorno += this.listaTripulantes[i].ID + ",";
                 }
@@ -200,7 +234,7 @@ namespace Entidades.Barcos
 
         #endregion
 
-        #region Comparadores
+        #region Operadores
         public static bool operator ==(Crucero crucero1, Crucero crucero2)
         {
             return (crucero1.matricula == crucero2.matricula);

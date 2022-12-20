@@ -40,8 +40,9 @@ namespace Entidades.BaseDeDatos
             {
                 ConexionSQLCrucero.conexion.Open();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.ToString());
                 rta = false;
             }
             finally
@@ -188,9 +189,9 @@ namespace Entidades.BaseDeDatos
 
         #region Obtener
 
-        public static Embarcadero<Crucero> Obtener()
+        public static Almacenamiento<Crucero> Obtener()
         {
-            Embarcadero<Crucero> lista = new Embarcadero<Crucero>(100000);
+            Almacenamiento<Crucero> lista = new Almacenamiento<Crucero>(Crucero.Comparar);
 
             if (ConexionSQLCrucero.ProbarConexion())
             {
@@ -277,7 +278,7 @@ namespace Entidades.BaseDeDatos
                                 (int)ConexionSQLCrucero.lector["Gimnacios"],
                                 (double)ConexionSQLCrucero.lector["CapacidadBodega"],
                                 (double)ConexionSQLCrucero.lector["PesoTotalDeLaBodega"],
-                                new AlmacenamientoPersonas<Personas.Persona>(1)
+                                new Almacenamiento<Personas.Persona>(1)
                             );
                     }
                     ConexionSQLCrucero.lector.Close();

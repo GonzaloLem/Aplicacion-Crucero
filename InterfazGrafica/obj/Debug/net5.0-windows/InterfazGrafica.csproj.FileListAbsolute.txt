@@ -3,7 +3,6 @@ D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazG
 D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazGrafica\bin\Debug\net5.0-windows\InterfazGrafica.runtimeconfig.json
 D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazGrafica\bin\Debug\net5.0-windows\InterfazGrafica.runtimeconfig.dev.json
 D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazGrafica\bin\Debug\net5.0-windows\InterfazGrafica.dll
-D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazGrafica\bin\Debug\net5.0-windows\ref\InterfazGrafica.dll
 D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazGrafica\bin\Debug\net5.0-windows\InterfazGrafica.pdb
 D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazGrafica\obj\Debug\net5.0-windows\InterfazGrafica.Frm_Principal.resources
 D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazGrafica\obj\Debug\net5.0-windows\InterfazGrafica.csproj.GenerateResource.cache
@@ -34,3 +33,6 @@ D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazG
 D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazGrafica\obj\Debug\net5.0-windows\InterfazGrafica.Formulario_Crud_Barcos.Frm_ModificarCrucero.resources
 D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazGrafica\obj\Debug\net5.0-windows\InterfazGrafica.Formulario_Crud_Viajes.Frm_ViajesModificar.resources
 D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazGrafica\obj\Debug\net5.0-windows\InterfazGrafica.Formulario_Crud_Viajes.Frm_AgregarPersonaAlViaje.resources
+D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazGrafica\obj\Debug\net5.0-windows\InterfazGrafica.Formulario_Estadisticas.Frm_EstadisticasHistoricas.resources
+D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazGrafica\obj\Debug\net5.0-windows\InterfazGrafica.Formulario_Crud_Barcos.Frm_ListarTripulantes.resources
+D:\Facultad\Programación\Proyectos\Gonzalo.Lemiña.Aplicacion.Crucero\InterfazGrafica\obj\Debug\net5.0-windows\refint\InterfazGrafica.dll

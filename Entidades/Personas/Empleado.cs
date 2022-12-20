@@ -11,6 +11,11 @@ namespace Entidades.Personas
         PuestosDeTrabajo puesto;
         DateTime diaQueSeUnio;
 
+        public Empleado() : base(null, null, 0, 0, 0, 0)
+        {
+            this.puesto = 0;
+            this.diaQueSeUnio = DateTime.Now;
+        }
         public Empleado(string nombre, string apellido, int edad, int dni, Nacionalidades nacionalidad, double celular, PuestosDeTrabajo puesto) : base(nombre, apellido, edad, dni, nacionalidad, celular)
         {
             this.puesto = puesto;
@@ -43,6 +48,22 @@ namespace Entidades.Personas
         /// </summary>
         public DateTime Comienzo { get => this.diaQueSeUnio; }
 
+        public override bool Equals(object obj)
+        {
+            bool retorno = false;
+
+            if (obj is Empleado)
+            {
+                retorno = true;
+            }
+
+            return retorno;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
         public override string ToString()
         {
             StringBuilder cadena = new StringBuilder();

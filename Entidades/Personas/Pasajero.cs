@@ -16,6 +16,17 @@ namespace Entidades.Personas
         private bool piscina;
         private bool gimnacio;
 
+
+        public Pasajero() :base(null, null, 0, 0, 0, 0)
+        {
+            this.correo = null;
+            this.clase = 0;
+            this.equipaje = null;
+            this.casino = false;
+            this.piscina = false;
+            this.gimnacio = false;
+        }
+
         public Pasajero(string nombre, string apellido, int edad, int dni, Nacionalidades nacionalidad, double celular, string correo,  Clases clase, Equipaje equipaje, bool casino, bool gimnacio, bool piscina) : base(nombre, apellido, edad, dni, nacionalidad, celular)
         {
             this.correo = correo;
@@ -60,6 +71,24 @@ namespace Entidades.Personas
         public bool Gimnacio { get => this.gimnacio; }
         public override string Tipo { get => "Pasajero"; }
         public override Roles Rol { get => Roles.Cliente; }
+
+        public override bool Equals(object obj)
+        {
+            bool retorno = false;
+
+            if (obj is Pasajero)
+            {
+                retorno = true;
+            }
+
+            return retorno;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
         public override string ToString()
         {
             StringBuilder cadena = new StringBuilder();

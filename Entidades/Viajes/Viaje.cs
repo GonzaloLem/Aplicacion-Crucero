@@ -3,6 +3,7 @@ using Entidades.Viajes;
 using Entidades.Barcos;
 using System.Text;
 using Entidades.Personas;
+using Entidades.Listas;
 
 namespace Entidades
 {
@@ -19,6 +20,20 @@ namespace Entidades
         private double costoTurista;
         private int duracionDelViaje;
 
+
+        public Viaje()
+        {
+            this.id = 0;
+            this.partida = 0;
+            this.destino = null;
+            this.fechaInicio = DateTime.Now;
+            this.crucero = null;
+            this.camarotesPremium = 0;
+            this.camarotesTurista = 0;
+            this.costoPremium = 0;
+            this.costoTurista = 0;
+            this.duracionDelViaje = 0;
+        }
 
         public Viaje(CiudadesDePartida partida, Destino destino, DateTime fechaInicio, Crucero crucero, int camarotesPremium, int camarotesTurista, double costoPremium, double costoTurista, int duracionViaje)
         {
@@ -163,6 +178,22 @@ namespace Entidades
         #endregion
 
         #region Metodos
+
+        public static int Comparar(Almacenamiento<Viaje> lista, Viaje viaje)
+        {
+            int retorno = -1;
+
+                for (int i = 0; i < lista.Contar; i++)
+                {
+                    if (lista[i] == viaje)
+                    {
+                        retorno = i;
+                        break;
+                    }
+                }
+
+            return retorno;
+        }
 
         /// <summary>
         /// Se encarga de saber si el viaje tiene lo que el pasajero quiere

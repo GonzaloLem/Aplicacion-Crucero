@@ -188,9 +188,9 @@ namespace Entidades.BaseDeDatos
 
         #region Obtener
 
-        public static AlmecenamientoViajes<Viaje> Obtener()
+        public static Almacenamiento<Viaje> Obtener()
         {
-            AlmecenamientoViajes<Viaje> lista = new AlmecenamientoViajes<Viaje>(100000);
+            Almacenamiento<Viaje> lista = new Almacenamiento<Viaje>(Viaje.Comparar, new Viaje().Equals);
 
             if (ConexionSQLViajes.ProbarConexion())
             {
@@ -223,6 +223,67 @@ namespace Entidades.BaseDeDatos
                                 (double)ConexionSQLViajes.lector["CostoTurista"],
                                 (int)ConexionSQLViajes.lector["DuracionDelViaje"]
                             );
+                    }
+                    ConexionSQLViajes.lector.Close();
+
+                }
+                catch (Exception)
+                {
+
+                }
+                finally
+                {
+                    if (ConexionSQLViajes.conexion.State == ConnectionState.Open)
+                    {
+                        ConexionSQLViajes.conexion.Close();
+                    }
+                }
+            }
+
+            return lista;
+        }
+
+        public static Almacenamiento<Viaje> Obtener(Disponibilidad disponibilidad)
+        {
+            Almacenamiento<Viaje> lista = new Almacenamiento<Viaje>(Viaje.Comparar);
+
+            if (ConexionSQLViajes.ProbarConexion())
+            {
+                try
+                {
+                    string cadena = $"SELECT * From Viaje";
+
+                    ConexionSQLViajes.comando = new SqlCommand();
+
+                    ConexionSQLViajes.comando.CommandType = CommandType.Text;
+                    ConexionSQLViajes.comando.CommandText = cadena;
+                    ConexionSQLViajes.comando.Connection = ConexionSQLViajes.conexion;
+
+                    ConexionSQLViajes.conexion.Open();
+
+                    ConexionSQLViajes.lector = ConexionSQLViajes.comando.ExecuteReader();
+
+                    while (ConexionSQLViajes.lector.Read())
+                    {
+                        Viaje viaje = new Viaje
+                            (
+                                (int)ConexionSQLViajes.lector["ID"],
+                                (CiudadesDePartida)ConexionSQLViajes.lector["CiudadDePartida"],
+                                Destino.Parse((int)ConexionSQLViajes.lector["Destino"]),
+                                DateTime.Parse(ConexionSQLViajes.lector["FechaDeInicio"].ToString()),
+                                ConexionSQLCrucero.Obtener((int)ConexionSQLViajes.lector["ID_Crucero"]),
+                                (int)ConexionSQLViajes.lector["CamarotesPremium"],
+                                (int)ConexionSQLViajes.lector["CamarotesTurista"],
+                                (double)ConexionSQLViajes.lector["CostoPremium"],
+                                (double)ConexionSQLViajes.lector["CostoTurista"],
+                                (int)ConexionSQLViajes.lector["DuracionDelViaje"]
+                            );
+
+                                if(viaje.Estado == disponibilidad)
+                                {
+                                    lista += viaje;
+                                }
+
                     }
                     ConexionSQLViajes.lector.Close();
 

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Entidades;
+using Entidades.Listas;
 using Entidades.BaseDeDatos;
 using Entidades.BaseDeDatos.ConexionesPersonas;
 using Entidades.Viajes;
@@ -48,16 +49,16 @@ namespace InterfazGrafica.Formulario_Crud_Viajes
                     {
                         if(this.viaje.Requisitos((Pasajero)persona))
                         {
-                            ConexionSQLTripulantes.Insertar(persona, this.viaje.Crucero);
+                            ConexionSQLTripulantes.Insertar(persona, this.viaje, this.viaje.Crucero);
                         }
                         else
                         {
-                            MessageBox.Show("El viaje no cumple con los Requisitos del Pasajeri", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("El viaje no cumple con los Requisitos del Pasajero", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }    
                     }
                     else
                     {
-                        ConexionSQLTripulantes.Insertar(persona, this.viaje.Crucero);                           
+                        ConexionSQLTripulantes.Insertar(persona, this.viaje, this.viaje.Crucero);                           
                     }
 
                 this.ListarPersonas(ConexionSQLPersona.Obtener());
@@ -89,10 +90,10 @@ namespace InterfazGrafica.Formulario_Crud_Viajes
         #endregion
 
         #region Metodos
-        private void ListarPersonas(AlmacenamientoPersonas<Persona> lista)
+        private void ListarPersonas(Almacenamiento<Persona> lista)
         {
             this.dtGdVw_PersonasDisponibles.Rows.Clear();
-            for(int i=0;i<lista.Total;i++)
+            for(int i=0;i<lista.Contar;i++)
             {
                 if (!ConexionSQLTripulantes.Buscar(lista[i]))
                 {

@@ -34,7 +34,7 @@ namespace InterfazGrafica.Formulario_Crud_Viajes
         {
             
 
-            Embarcadero<Crucero> embacadero = ConexionSQLCrucero.Obtener();
+            Almacenamiento<Crucero> embacadero = ConexionSQLCrucero.Obtener();
 
             foreach (CiudadesDePartida item in Enum.GetValues(typeof(CiudadesDePartida)))
             {
@@ -113,7 +113,7 @@ namespace InterfazGrafica.Formulario_Crud_Viajes
             this.dtGdVw_Cruceros.Rows[5].Cells[1].Value = crucero.Piscinas;
             this.dtGdVw_Cruceros.Rows[6].Cells[1].Value = crucero.Gimnacios;
             this.dtGdVw_Cruceros.Rows[7].Cells[1].Value = crucero.Capacidad;
-            this.dtGdVw_Cruceros.Rows[8].Cells[1].Value = crucero.Tripulantes.Total;
+            this.dtGdVw_Cruceros.Rows[8].Cells[1].Value = crucero.Tripulantes.Contar;
         }
 
 

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Entidades.Personas;
+using Entidades.Listas;
 using Entidades.BaseDeDatos;
 using Entidades.BaseDeDatos.ConexionesPersonas;
 using Entidades.Extensiones;
@@ -16,16 +17,19 @@ namespace InterfazGrafica.Formulario_Crud_Personas
 {
     public partial class Frm_ListarPersonas : Form
     {
-        private AlmacenamientoPersonas<Persona> lista;
+        private Almacenamiento<Persona> lista;
         private ListSortDirection orden;
         public Frm_ListarPersonas()
         {
             InitializeComponent();
-            this.lista = new AlmacenamientoPersonas<Persona>(1000000);
+
+            Func<Almacenamiento<Persona>, Persona, int> comparador = Persona.Comparar;
+
+            this.lista = new Almacenamiento<Persona>(comparador);
             this.orden = ListSortDirection.Ascending;
         }
 
-        public Frm_ListarPersonas(AlmacenamientoPersonas<Persona> lista)
+        public Frm_ListarPersonas(Almacenamiento<Persona> lista)
         {
             InitializeComponent();
             this.lista = lista;
@@ -111,12 +115,12 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             }
         }
 
-        private void ListarPersonas(AlmacenamientoPersonas<Persona> lista)
+        private protected void ListarPersonas(Almacenamiento<Persona> lista)
         {
             
             this.dtGdVw_ListarPersonas.Rows.Clear();
 
-            for(int i=0;i<lista.Total;i++)
+            for(int i=0;i<lista.Contar;i++)
             {
                 //if(lista[i].Disponibilidad)
                 
