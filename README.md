@@ -18,4 +18,4 @@ Un crud de Viajes: En el cual se va a poder elegir los destinos, la fecha en el 
 
 Agregar persona al Viaje: Esta funcion permite agregar ya sea un empleado, capitan o cliente, este ultimo lo va a agregar si el crucero del viaje cumple con los requisitos del cliente
 
-Estadísticas Históricas(Sin hacer)
+Estadísticas Históricas: Donde se puede ver las ganancias totales de los viajes, las horas de viaje de los cruceros y los destinos mas populares
