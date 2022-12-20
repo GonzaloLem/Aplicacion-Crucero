@@ -140,6 +140,38 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
 
         #region Eliminar
 
+        public static void Eliminar(Viaje viaje)
+        {
+            if (ConexionSQLTripulantes.ProbarConexion())
+            {
+                try
+                {
+                    string cadena = $"delete FROM Tripulante WHERE ID_Viaje = {viaje.ID} ";
+
+                    ConexionSQLTripulantes.comando = new SqlCommand();
+
+                    ConexionSQLTripulantes.comando.CommandType = CommandType.Text;
+                    ConexionSQLTripulantes.comando.CommandText = cadena;
+                    ConexionSQLTripulantes.comando.Connection = ConexionSQLTripulantes.conexion;
+
+                    ConexionSQLTripulantes.conexion.Open();
+
+                    ConexionSQLTripulantes.comando.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                finally
+                {
+                    if (ConexionSQLTripulantes.conexion.State == ConnectionState.Open)
+                    {
+                        ConexionSQLTripulantes.conexion.Close();
+                    }
+                }
+            }
+        }
+
         public static void Eliminar(Persona persona)
         {
             if (ConexionSQLTripulantes.ProbarConexion())
@@ -270,7 +302,7 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
             return lista;
         }
 
-        public static Almacenamiento<Persona> Obtener(int idCrucero, int idViaje)
+        public static Almacenamiento<Persona> Obtener(Viaje viaje)
         {
             Almacenamiento<Persona> lista = new Almacenamiento<Persona>(Persona.Comparar);
 
@@ -278,7 +310,7 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
             {
                 try
                 {
-                    string cadena = $"SELECT * From Tripulante where ID_Crucero = {idCrucero} and ID_Viaje = {idViaje}";
+                    string cadena = $"SELECT * From Tripulante where ID_Crucero = {viaje.Crucero.ID} and ID_Viaje = {viaje.ID}";
 
                     ConexionSQLTripulantes.comando = new SqlCommand();
 
@@ -292,10 +324,7 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
 
                     while (ConexionSQLTripulantes.lector.Read())
                     {
-
                         lista += ConexionSQLPersona.Obtener((int)ConexionSQLTripulantes.lector["ID_Persona"]);
-
-
                     }
                     ConexionSQLTripulantes.lector.Close();
 

@@ -23,9 +23,7 @@ namespace InterfazGrafica.Formulario_Crud_Personas
         {
             InitializeComponent();
 
-            Func<Almacenamiento<Persona>, Persona, int> comparador = Persona.Comparar;
-
-            this.lista = new Almacenamiento<Persona>(comparador);
+            this.lista = new Almacenamiento<Persona>(Persona.Comparar);
             this.orden = ListSortDirection.Ascending;
         }
 
@@ -33,10 +31,6 @@ namespace InterfazGrafica.Formulario_Crud_Personas
         {
             InitializeComponent();
             this.lista = lista;
-            this.orden = ListSortDirection.Ascending;
-            this.btn_Eliminar.Visible = false;
-            this.btn_ModificarPersona.Visible = false;
-            this.Size = new System.Drawing.Size(860, 550);
         }
 
         #region Eventos

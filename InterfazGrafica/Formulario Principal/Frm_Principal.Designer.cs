@@ -49,6 +49,8 @@ namespace InterfazGrafica
             this.btn_AgregarPersona_AlViaje = new System.Windows.Forms.Button();
             this.Btn_ListarPersonasSistema = new System.Windows.Forms.Button();
             this.btn_CrudCrucero = new System.Windows.Forms.Button();
+            this.Colum_ListaViajes_TotalPersonas = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btn_ListarPersonasDelViaje = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DtGdVw_ListaViajes)).BeginInit();
             this.SuspendLayout();
             // 
@@ -73,7 +75,8 @@ namespace InterfazGrafica
             this.Colum_ListaViajes_CostoPremium,
             this.Colum_ListaViajes_CostoTurista,
             this.Colum_ListaViajes_DuracionViaje,
-            this.Colum_ListaViajes_Partida_Llegada});
+            this.Colum_ListaViajes_Partida_Llegada,
+            this.Colum_ListaViajes_TotalPersonas});
             this.DtGdVw_ListaViajes.Location = new System.Drawing.Point(13, 13);
             this.DtGdVw_ListaViajes.Name = "DtGdVw_ListaViajes";
             this.DtGdVw_ListaViajes.RowTemplate.Height = 25;
@@ -172,7 +175,7 @@ namespace InterfazGrafica
             // Btn_AgregarViaje
             // 
             this.Btn_AgregarViaje.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_AgregarViaje.Location = new System.Drawing.Point(278, 244);
+            this.Btn_AgregarViaje.Location = new System.Drawing.Point(201, 244);
             this.Btn_AgregarViaje.Name = "Btn_AgregarViaje";
             this.Btn_AgregarViaje.Size = new System.Drawing.Size(140, 43);
             this.Btn_AgregarViaje.TabIndex = 1;
@@ -183,7 +186,7 @@ namespace InterfazGrafica
             // Btn_ModificarViaje
             // 
             this.Btn_ModificarViaje.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_ModificarViaje.Location = new System.Drawing.Point(424, 244);
+            this.Btn_ModificarViaje.Location = new System.Drawing.Point(347, 244);
             this.Btn_ModificarViaje.Name = "Btn_ModificarViaje";
             this.Btn_ModificarViaje.Size = new System.Drawing.Size(140, 43);
             this.Btn_ModificarViaje.TabIndex = 2;
@@ -194,7 +197,7 @@ namespace InterfazGrafica
             // Btn_EliminarViaje
             // 
             this.Btn_EliminarViaje.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_EliminarViaje.Location = new System.Drawing.Point(570, 244);
+            this.Btn_EliminarViaje.Location = new System.Drawing.Point(493, 244);
             this.Btn_EliminarViaje.Name = "Btn_EliminarViaje";
             this.Btn_EliminarViaje.Size = new System.Drawing.Size(140, 43);
             this.Btn_EliminarViaje.TabIndex = 3;
@@ -227,7 +230,7 @@ namespace InterfazGrafica
             // btn_AgregarPersona_AlViaje
             // 
             this.btn_AgregarPersona_AlViaje.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_AgregarPersona_AlViaje.Location = new System.Drawing.Point(716, 244);
+            this.btn_AgregarPersona_AlViaje.Location = new System.Drawing.Point(639, 244);
             this.btn_AgregarPersona_AlViaje.Name = "btn_AgregarPersona_AlViaje";
             this.btn_AgregarPersona_AlViaje.Size = new System.Drawing.Size(140, 43);
             this.btn_AgregarPersona_AlViaje.TabIndex = 9;
@@ -257,11 +260,29 @@ namespace InterfazGrafica
             this.btn_CrudCrucero.UseVisualStyleBackColor = true;
             this.btn_CrudCrucero.Click += new System.EventHandler(this.btn_CrudCrucero_Click);
             // 
+            // Colum_ListaViajes_TotalPersonas
+            // 
+            this.Colum_ListaViajes_TotalPersonas.HeaderText = "Tripulantes";
+            this.Colum_ListaViajes_TotalPersonas.Name = "Colum_ListaViajes_TotalPersonas";
+            this.Colum_ListaViajes_TotalPersonas.ReadOnly = true;
+            // 
+            // btn_ListarPersonasDelViaje
+            // 
+            this.btn_ListarPersonasDelViaje.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_ListarPersonasDelViaje.Location = new System.Drawing.Point(785, 244);
+            this.btn_ListarPersonasDelViaje.Name = "btn_ListarPersonasDelViaje";
+            this.btn_ListarPersonasDelViaje.Size = new System.Drawing.Size(140, 43);
+            this.btn_ListarPersonasDelViaje.TabIndex = 12;
+            this.btn_ListarPersonasDelViaje.Text = "Listar Personas del Viaje";
+            this.btn_ListarPersonasDelViaje.UseVisualStyleBackColor = true;
+            this.btn_ListarPersonasDelViaje.Click += new System.EventHandler(this.btn_ListarPersonasDelViaje_Click);
+            // 
             // Frm_Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1116, 343);
+            this.Controls.Add(this.btn_ListarPersonasDelViaje);
             this.Controls.Add(this.btn_CrudCrucero);
             this.Controls.Add(this.Btn_ListarPersonasSistema);
             this.Controls.Add(this.btn_AgregarPersona_AlViaje);
@@ -302,6 +323,8 @@ namespace InterfazGrafica
         private System.Windows.Forms.DataGridViewTextBoxColumn Colum_ListaViajes_CostoTurista;
         private System.Windows.Forms.DataGridViewTextBoxColumn Colum_ListaViajes_DuracionViaje;
         private System.Windows.Forms.DataGridViewTextBoxColumn Colum_ListaViajes_Partida_Llegada;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Colum_ListaViajes_TotalPersonas;
+        private System.Windows.Forms.Button btn_ListarPersonasDelViaje;
     }
 }
 

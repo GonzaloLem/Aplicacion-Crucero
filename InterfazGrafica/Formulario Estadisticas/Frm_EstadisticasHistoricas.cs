@@ -49,7 +49,7 @@ namespace InterfazGrafica.Formulario_Estadisticas
                 this.dtGdVw_EstadasticasDeLosViajes.Rows[index].Cells[3].Value = lista[i].CostoPremium;
                 this.dtGdVw_EstadasticasDeLosViajes.Rows[index].Cells[4].Value = lista[i].CostoTurista;
                 this.dtGdVw_EstadasticasDeLosViajes.Rows[index].Cells[5].Value = lista[i].Crucero;
-                this.dtGdVw_EstadasticasDeLosViajes.Rows[index].Cells[6].Value = ConexionSQLTripulantes.Obtener(lista[i].Crucero.ID).Contar;
+                this.dtGdVw_EstadasticasDeLosViajes.Rows[index].Cells[6].Value = ConexionSQLTripulantes.Obtener(lista[i]).Contar;
 
 
             }

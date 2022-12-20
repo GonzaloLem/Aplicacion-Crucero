@@ -22,10 +22,13 @@ namespace InterfazGrafica
 {
     public partial class Frm_Principal : Form
     {
+        #region Constructores
         public Frm_Principal()
         {
             InitializeComponent();
         }
+
+        #endregion
 
         #region Eventos
         private void Frm_Principal_Load(object sender, EventArgs e)
@@ -92,6 +95,14 @@ namespace InterfazGrafica
             }
         }
 
+        private void btn_ListarPersonasDelViaje_Click(object sender, EventArgs e)
+        {
+            if (this.DtGdVw_ListaViajes.SelectedRows.Count == 1)
+            {
+                Frm_ListarTripulantes formListarPeronas = new Frm_ListarTripulantes(ConexionSQLTripulantes.Obtener(ConexionSQLViajes.Obtener((int)this.DtGdVw_ListaViajes.Rows[this.DtGdVw_ListaViajes.SelectedRows[0].Index].Cells[0].Value)));
+                formListarPeronas.ShowDialog();
+            }
+        }
         private void Btn_EstadisticasHistoricas_Click(object sender, EventArgs e)
         {
             Frm_EstadisticasHistoricas formEstadisticas = new Frm_EstadisticasHistoricas();
@@ -122,6 +133,7 @@ namespace InterfazGrafica
                     this.DtGdVw_ListaViajes.Rows[index].Cells[8].Value = lista[i].CostoTurista;
                     this.DtGdVw_ListaViajes.Rows[index].Cells[9].Value = lista[i].Duracion;
                     this.DtGdVw_ListaViajes.Rows[index].Cells[10].Value = lista[i].Llegada;
+                    this.DtGdVw_ListaViajes.Rows[index].Cells[11].Value = ConexionSQLTripulantes.Obtener(lista[i]).Contar;
 
                     this.DtGdVw_ListaViajes.Rows[index].DefaultCellStyle.BackColor = Color.Green;
                     if (lista[i].Estado == Disponibilidad.Navegando)
@@ -140,6 +152,7 @@ namespace InterfazGrafica
 
 
         #endregion
+
 
     }
 }

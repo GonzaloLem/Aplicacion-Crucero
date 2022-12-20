@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.SqlClient;
 using Entidades.Viajes;
 using Entidades.Listas;
+using Entidades.BaseDeDatos.ConexionesPersonas;
 
 namespace Entidades.BaseDeDatos
 {
@@ -158,6 +159,8 @@ namespace Entidades.BaseDeDatos
             {
                 try
                 {
+                    ConexionSQLTripulantes.Eliminar(viaje);
+
                     string cadena = $"delete FROM Viaje WHERE ID = {viaje.ID} ";
 
                     ConexionSQLViajes.comando = new SqlCommand();
