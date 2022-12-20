@@ -47,7 +47,11 @@ namespace InterfazGrafica.Formulario_Crud_Viajes
 
             foreach(Crucero item in embacadero.Lista)
             {
-                this.cbBox_Cruceros.Items.Add(item);
+                if(ConexionSQLViajes.Disponible(item))
+                {
+                    this.cbBox_Cruceros.Items.Add(item);
+                }
+                
             }
 
         }

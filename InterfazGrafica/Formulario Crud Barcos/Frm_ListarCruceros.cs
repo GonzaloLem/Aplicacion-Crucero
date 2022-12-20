@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Entidades;
+using Entidades.Extensiones;
 using Entidades.BaseDeDatos;
 using Entidades.Barcos;
 using Entidades.Listas;
@@ -56,7 +57,7 @@ namespace InterfazGrafica.Formulario_Crud_Barcos
                 this.dtGdVw_ListaCruceros.Rows[index].Cells[8].Value = embarcadero[i].Capacidad;
                 this.dtGdVw_ListaCruceros.Rows[index].Cells[9].Value = embarcadero[i].Peso;
                 this.dtGdVw_ListaCruceros.Rows[index].Cells[10].Value = embarcadero[i].Tripulantes.Contar;
-                this.dtGdVw_ListaCruceros.Rows[index].Cells[11].Value = "X";
+                this.dtGdVw_ListaCruceros.Rows[index].Cells[11].Value = new bool().Traductor(ConexionSQLViajes.Disponible(embarcadero[i]));
 
             }
 

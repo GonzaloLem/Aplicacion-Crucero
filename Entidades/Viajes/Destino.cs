@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entidades.Listas;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,57 @@ namespace Entidades.Viajes
 {
     public abstract class Destino
     {
-        public Destino() { }
+        int popularidad;
+        public Destino() 
+        {
+            this.popularidad = 1;
+        }
 
+        #region Propiedades
+        public int Popularidad 
+        { 
+            get
+            {
+                return this.popularidad;
+            }
 
+            set
+            {
+                if(value == 1)
+                {
+                    this.popularidad += value;
+                }
+            }
+
+        }
+        #endregion
+
+        #region Operadores
+
+        public static bool operator ==(Destino destino1, Destino destino2)
+        {
+            bool retorno = false;
+
+            if(destino1 is DestinoRegional && destino2 is DestinoRegional)
+            {
+                retorno = (DestinoRegional)destino1 == (DestinoRegional)destino2;
+            }
+            else if(destino1 is DestinoExtraRegional && destino2 is DestinoExtraRegional)
+            {
+                retorno = (DestinoExtraRegional)destino1 == (DestinoExtraRegional)destino2;
+            }
+
+            return retorno;
+        }
+
+        public static bool operator !=(Destino destino1, Destino destino2)
+        {
+            return !(destino1==destino2);
+        }
+
+        #endregion
+
+        #region Metodos
         public static Destino Parse(int valor)
         {
             Destino destino = null;
@@ -26,5 +75,26 @@ namespace Entidades.Viajes
 
             return destino;
         }
+        #endregion
+
+        #region Overrides
+        public override bool Equals(object obj)
+        {
+            bool retorno = false;
+
+            if (obj is Destino)
+            {
+                retorno = true;
+            }
+
+            return retorno;
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        #endregion
+
     }
 }

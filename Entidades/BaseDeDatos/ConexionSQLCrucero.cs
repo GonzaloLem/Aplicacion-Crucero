@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using Entidades.Barcos;
 using Entidades.Listas;
 using Entidades.BaseDeDatos.ConexionesPersonas;
+using Entidades.Viajes;
 
 namespace Entidades.BaseDeDatos
 {
@@ -300,6 +301,47 @@ namespace Entidades.BaseDeDatos
             return retorno;
         }
 
+        public static int Horas(Crucero crucero)
+        {
+            int retorno = 0;
+
+            if (ConexionSQLCrucero.ProbarConexion())
+            {
+                try
+                {
+                    string cadena = $"SELECT * FROM Viaje WHERE ID_Crucero = {crucero.ID}";
+
+                    ConexionSQLCrucero.comando = new SqlCommand();
+                    ConexionSQLCrucero.comando.CommandType = CommandType.Text;
+                    ConexionSQLCrucero.comando.CommandText = cadena;
+                    ConexionSQLCrucero.comando.Connection = ConexionSQLCrucero.conexion;
+
+                    ConexionSQLCrucero.conexion.Open();
+
+                    ConexionSQLCrucero.lector = ConexionSQLCrucero.comando.ExecuteReader();
+
+                    while (ConexionSQLCrucero.lector.Read())
+                    {
+                        retorno += (int)ConexionSQLCrucero.lector["DuracionDelViaje"];
+                    }
+                    ConexionSQLCrucero.lector.Close();
+
+                }
+                catch (Exception)
+                {
+
+                }
+                finally
+                {
+                    if (ConexionSQLCrucero.conexion.State == ConnectionState.Open)
+                    {
+                        ConexionSQLCrucero.conexion.Close();
+                    }
+                }
+            }
+
+            return retorno;
+        }
         #endregion
 
     }

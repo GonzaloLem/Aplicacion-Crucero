@@ -4,6 +4,7 @@ using Entidades.Barcos;
 using System.Text;
 using Entidades.Personas;
 using Entidades.Listas;
+using Entidades.BaseDeDatos.ConexionesPersonas;
 
 namespace Entidades
 {
@@ -20,7 +21,7 @@ namespace Entidades
         private double costoTurista;
         private int duracionDelViaje;
 
-
+        #region Constructores
         public Viaje()
         {
             this.id = 0;
@@ -53,6 +54,8 @@ namespace Entidades
         {
             this.id = id;
         }
+
+        #endregion
 
         #region Propiedades
         public int ID { get => this.id; }
@@ -189,6 +192,29 @@ namespace Entidades
                     {
                         retorno = i;
                         break;
+                    }
+                }
+
+            return retorno;
+        }
+
+        public double Ganancias()
+        {
+            double retorno = 0;
+            Almacenamiento<Persona> lista = ConexionSQLTripulantes.Obtener(this);
+
+                for(int i=0;i<lista.Contar;i++)
+                {
+                    if(lista[i] is Pasajero)
+                    {   
+                        if(((Pasajero)lista[i]).Clase == Clases.Premium)
+                        {
+                            retorno += this.costoPremium;
+                        }
+                        else if(((Pasajero)lista[i]).Clase == Clases.Turista)
+                        {
+                            retorno += this.costoTurista;
+                        }
                     }
                 }
 
