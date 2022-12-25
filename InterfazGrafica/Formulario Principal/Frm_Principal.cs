@@ -17,6 +17,7 @@ using Entidades.BaseDeDatos.ConexionesPersonas;
 using Entidades.Personas;
 using Entidades.Viajes;
 using Entidades.Listas;
+using Entidades.Archivos;
 
 namespace InterfazGrafica
 {
@@ -42,7 +43,6 @@ namespace InterfazGrafica
             Frm_AgregarPersona formAgregarPersona = new Frm_AgregarPersona();
 
             formAgregarPersona.ShowDialog();
-
         }
 
         private void Btn_ListarPersonasSistema_Click(object sender, EventArgs e)
@@ -151,8 +151,8 @@ namespace InterfazGrafica
         }
 
 
-        #endregion
 
+        #endregion
 
     }
 }

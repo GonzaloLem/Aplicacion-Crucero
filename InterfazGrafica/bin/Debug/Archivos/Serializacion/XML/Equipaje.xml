@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfEquipaje xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Equipaje>
+    <ID>1</ID>
+    <Bolsos>1</Bolsos>
+    <Maletas>1</Maletas>
+    <Peso>15</Peso>
+  </Equipaje>
+  <Equipaje>
+    <ID>1003</ID>
+    <Bolsos>1</Bolsos>
+    <Maletas>1</Maletas>
+    <Peso>15</Peso>
+  </Equipaje>
+  <Equipaje>
+    <ID>1004</ID>
+    <Bolsos>1</Bolsos>
+    <Maletas>1</Maletas>
+    <Peso>5</Peso>
+  </Equipaje>
+</ArrayOfEquipaje>

@@ -182,6 +182,24 @@ namespace Entidades
 
         #region Metodos
 
+        public static Viaje Convertir(string[] viaje)
+        {
+             
+            return new Viaje
+                (
+                   int.Parse(viaje[0]),
+                   (CiudadesDePartida)int.Parse(viaje[1]),
+                    (Destino)int.Parse(viaje[2]),
+                    DateTime.Parse(viaje[3]),
+                    (Crucero)int.Parse(viaje[4]),
+                    int.Parse(viaje[5]),
+                    int.Parse(viaje[6]),
+                    double.Parse(viaje[7]),
+                    double.Parse(viaje[8]),
+                    int.Parse(viaje[9])
+                );
+        }
+
         public static int Comparar(Almacenamiento<Viaje> lista, Viaje viaje)
         {
             int retorno = -1;
@@ -249,7 +267,25 @@ namespace Entidades
 
         #endregion
 
-        #region Comparador
+        #region Operadores
+
+        public static implicit operator Viaje(string[] viaje)
+        {
+            return new Viaje
+            (
+                int.Parse(viaje[0]),
+                (CiudadesDePartida)int.Parse(viaje[1]),
+                (Destino)int.Parse(viaje[2]),
+                DateTime.Parse(viaje[3].ToString()),
+                (Crucero)int.Parse(viaje[4]),
+                int.Parse(viaje[5]),
+                int.Parse(viaje[6]),
+                double.Parse(viaje[7]),
+                double.Parse(viaje[8]),
+                int.Parse(viaje[9])
+            ) ;
+        }
+
         public static bool operator ==(Viaje viaje1, Viaje viaje2)
         {
             return (viaje1.Destino == viaje2.Destino && viaje1.fechaInicio.ToShortDateString() == viaje2.fechaInicio.ToShortDateString());
@@ -267,15 +303,16 @@ namespace Entidades
         {
             StringBuilder cadena = new StringBuilder();
 
-            cadena.AppendLine($"Partida: {this.partida}");
-            cadena.AppendLine($"Destino: {this.destino}");
-            cadena.AppendLine($"Fecha de Inicio: {this.fechaInicio}");
-            cadena.AppendLine($"Crucero: {this.crucero}");
-            cadena.AppendLine($"Camarote Premium: {this.camarotesPremium}");
-            cadena.AppendLine($"Camarotes Turista: {this.camarotesTurista}");
-            cadena.AppendLine($"Costo Premium: {this.costoPremium}");
-            cadena.AppendLine($"Costo Turista: {this.costoTurista}");
-            cadena.AppendLine($"Duracion del viaje(Horas): {this.duracionDelViaje}");
+            cadena.Append($"{this.id} - ");
+            cadena.Append($"{((int)this.partida)} - ");
+            cadena.Append($"{(int)this.destino} - ");
+            cadena.Append($"{this.fechaInicio} - ");
+            cadena.Append($"{this.crucero.ID} - ");
+            cadena.Append($"{this.camarotesPremium} - ");
+            cadena.Append($"{this.camarotesTurista} - ");
+            cadena.Append($"{this.costoPremium} - ");
+            cadena.Append($"{this.costoTurista} - ");
+            cadena.Append($"{this.duracionDelViaje}");
 
             return cadena.ToString();
 

@@ -41,6 +41,7 @@ namespace InterfazGrafica
             this.Colum_ListaViajes_CostoTurista = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Colum_ListaViajes_DuracionViaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Colum_ListaViajes_Partida_Llegada = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Colum_ListaViajes_TotalPersonas = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Btn_AgregarViaje = new System.Windows.Forms.Button();
             this.Btn_ModificarViaje = new System.Windows.Forms.Button();
             this.Btn_EliminarViaje = new System.Windows.Forms.Button();
@@ -49,7 +50,6 @@ namespace InterfazGrafica
             this.btn_AgregarPersona_AlViaje = new System.Windows.Forms.Button();
             this.Btn_ListarPersonasSistema = new System.Windows.Forms.Button();
             this.btn_CrudCrucero = new System.Windows.Forms.Button();
-            this.Colum_ListaViajes_TotalPersonas = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btn_ListarPersonasDelViaje = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DtGdVw_ListaViajes)).BeginInit();
             this.SuspendLayout();
@@ -172,6 +172,12 @@ namespace InterfazGrafica
             this.Colum_ListaViajes_Partida_Llegada.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             this.Colum_ListaViajes_Partida_Llegada.Width = 115;
             // 
+            // Colum_ListaViajes_TotalPersonas
+            // 
+            this.Colum_ListaViajes_TotalPersonas.HeaderText = "Tripulantes";
+            this.Colum_ListaViajes_TotalPersonas.Name = "Colum_ListaViajes_TotalPersonas";
+            this.Colum_ListaViajes_TotalPersonas.ReadOnly = true;
+            // 
             // Btn_AgregarViaje
             // 
             this.Btn_AgregarViaje.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -259,12 +265,6 @@ namespace InterfazGrafica
             this.btn_CrudCrucero.Text = "Opciones Crucero";
             this.btn_CrudCrucero.UseVisualStyleBackColor = true;
             this.btn_CrudCrucero.Click += new System.EventHandler(this.btn_CrudCrucero_Click);
-            // 
-            // Colum_ListaViajes_TotalPersonas
-            // 
-            this.Colum_ListaViajes_TotalPersonas.HeaderText = "Tripulantes";
-            this.Colum_ListaViajes_TotalPersonas.Name = "Colum_ListaViajes_TotalPersonas";
-            this.Colum_ListaViajes_TotalPersonas.ReadOnly = true;
             // 
             // btn_ListarPersonasDelViaje
             // 

@@ -127,5 +127,10 @@ namespace Entidades.Extensiones
             return retorno;
         }
 
+        public static string Combinar(this string str, string cadena)
+        {
+            return str + cadena;
+        }
+
     }
 }

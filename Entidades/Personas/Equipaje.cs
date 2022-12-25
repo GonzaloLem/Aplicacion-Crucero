@@ -12,6 +12,9 @@ namespace Entidades.Personas
         private int bolsos;
         private int maletas;
         private double pesoMaleta;
+    
+
+        public Equipaje() { }
 
         public Equipaje(int bolsos, int maletas, double peso)
         {
@@ -26,14 +29,21 @@ namespace Entidades.Personas
             this.id = id;
         }
 
-        public int ID { get => this.id; }
-        public int Bolsos { get => this.bolsos; }
-        public int Maletas { get => this.maletas; }
-        public double Peso { get => this.pesoMaleta; }
+        public int ID { get => this.id; set => this.id = value; }
+        public int Bolsos { get => this.bolsos; set => this.bolsos = value; }
+        public int Maletas { get => this.maletas; set => this.maletas = value; }
+        public double Peso { get => this.pesoMaleta; set => this.pesoMaleta = value;  }
 
         public override string ToString()
         {
-            return "Equipaje";
+            StringBuilder cadena = new StringBuilder();
+
+            cadena.Append($"{this.id}");
+            cadena.Append($"{this.bolsos}");
+            cadena.Append($"{this.maletas}");
+            cadena.Append($"{this.pesoMaleta}");
+
+            return cadena.ToString();
         }
 
     }

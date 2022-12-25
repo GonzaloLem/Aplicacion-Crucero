@@ -36,6 +36,38 @@ namespace Entidades.Viajes
 
         #region Operadores
 
+        public static explicit operator Destino(int valor)
+        {
+            Destino destino = null;
+
+            if (valor > -1 && valor < 10)
+            {
+                destino = new DestinoRegional((ViajesRegionales)valor);
+            }
+            else if (valor > 99 && valor < 108)
+            {
+                destino = new DestinoExtraRegional((ViajesExtraRegional)valor);
+            }
+
+            return destino;
+        }
+
+        public static explicit operator int(Destino valor)
+        {
+            int retorno = -1;
+
+            if (valor is DestinoRegional)
+            {
+                retorno = ((int)((DestinoRegional)valor).Regional);
+            }
+            else if (valor is DestinoExtraRegional)
+            {
+                retorno = ((int)((DestinoExtraRegional)valor).ExtraRegional);
+            }
+
+            return retorno;
+        }
+
         public static bool operator ==(Destino destino1, Destino destino2)
         {
             bool retorno = false;
@@ -75,6 +107,7 @@ namespace Entidades.Viajes
 
             return destino;
         }
+
         #endregion
 
         #region Overrides

@@ -19,6 +19,12 @@ namespace Entidades.Personas
         private protected double celular;
 
         #region Constructores
+
+        public Persona()
+        {
+
+        }
+
         public Persona(string nombre, string apellido, int edad, int dni, Nacionalidades nacionalidad, double celular)
         {
             this.id = -1;
@@ -87,12 +93,12 @@ namespace Entidades.Personas
         {
             StringBuilder cadena = new StringBuilder();
 
-            cadena.AppendLine($"Nombre: {this.nombre}");
-            cadena.AppendLine($"Apellido: {this.apellido}");
-            cadena.AppendLine($"Edad: {this.edad}");
-            cadena.AppendLine($"DNI: {this.dni}");
-            cadena.AppendLine($"Nacionalidada: {this.nacionalidad}");
-            cadena.AppendLine($"Celular: {this.celular}");
+            cadena.AppendLine($"{this.nombre}");
+            cadena.AppendLine($"{this.apellido}");
+            cadena.AppendLine($"{this.edad}");
+            cadena.AppendLine($"{this.dni}");
+            cadena.AppendLine($"{this.nacionalidad}");
+            cadena.AppendLine($"{this.celular}");
 
             return cadena.ToString();
         }

@@ -114,6 +114,18 @@ namespace Entidades.Listas
 
         #region Operadores
 
+        public static implicit operator Almacenamiento<T>(List<T> lista)
+        {
+            Almacenamiento<T> retorno = new Almacenamiento<T>();
+
+                foreach(T item in lista)
+                {
+                    retorno += item;
+                }
+
+            return retorno;
+        }
+
 
         public static bool operator ==(Almacenamiento<T> almacenamiento, T item)
         {

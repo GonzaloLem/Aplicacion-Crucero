@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using Entidades.Personas;
+using Entidades.Listas;
 
 namespace Entidades.BaseDeDatos.ConexionesPersonas
 {
@@ -236,6 +237,55 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
                     while(ConexionSQLEquipaje.lector.Read())
                     {
                         retorno = new Equipaje
+                            (
+                                (int)ConexionSQLEquipaje.lector["ID"],
+                                (int)ConexionSQLEquipaje.lector["Bolsos"],
+                                (int)ConexionSQLEquipaje.lector["Maletas"],
+                                (double)ConexionSQLEquipaje.lector["PesoTotalMaletas"]
+                            );
+                    }
+                    ConexionSQLEquipaje.lector.Close();
+
+                }
+                catch (Exception)
+                {
+
+                }
+                finally
+                {
+                    if (ConexionSQLEquipaje.conexion.State == ConnectionState.Open)
+                    {
+                        ConexionSQLEquipaje.conexion.Close();
+                    }
+                }
+            }
+
+            return retorno;
+        }
+
+        public static Almacenamiento<Equipaje> Lista()
+        {
+            Almacenamiento<Equipaje> retorno = new Almacenamiento<Equipaje>(100000);
+
+            if (ConexionSQLEquipaje.ProbarConexion())
+            {
+                try
+                {
+                    string cadena = $"SELECT * FROM Equipaje";
+
+                    ConexionSQLEquipaje.comando = new SqlCommand();
+
+                    ConexionSQLEquipaje.comando.CommandType = CommandType.Text;
+                    ConexionSQLEquipaje.comando.CommandText = cadena;
+                    ConexionSQLEquipaje.comando.Connection = ConexionSQLEquipaje.conexion;
+
+                    ConexionSQLEquipaje.conexion.Open();
+
+                    ConexionSQLEquipaje.lector = ConexionSQLEquipaje.comando.ExecuteReader();
+
+                    while (ConexionSQLEquipaje.lector.Read())
+                    {
+                        retorno += new Equipaje
                             (
                                 (int)ConexionSQLEquipaje.lector["ID"],
                                 (int)ConexionSQLEquipaje.lector["Bolsos"],

@@ -235,6 +235,12 @@ namespace Entidades.Barcos
         #endregion
 
         #region Operadores
+
+        public static explicit operator Crucero(int id)
+        {
+            return ConexionSQLCrucero.Obtener(id);
+        }
+
         public static bool operator ==(Crucero crucero1, Crucero crucero2)
         {
             return (crucero1.matricula == crucero2.matricula);
@@ -252,7 +258,16 @@ namespace Entidades.Barcos
         {
             StringBuilder cadena = new StringBuilder();
 
-            cadena.AppendLine($"{this.nombre}");
+            cadena.Append($"{this.id}");
+            cadena.Append($"{this.matricula} ");
+            cadena.Append($"{this.nombre} ");
+            cadena.Append($"{this.camarotes} ");
+            cadena.Append($"{this.salones} ");
+            cadena.Append($"{this.casinos} ");
+            cadena.Append($"{this.piscinas} ");
+            cadena.Append($"{this.gimnacios} ");
+            cadena.Append($"{this.bodegaCapacidad} ");
+            cadena.Append($"{this.bodegaPeso} ");
 
             return cadena.ToString();
         }
