@@ -1,7 +1,7 @@
 # Aplicacion de Viajes en Crucero 🚢
 
 # Sobre Mí 🙋‍♂️
-Hola, buenas! Me Llamo Gonzalo Lemiña, tengo 21 años y estoy estudiando para Técnico superior en Programación.Cree esta aplicación con el fin de mostrar mis capacidades en el entorno de desarrolló .NET en el lenguaje C# y Base de datos en SQL Server
+Hola, buenas! Me Llamo Gonzalo Lemiña, tengo 21 años y estoy estudiando para Técnico superior en Programación. Desarrollé esta aplicación con el fin de mostrar mis capacidades en el entorno de desarrolló .NET en el lenguaje C# y Base de datos en SQL Server
 # Resumen de la Aplicación 💻
 Esta aplicación consta en la venta de pasajes en cruceros a destinos puntos del mundo, los puntos de partidas son en argentina y los destinos están divididos en destinos Regionales o Extra regionales.
 
