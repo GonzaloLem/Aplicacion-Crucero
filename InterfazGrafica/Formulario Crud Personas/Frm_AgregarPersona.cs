@@ -11,7 +11,9 @@ using System.Windows.Forms;
 using Entidades.Personas;
 using Entidades.Operaciones;
 using Entidades.BaseDeDatos;
+using Entidades.Exepciones;
 using InterfazGrafica.Funciones_Extras;
+using Entidades.Exepciones.Exepciones_de_Persona;
 
 namespace InterfazGrafica.Formulario_Crud_Personas
 {
@@ -55,26 +57,46 @@ namespace InterfazGrafica.Formulario_Crud_Personas
         }
         private protected void Btn_Confirmar_Click(object sender, EventArgs e)
         {
-            if (this.TxtBox_Nombre.Text.Length > 2 && this.TxtBox_Apellido.Text.Length > 2 && this.TxtBox_Edad.Text != ""
-                && this.TxtBox_Dni.Text.Length == 8 && this.TxtBox_Celular.Text.Length == 10
-                && this.CbBox_Nacionalidades.SelectedItem is not null && this.CbBox_RolPersona.SelectedItem is not null)
+            try
             {
-                this.VentanaDefault();
+                ExepcionesPersona exepcion = new ExepcionesPersona();
 
-                if ((Roles)this.CbBox_RolPersona.SelectedItem == Roles.Cliente)
-                {
-                    this.VentanaPasajero();
-                }
-                else if ((Roles)this.CbBox_RolPersona.SelectedItem == Roles.Capitan)
-                {
-                    this.VentanaCapitan();
-                }
-                else if ((Roles)this.CbBox_RolPersona.SelectedItem == Roles.Empleado)
-                {
-                    this.VentanaEmpleado();
-                }
+                    exepcion.Nombre(this.TxtBox_Nombre.Text);
+                    exepcion.Apellido(this.TxtBox_Apellido.Text);
+                    exepcion.Edad(this.TxtBox_Edad.Text);
+                    exepcion.Dni(this.TxtBox_Dni.Text);
+                    exepcion.Celular(this.TxtBox_Celular.Text);
 
+                        if(this.CbBox_Nacionalidades.SelectedItem is null)
+                        {
+                            throw new ExepcionesPersona("Selecciona una Nacionalidad");
+                        }
+
+                        if(this.CbBox_RolPersona.SelectedItem is null)
+                        {
+                            throw new ExepcionesPersona("Selecciona el Rol de la Persona");
+                        }
+
+                            this.VentanaDefault();
+
+                                if ((Roles)this.CbBox_RolPersona.SelectedItem == Roles.Cliente)
+                                {
+                                    this.VentanaPasajero();
+                                }
+                                else if ((Roles)this.CbBox_RolPersona.SelectedItem == Roles.Capitan)
+                                {
+                                    this.VentanaCapitan();
+                                }
+                                else if ((Roles)this.CbBox_RolPersona.SelectedItem == Roles.Empleado)
+                                {
+                                    this.VentanaEmpleado();
+                                }           
             }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         private protected virtual void Btn_AgregarPersona_Click(object sender, EventArgs e)
@@ -123,31 +145,48 @@ namespace InterfazGrafica.Formulario_Crud_Personas
         {
             Pasajero retorno = null;
 
-            if (this.TxtBox_Correo.Text != "" && this.CbBox_Pasajero_Clase.SelectedItem != null && this.TxtBox_Bolsos.Text != "" && this.TxtBox_Maletas.Text != "" && this.TxtBox_PesoMaletas.Text != "")
-            {
-                Equipaje equipaje = new Equipaje(int.Parse(this.TxtBox_Bolsos.Text), int.Parse(this.TxtBox_Maletas.Text), int.Parse(this.TxtBox_PesoMaletas.Text));
-
-                if (this.ValidarEquipaje(equipaje))
+                try
                 {
-                    Pasajero pasajero = new Pasajero
-                    (
-                        this.TxtBox_Nombre.Text,
-                        this.TxtBox_Apellido.Text,
-                        int.Parse(this.TxtBox_Edad.Text),
-                        int.Parse(this.TxtBox_Dni.Text),
-                        (Nacionalidades)this.CbBox_Nacionalidades.SelectedItem,
-                        double.Parse(this.TxtBox_Celular.Text),
-                        this.TxtBox_Correo.Text,
-                        (Clases)this.CbBox_Pasajero_Clase.SelectedItem,
-                        equipaje,
-                        this.CkBox_Casino.Checked,
-                        this.CkBox_Gimnacio.Checked,
-                        this.CkBox_Piscina.Checked
-                    );
+                    ExepcionPasajero exepcion = new ExepcionPasajero();
 
-                    retorno = pasajero;
+                    exepcion.Bolsos(this.TxtBox_Bolsos.Text);
+                    exepcion.Maletas(this.TxtBox_Maletas.Text);
+                    exepcion.Peso(this.TxtBox_PesoMaletas.Text);
+
+                        if(this.CbBox_Pasajero_Clase.SelectedItem == null)
+                        {
+                            throw new ExepcionPasajero("Seleccione una clase para el Pasajero");
+                        }    
+
+                    Equipaje equipaje = new Equipaje(int.Parse(this.TxtBox_Bolsos.Text), int.Parse(this.TxtBox_Maletas.Text), int.Parse(this.TxtBox_PesoMaletas.Text));
+
+                    if (this.ValidarEquipaje(equipaje))
+                    {
+                        Pasajero pasajero = new Pasajero
+                        (
+                            this.TxtBox_Nombre.Text,
+                            this.TxtBox_Apellido.Text,
+                            int.Parse(this.TxtBox_Edad.Text),
+                            int.Parse(this.TxtBox_Dni.Text),
+                            (Nacionalidades)this.CbBox_Nacionalidades.SelectedItem,
+                            double.Parse(this.TxtBox_Celular.Text),
+                            this.TxtBox_Correo.Text,
+                            (Clases)this.CbBox_Pasajero_Clase.SelectedItem,
+                            equipaje,
+                            this.CkBox_Casino.Checked,
+                            this.CkBox_Gimnacio.Checked,
+                            this.CkBox_Piscina.Checked
+                        );
+
+                        retorno = pasajero;
+                    }
+
                 }
-            }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
             return retorno;
         }
 
@@ -177,8 +216,12 @@ namespace InterfazGrafica.Formulario_Crud_Personas
         {
             Capitan retorno = null;
 
-            if(this.TxtBox_Capitan_HorasViaje.Text != "")
+            try
             {
+                ExepcionCapitan exepcion = new ExepcionCapitan();
+
+                exepcion.Horas(this.TxtBox_Capitan_HorasViaje.Text);
+
                 Capitan capitan = new Capitan
                 (
                     this.TxtBox_Nombre.Text,
@@ -192,6 +235,13 @@ namespace InterfazGrafica.Formulario_Crud_Personas
 
                 retorno = capitan;
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
+            
             return retorno;
         }
 
