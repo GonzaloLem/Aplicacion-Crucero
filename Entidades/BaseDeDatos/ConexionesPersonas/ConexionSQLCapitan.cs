@@ -221,7 +221,7 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
             return retorno;
         }
 
-        public Capitan Obtener(int id)
+        public Capitan Obtener_Capitan(int id)
         {
             Capitan retorno = null;
 

@@ -220,7 +220,7 @@ namespace Entidades.BaseDeDatos
                                 (CiudadesDePartida)ConexionSQLViajes.lector["CiudadDePartida"],
                                 Destino.Parse((int)ConexionSQLViajes.lector["Destino"]),
                                 DateTime.Parse(ConexionSQLViajes.lector["FechaDeInicio"].ToString()),
-                                ConexionSQLCrucero.Obtener((int)ConexionSQLViajes.lector["ID_Crucero"]),
+                                ConexionSQLCrucero.Obtener_Crucero((int)ConexionSQLViajes.lector["ID_Crucero"]),
                                 (int)ConexionSQLViajes.lector["CamarotesPremium"],
                                 (int)ConexionSQLViajes.lector["CamarotesTurista"],
                                 (double)ConexionSQLViajes.lector["CostoPremium"],
@@ -275,7 +275,7 @@ namespace Entidades.BaseDeDatos
                                 (CiudadesDePartida)ConexionSQLViajes.lector["CiudadDePartida"],
                                 Destino.Parse((int)ConexionSQLViajes.lector["Destino"]),
                                 DateTime.Parse(ConexionSQLViajes.lector["FechaDeInicio"].ToString()),
-                                ConexionSQLCrucero.Obtener((int)ConexionSQLViajes.lector["ID_Crucero"]),
+                                ConexionSQLCrucero.Obtener_Crucero((int)ConexionSQLViajes.lector["ID_Crucero"]),
                                 (int)ConexionSQLViajes.lector["CamarotesPremium"],
                                 (int)ConexionSQLViajes.lector["CamarotesTurista"],
                                 (double)ConexionSQLViajes.lector["CostoPremium"],
@@ -308,7 +308,7 @@ namespace Entidades.BaseDeDatos
             return lista;
         }
 
-        public static Viaje Obtener(int id)
+        public static Viaje Obtener_Viaje(int id)
         {
             Viaje retorno = null;
 
@@ -336,7 +336,7 @@ namespace Entidades.BaseDeDatos
                                 (CiudadesDePartida)ConexionSQLViajes.lector["CiudadDePartida"],
                                 Destino.Parse((int)ConexionSQLViajes.lector["Destino"]),
                                 DateTime.Parse(ConexionSQLViajes.lector["FechaDeInicio"].ToString()),
-                                ConexionSQLCrucero.Obtener((int)ConexionSQLViajes.lector["ID_Crucero"]),
+                                ConexionSQLCrucero.Obtener_Crucero((int)ConexionSQLViajes.lector["ID_Crucero"]),
                                 (int)ConexionSQLViajes.lector["CamarotesPremium"],
                                 (int)ConexionSQLViajes.lector["CamarotesTurista"],
                                 (double)ConexionSQLViajes.lector["CostoPremium"],
@@ -434,7 +434,7 @@ namespace Entidades.BaseDeDatos
                                 (CiudadesDePartida)ConexionSQLViajes.lector["CiudadDePartida"],
                                 Destino.Parse((int)ConexionSQLViajes.lector["Destino"]),
                                 DateTime.Parse(ConexionSQLViajes.lector["FechaDeInicio"].ToString()),
-                                ConexionSQLCrucero.Obtener((int)ConexionSQLViajes.lector["ID_Crucero"]),
+                                ConexionSQLCrucero.Obtener_Crucero((int)ConexionSQLViajes.lector["ID_Crucero"]),
                                 (int)ConexionSQLViajes.lector["CamarotesPremium"],
                                 (int)ConexionSQLViajes.lector["CamarotesTurista"],
                                 (double)ConexionSQLViajes.lector["CostoPremium"],

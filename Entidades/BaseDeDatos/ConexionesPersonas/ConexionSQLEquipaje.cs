@@ -214,7 +214,7 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
             return retorno;
         }
 
-        public static Equipaje Obtener(int id)
+        public static Equipaje Obtener_Equipaje(int id)
         {
             Equipaje retorno = null;
 

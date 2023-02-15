@@ -43,7 +43,7 @@ namespace InterfazGrafica.Formulario_Crud_Viajes
         {
             if (this.dtGdVw_PersonasDisponibles.SelectedRows.Count == 1)
             {
-                Persona persona = ConexionSQLPersona.Obtener((int)this.dtGdVw_PersonasDisponibles.Rows[this.dtGdVw_PersonasDisponibles.SelectedRows[0].Index].Cells[0].Value);
+                Persona persona = ConexionSQLPersona.Obtener_Persona((int)this.dtGdVw_PersonasDisponibles.Rows[this.dtGdVw_PersonasDisponibles.SelectedRows[0].Index].Cells[0].Value);
 
                     if(persona is Pasajero)
                     {
@@ -71,7 +71,7 @@ namespace InterfazGrafica.Formulario_Crud_Viajes
             if (this.dtGdVw_PersonasDisponibles.SelectedRows.Count == 1)
             {
                 this.DataGridPorDefecto();
-                Persona persona = ConexionSQLPersona.Obtener((int)this.dtGdVw_PersonasDisponibles.Rows[this.dtGdVw_PersonasDisponibles.SelectedRows[0].Index].Cells[0].Value);
+                Persona persona = ConexionSQLPersona.Obtener_Persona((int)this.dtGdVw_PersonasDisponibles.Rows[this.dtGdVw_PersonasDisponibles.SelectedRows[0].Index].Cells[0].Value);
                 if (persona is Pasajero)
                 {
                     this.MostrarCliente((Pasajero)persona);

@@ -234,7 +234,7 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
             return retorno;
         }
 
-        public Pasajero Obtener(int id)
+        public Pasajero Obtener_Pasajero(int id)
         {
             Pasajero retorno = null;
 
@@ -260,7 +260,7 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
                             (           
                                 this.lector["Correo"].ToString(),
                                 (Clases)this.lector["Clase"],
-                                ConexionSQLEquipaje.Obtener((int)this.lector["ID_Equipaje"]),
+                                ConexionSQLEquipaje.Obtener_Equipaje((int)this.lector["ID_Equipaje"]),
                                 (bool)this.lector["Casino"],
                                 (bool)this.lector["Piscina"],
                                 (bool)this.lector["Gimnacio"]

@@ -18,15 +18,23 @@ using Entidades.Personas;
 using Entidades.Viajes;
 using Entidades.Listas;
 using Entidades.Archivos;
+using Entidades.Exepciones;
+using System.Runtime.CompilerServices;
+using System.Threading;
+using System.Diagnostics;
 
 namespace InterfazGrafica
 {
     public partial class Frm_Principal : Form
     {
         #region Constructores
+
+        
+
         public Frm_Principal()
         {
             InitializeComponent();
+          
         }
 
         #endregion
@@ -34,9 +42,10 @@ namespace InterfazGrafica
         #region Eventos
         private void Frm_Principal_Load(object sender, EventArgs e)
         {
-
+            Task tareaVerificarViajes = new Task(this.VerificarViajes);
             this.Listar(ConexionSQLViajes.Obtener());
-        }
+            tareaVerificarViajes.Start();
+        }   
 
         private void Btn_AgregarPersona_Click(object sender, EventArgs e)
         {
@@ -56,14 +65,14 @@ namespace InterfazGrafica
         {
             Frm_CrearViaje formCrearViaje = new Frm_CrearViaje();
             formCrearViaje.ShowDialog();
-            this.Listar(ConexionSQLViajes.Obtener());
+            //this.Listar(ConexionSQLViajes.Obtener());
         }
 
         private void Btn_ModificarViaje_Click(object sender, EventArgs e)
         {
-            if(this.DtGdVw_ListaViajes.SelectedRows.Count == 1 && ConexionSQLViajes.Obtener((int)this.DtGdVw_ListaViajes.Rows[this.DtGdVw_ListaViajes.SelectedRows[0].Index].Cells[0].Value).Estado != Disponibilidad.Navegando)
+            if(this.DtGdVw_ListaViajes.SelectedRows.Count == 1 && ConexionSQLViajes.Obtener_Viaje((int)this.DtGdVw_ListaViajes.Rows[this.DtGdVw_ListaViajes.SelectedRows[0].Index].Cells[0].Value).Estado != Disponibilidad.Navegando)
             {
-                Frm_ViajesModificar formModifciarViaje = new Frm_ViajesModificar(ConexionSQLViajes.Obtener((int)this.DtGdVw_ListaViajes.Rows[this.DtGdVw_ListaViajes.SelectedRows[0].Index].Cells[0].Value));
+                Frm_ViajesModificar formModifciarViaje = new Frm_ViajesModificar(ConexionSQLViajes.Obtener_Viaje((int)this.DtGdVw_ListaViajes.Rows[this.DtGdVw_ListaViajes.SelectedRows[0].Index].Cells[0].Value));
                 formModifciarViaje.ShowDialog();
                 this.Listar(ConexionSQLViajes.Obtener());
             }
@@ -73,7 +82,7 @@ namespace InterfazGrafica
         {
             if (this.DtGdVw_ListaViajes.SelectedRows.Count == 1)
             {
-                ConexionSQLViajes.Eliminar((ConexionSQLViajes.Obtener((int)this.DtGdVw_ListaViajes.Rows[this.DtGdVw_ListaViajes.SelectedRows[0].Index].Cells[0].Value)));
+                ConexionSQLViajes.Eliminar((ConexionSQLViajes.Obtener_Viaje((int)this.DtGdVw_ListaViajes.Rows[this.DtGdVw_ListaViajes.SelectedRows[0].Index].Cells[0].Value)));
                 this.Listar(ConexionSQLViajes.Obtener());
             }
         }
@@ -89,9 +98,20 @@ namespace InterfazGrafica
         {
             if(this.DtGdVw_ListaViajes.SelectedRows.Count == 1)
             {
-                Frm_AgregarPersonaAlViaje formAgregarAlViaje = new Frm_AgregarPersonaAlViaje((ConexionSQLViajes.Obtener((int)this.DtGdVw_ListaViajes.Rows[this.DtGdVw_ListaViajes.SelectedRows[0].Index].Cells[0].Value)));
-                formAgregarAlViaje.ShowDialog();
-                this.Listar(ConexionSQLViajes.Obtener());
+                try
+                {
+                    ExepcionViaje excep = new ExepcionViaje();
+
+                    excep.AgregarPersona((ConexionSQLViajes.Obtener_Viaje((int)this.DtGdVw_ListaViajes.Rows[this.DtGdVw_ListaViajes.SelectedRows[0].Index].Cells[0].Value)));
+
+                    Frm_AgregarPersonaAlViaje formAgregarAlViaje = new Frm_AgregarPersonaAlViaje((ConexionSQLViajes.Obtener_Viaje((int)this.DtGdVw_ListaViajes.Rows[this.DtGdVw_ListaViajes.SelectedRows[0].Index].Cells[0].Value)));
+                    formAgregarAlViaje.ShowDialog();
+                }
+                catch(Exception ex)
+                { 
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
             }
         }
 
@@ -99,7 +119,7 @@ namespace InterfazGrafica
         {
             if (this.DtGdVw_ListaViajes.SelectedRows.Count == 1)
             {
-                Frm_ListarTripulantes formListarPeronas = new Frm_ListarTripulantes(ConexionSQLTripulantes.Obtener(ConexionSQLViajes.Obtener((int)this.DtGdVw_ListaViajes.Rows[this.DtGdVw_ListaViajes.SelectedRows[0].Index].Cells[0].Value)));
+                Frm_ListarTripulantes formListarPeronas = new Frm_ListarTripulantes(ConexionSQLTripulantes.Obtener(ConexionSQLViajes.Obtener_Viaje((int)this.DtGdVw_ListaViajes.Rows[this.DtGdVw_ListaViajes.SelectedRows[0].Index].Cells[0].Value)));
                 formListarPeronas.ShowDialog();
             }
         }
@@ -112,6 +132,28 @@ namespace InterfazGrafica
         #endregion
 
         #region Metodos Extras
+        private void VerificarViajes()
+        {
+            Almacenamiento<Viaje> listaInicial = ConexionSQLViajes.Obtener();
+            
+                while (true)
+                {
+                    Almacenamiento<Viaje> listaActulizada = ConexionSQLViajes.Obtener();
+                        if (listaActulizada != listaInicial)
+                        {
+                            listaInicial = listaActulizada; 
+                                       
+                                if (InvokeRequired)
+                                {
+                                    Invoke(new Action(() => this.Listar( listaActulizada) ));
+                                    
+                                }
+                        }
+                        Thread.Sleep(1000);
+                }
+
+        }
+
 
         private void Listar(Almacenamiento<Viaje> lista)
         {
@@ -126,7 +168,7 @@ namespace InterfazGrafica
                     this.DtGdVw_ListaViajes.Rows[index].Cells[1].Value = lista[i].Partida;
                     this.DtGdVw_ListaViajes.Rows[index].Cells[2].Value = Destino.Parse(lista[i].Destino);
                     this.DtGdVw_ListaViajes.Rows[index].Cells[3].Value = lista[i].Inicio;
-                    this.DtGdVw_ListaViajes.Rows[index].Cells[4].Value = lista[i].Crucero;
+                    this.DtGdVw_ListaViajes.Rows[index].Cells[4].Value = lista[i].Crucero.Nombre;
                     this.DtGdVw_ListaViajes.Rows[index].Cells[5].Value = lista[i].CamarotesPremium;
                     this.DtGdVw_ListaViajes.Rows[index].Cells[6].Value = lista[i].CamarotesTurista;
                     this.DtGdVw_ListaViajes.Rows[index].Cells[7].Value = lista[i].CostoPremium;

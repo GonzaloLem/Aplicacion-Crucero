@@ -40,7 +40,7 @@ namespace InterfazGrafica.Formulario_Crud_Personas
 
                 Pasajero pasajero = this.ValidarPasajero();
 
-                if (pasajero is not null && ConexionSQLPersona.Obtener(this.persona.ID) is not null)
+                if (pasajero is not null && ConexionSQLPersona.Obtener_Persona(this.persona.ID) is not null)
                 {
                     ConexionSQLPersona.Modificar(pasajero);
                 }
@@ -49,7 +49,7 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             {
                 Empleado empleado = this.ValidarEmpleado();
 
-                if (empleado is not null && ConexionSQLPersona.Obtener(this.persona.ID) is not null)
+                if (empleado is not null && ConexionSQLPersona.Obtener_Persona(this.persona.ID) is not null)
                 {
                     ConexionSQLPersona.Modificar(empleado);
                 }
@@ -58,7 +58,7 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             {
                 Capitan capitan = this.ValidarCapitan();
 
-                if (capitan is not null && ConexionSQLPersona.Obtener(this.persona.ID) is not null)
+                if (capitan is not null && ConexionSQLPersona.Obtener_Persona(this.persona.ID) is not null)
                 {
                     ConexionSQLPersona.Modificar(capitan);
                 }

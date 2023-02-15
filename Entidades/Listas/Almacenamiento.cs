@@ -126,6 +126,26 @@ namespace Entidades.Listas
             return retorno;
         }
 
+        public static bool operator ==(Almacenamiento<T> almacenamiento1, Almacenamiento<T> almacenamiento2)
+        {
+            bool retorno = true;
+
+                for (int i = 0; i < almacenamiento1.Contar; i++)
+                {
+                    if (almacenamiento1.comparar.Invoke(almacenamiento2, almacenamiento1[i]) == -1)
+                    { 
+                        retorno = false;
+                        break;
+                    }
+                }
+
+            return retorno;
+        }
+
+        public static bool operator !=(Almacenamiento<T> almacenamiento1, Almacenamiento<T> almacenamiento2)
+        {
+            return !(almacenamiento1==almacenamiento2);
+        }
 
         public static bool operator ==(Almacenamiento<T> almacenamiento, T item)
         {

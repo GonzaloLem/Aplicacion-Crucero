@@ -246,7 +246,7 @@ namespace Entidades.BaseDeDatos
             return lista;
         }
 
-        public static Crucero Obtener(int id)
+        public static Crucero Obtener_Crucero(int id)
         {
             Crucero retorno = null;
 

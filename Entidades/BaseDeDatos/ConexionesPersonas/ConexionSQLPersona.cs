@@ -7,7 +7,6 @@ using System.Data.SqlClient;
 using System.Data;
 using Entidades.Listas;
 using Entidades.Personas;
-using Entidades.Interfaces;
 using Entidades.BaseDeDatos.ConexionesPersonas;
 
 namespace Entidades.BaseDeDatos
@@ -170,19 +169,19 @@ namespace Entidades.BaseDeDatos
                     {
                         ConexionSQLPasajeros conexionPasajero = new ConexionSQLPasajeros();
 
-                        conexionPasajero.Modificar(ConexionSQLPersona.Obtener(persona), (Pasajero)persona);
+                        conexionPasajero.Modificar(ConexionSQLPersona.Obtener_ID(persona), (Pasajero)persona);
                     }
                     else if (persona is Empleado)
                     {
                         ConexionSQLEmpleado conexionEmpleado = new ConexionSQLEmpleado();
 
-                        conexionEmpleado.Modificar(ConexionSQLPersona.Obtener(persona), (Empleado)persona);
+                        conexionEmpleado.Modificar(ConexionSQLPersona.Obtener_ID(persona), (Empleado)persona);
                     }
                     else if (persona is Capitan)
                     {
                         ConexionSQLCapitan conexionCapitan = new ConexionSQLCapitan();
 
-                        conexionCapitan.Modificar(ConexionSQLPersona.Obtener(persona), (Capitan)persona);
+                        conexionCapitan.Modificar(ConexionSQLPersona.Obtener_ID(persona), (Capitan)persona);
 
                     }
 
@@ -218,7 +217,7 @@ namespace Entidades.BaseDeDatos
             {
                 try
                 {
-                    int id = ConexionSQLPersona.Obtener(persona);
+                    int id = ConexionSQLPersona.Obtener_ID(persona);
                     string cadena = $"delete FROM Persona WHERE ID = {persona.ID} ";
 
                     ConexionSQLPersona.comando = new SqlCommand();
@@ -293,7 +292,7 @@ namespace Entidades.BaseDeDatos
                         if (ConexionSQLPersona.lector["ID_Pasajero"].ToString() != "")
                         {
                             ConexionSQLPasajeros conexionPasajeros = new ConexionSQLPasajeros();
-                            Pasajero pasajero = conexionPasajeros.Obtener((int)ConexionSQLPersona.lector["ID_Pasajero"]);
+                            Pasajero pasajero = conexionPasajeros.Obtener_Pasajero((int)ConexionSQLPersona.lector["ID_Pasajero"]);
 
                             lista += new Pasajero
                                 (
@@ -315,7 +314,7 @@ namespace Entidades.BaseDeDatos
                         else if (ConexionSQLPersona.lector["ID_Empleado"].ToString() != "")
                         {
                             ConexionSQLEmpleado conexionEmpleado = new ConexionSQLEmpleado();
-                            Empleado empleado = conexionEmpleado.Obtener((int)ConexionSQLPersona.lector["ID_Empleado"]);
+                            Empleado empleado = conexionEmpleado.Obtener_Empleado((int)ConexionSQLPersona.lector["ID_Empleado"]);
 
                             lista += new Empleado
                                 (
@@ -333,7 +332,7 @@ namespace Entidades.BaseDeDatos
                         else if (ConexionSQLPersona.lector["ID_Capitan"].ToString() != "")
                         {
                             ConexionSQLCapitan conexionCapitan = new ConexionSQLCapitan();
-                            Capitan capitan = conexionCapitan.Obtener((int)ConexionSQLPersona.lector["ID_Capitan"]);
+                            Capitan capitan = conexionCapitan.Obtener_Capitan((int)ConexionSQLPersona.lector["ID_Capitan"]);
 
                             lista += new Capitan
                                 (
@@ -498,7 +497,7 @@ namespace Entidades.BaseDeDatos
                         if (Roles.Cliente == tipo && ConexionSQLPersona.lector["ID_Pasajero"].ToString() != "")
                         {
                             ConexionSQLPasajeros conexionPasajeros = new ConexionSQLPasajeros();
-                            Pasajero pasajero = conexionPasajeros.Obtener((int)ConexionSQLPersona.lector["ID_Pasajero"]);
+                            Pasajero pasajero = conexionPasajeros.Obtener_Pasajero((int)ConexionSQLPersona.lector["ID_Pasajero"]);
 
                             lista += new Pasajero
                                 (
@@ -520,7 +519,7 @@ namespace Entidades.BaseDeDatos
                         else if (Roles.Empleado == tipo && ConexionSQLPersona.lector["ID_Empleado"].ToString() != "")
                         {
                             ConexionSQLEmpleado conexionEmpleado = new ConexionSQLEmpleado();
-                            Empleado empleado = conexionEmpleado.Obtener((int)ConexionSQLPersona.lector["ID_Empleado"]);
+                            Empleado empleado = conexionEmpleado.Obtener_Empleado((int)ConexionSQLPersona.lector["ID_Empleado"]);
 
                             lista += new Empleado
                                 (
@@ -538,7 +537,7 @@ namespace Entidades.BaseDeDatos
                         else if (Roles.Capitan == tipo && ConexionSQLPersona.lector["ID_Capitan"].ToString() != "")
                         {
                             ConexionSQLCapitan conexionCapitan = new ConexionSQLCapitan();
-                            Capitan capitan = conexionCapitan.Obtener((int)ConexionSQLPersona.lector["ID_Capitan"]);
+                            Capitan capitan = conexionCapitan.Obtener_Capitan((int)ConexionSQLPersona.lector["ID_Capitan"]);
 
                             lista += new Capitan
                                 (
@@ -574,7 +573,7 @@ namespace Entidades.BaseDeDatos
             return lista;
         }
 
-        public static Persona Obtener(int id)
+        public static Persona Obtener_Persona(int id)
         {
             Persona retorno = null;
 
@@ -599,7 +598,7 @@ namespace Entidades.BaseDeDatos
                         if (ConexionSQLPersona.lector["ID_Pasajero"].ToString() != "")
                         {
                             ConexionSQLPasajeros conexionPasajeros = new ConexionSQLPasajeros();
-                            Pasajero pasajero = conexionPasajeros.Obtener((int)ConexionSQLPersona.lector["ID_Pasajero"]);
+                            Pasajero pasajero = conexionPasajeros.Obtener_Pasajero((int)ConexionSQLPersona.lector["ID_Pasajero"]);
 
                             retorno = new Pasajero
                                 (
@@ -621,7 +620,7 @@ namespace Entidades.BaseDeDatos
                         else if (ConexionSQLPersona.lector["ID_Empleado"].ToString() != "")
                         {
                             ConexionSQLEmpleado conexionEmpleado = new ConexionSQLEmpleado();
-                            Empleado empleado = conexionEmpleado.Obtener((int)ConexionSQLPersona.lector["ID_Empleado"]);
+                            Empleado empleado = conexionEmpleado.Obtener_Empleado((int)ConexionSQLPersona.lector["ID_Empleado"]);
 
                             retorno = new Empleado
                                 (
@@ -639,7 +638,7 @@ namespace Entidades.BaseDeDatos
                         else if (ConexionSQLPersona.lector["ID_Capitan"].ToString() != "")
                         {
                             ConexionSQLCapitan conexionCapitan = new ConexionSQLCapitan();
-                            Capitan capitan = conexionCapitan.Obtener((int)ConexionSQLPersona.lector["ID_Capitan"]);
+                            Capitan capitan = conexionCapitan.Obtener_Capitan((int)ConexionSQLPersona.lector["ID_Capitan"]);
 
                             retorno = new Capitan
                                 (
@@ -679,7 +678,7 @@ namespace Entidades.BaseDeDatos
         /// <summary>
         /// Te retorna el id de la tabla a la cual esta enlazada
         /// </summary>
-        public static int Obtener(Persona persona)
+        public static int Obtener_ID(Persona persona)
         {
             int retorno = -1;
 

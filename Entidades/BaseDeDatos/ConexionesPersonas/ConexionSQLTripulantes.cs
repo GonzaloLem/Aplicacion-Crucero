@@ -281,7 +281,7 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
 
                     while (ConexionSQLTripulantes.lector.Read())
                     {
-                        lista += ConexionSQLPersona.Obtener((int)ConexionSQLTripulantes.lector["ID_Persona"]);   
+                        lista += ConexionSQLPersona.Obtener_Persona((int)ConexionSQLTripulantes.lector["ID_Persona"]);   
                     }
                     ConexionSQLTripulantes.lector.Close();
 
@@ -324,7 +324,7 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
 
                     while (ConexionSQLTripulantes.lector.Read())
                     {
-                        lista += ConexionSQLPersona.Obtener((int)ConexionSQLTripulantes.lector["ID_Persona"]);
+                        lista += ConexionSQLPersona.Obtener_Persona((int)ConexionSQLTripulantes.lector["ID_Persona"]);
                     }
                     ConexionSQLTripulantes.lector.Close();
 
@@ -345,49 +345,6 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
             return lista;
         }
 
-        /*
-        public static Persona Obtener(int id)
-        {
-            Persona retorno = null;
-
-            if (ConexionSQLTripulantes.ProbarConexion())
-            {
-                try
-                {
-                    string cadena = $"SELECT * FROM Tripulante WHERE ID = {id}";
-
-                    ConexionSQLTripulantes.comando = new SqlCommand();
-
-                    ConexionSQLTripulantes.comando.CommandType = CommandType.Text;
-                    ConexionSQLTripulantes.comando.CommandText = cadena;
-                    ConexionSQLTripulantes.comando.Connection = ConexionSQLTripulantes.conexion;
-
-                    ConexionSQLTripulantes.conexion.Open();
-
-                    ConexionSQLTripulantes.lector = ConexionSQLTripulantes.comando.ExecuteReader();
-
-                    while (ConexionSQLTripulantes.lector.Read())
-                    {
-                        //retorno =
-                    }
-                    ConexionSQLTripulantes.lector.Close();
-
-                }
-                catch (Exception)
-                {
-
-                }
-                finally
-                {
-                    if (ConexionSQLTripulantes.conexion.State == ConnectionState.Open)
-                    {
-                        ConexionSQLTripulantes.conexion.Close();
-                    }
-                }
-            }
-
-            return retorno;
-        }*/
 
         #endregion
 

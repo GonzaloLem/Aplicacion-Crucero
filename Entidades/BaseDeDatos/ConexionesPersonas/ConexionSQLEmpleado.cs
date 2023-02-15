@@ -215,7 +215,7 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
             return retorno;
         }
 
-        public Empleado Obtener(int id)
+        public Empleado Obtener_Empleado(int id)
         {
             Empleado retorno = null;
 

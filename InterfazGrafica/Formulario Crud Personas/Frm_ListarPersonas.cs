@@ -52,15 +52,15 @@ namespace InterfazGrafica.Formulario_Crud_Personas
 
                 if ((string)this.dtGdVw_ListarPersonas.Rows[this.dtGdVw_ListarPersonas.SelectedRows[0].Index].Cells[7].Value == "Pasajero")
                 {
-                    tripulante = (Pasajero)ConexionSQLPersona.Obtener((int)this.dtGdVw_ListarPersonas.Rows[this.dtGdVw_ListarPersonas.SelectedRows[0].Index].Cells[0].Value);
+                    tripulante = (Pasajero)ConexionSQLPersona.Obtener_Persona((int)this.dtGdVw_ListarPersonas.Rows[this.dtGdVw_ListarPersonas.SelectedRows[0].Index].Cells[0].Value);
                 }
                 else if ((string)this.dtGdVw_ListarPersonas.Rows[this.dtGdVw_ListarPersonas.SelectedRows[0].Index].Cells[7].Value == "Empleado")
                 {
-                    tripulante = (Empleado)ConexionSQLPersona.Obtener((int)this.dtGdVw_ListarPersonas.Rows[this.dtGdVw_ListarPersonas.SelectedRows[0].Index].Cells[0].Value);
+                    tripulante = (Empleado)ConexionSQLPersona.Obtener_Persona((int)this.dtGdVw_ListarPersonas.Rows[this.dtGdVw_ListarPersonas.SelectedRows[0].Index].Cells[0].Value);
                 }
                 else if ((string)this.dtGdVw_ListarPersonas.Rows[this.dtGdVw_ListarPersonas.SelectedRows[0].Index].Cells[7].Value == "Capitan")
                 {
-                    tripulante = (Capitan)ConexionSQLPersona.Obtener((int)this.dtGdVw_ListarPersonas.Rows[this.dtGdVw_ListarPersonas.SelectedRows[0].Index].Cells[0].Value);
+                    tripulante = (Capitan)ConexionSQLPersona.Obtener_Persona((int)this.dtGdVw_ListarPersonas.Rows[this.dtGdVw_ListarPersonas.SelectedRows[0].Index].Cells[0].Value);
                 }
 
                 Frm_ModificarPersona formModificar = new Frm_ModificarPersona(tripulante);
@@ -74,7 +74,7 @@ namespace InterfazGrafica.Formulario_Crud_Personas
         {
             if (this.dtGdVw_ListarPersonas.SelectedRows.Count == 1)
             {
-                ConexionSQLPersona.Eliminar(ConexionSQLPersona.Obtener((int)this.dtGdVw_ListarPersonas.Rows[this.dtGdVw_ListarPersonas.SelectedRows[0].Index].Cells[0].Value));
+                ConexionSQLPersona.Eliminar(ConexionSQLPersona.Obtener_Persona((int)this.dtGdVw_ListarPersonas.Rows[this.dtGdVw_ListarPersonas.SelectedRows[0].Index].Cells[0].Value));
 
                 this.lista = ConexionSQLPersona.Obtener();
                 this.ListarPersonas(this.lista);
