@@ -40,8 +40,10 @@ namespace InterfazGrafica
         #region Eventos
         private void Frm_Principal_Load(object sender, EventArgs e)
         {
+            ConexionSQLViajes conexionViajes = new ConexionSQLViajes();
+
             Task tareaVerificarViajes = new Task(this.VerificarViajes);
-            this.Listar(ConexionSQLViajes.Obtener());
+            this.Listar(conexionViajes.Obtener());
             tareaVerificarViajes.Start();
 
 
@@ -66,17 +68,21 @@ namespace InterfazGrafica
         private void Btn_AgregarViaje_Click(object sender, EventArgs e)
         {
             Frm_CrearViaje formCrearViaje = new Frm_CrearViaje();
+            ConexionSQLViajes conexionViajes = new ConexionSQLViajes();
+
             formCrearViaje.ShowDialog();
-            this.Listar(ConexionSQLViajes.Obtener());
+            this.Listar(conexionViajes.Obtener());
         }
 
         private void Btn_ModificarViaje_Click(object sender, EventArgs e)
         {
-            if(this.DtGdVw_ListaViajes.SelectedRows.Count == 1 && ConexionSQLViajes.Obtener_Viaje((int)this.DtGdVw_ListaViajes.Rows[this.DtGdVw_ListaViajes.SelectedRows[0].Index].Cells[0].Value).Estado != Disponibilidad.Navegando)
+            ConexionSQLViajes conexionViajes = new ConexionSQLViajes();
+
+            if (this.DtGdVw_ListaViajes.SelectedRows.Count == 1 && conexionViajes.Obtener_Viaje((int)this.DtGdVw_ListaViajes.Rows[this.DtGdVw_ListaViajes.SelectedRows[0].Index].Cells[0].Value).Estado != Disponibilidad.Navegando)
             {
-                Frm_ViajesModificar formModifciarViaje = new Frm_ViajesModificar(ConexionSQLViajes.Obtener_Viaje((int)this.DtGdVw_ListaViajes.Rows[this.DtGdVw_ListaViajes.SelectedRows[0].Index].Cells[0].Value));
+                Frm_ViajesModificar formModifciarViaje = new Frm_ViajesModificar(conexionViajes.Obtener_Viaje((int)this.DtGdVw_ListaViajes.Rows[this.DtGdVw_ListaViajes.SelectedRows[0].Index].Cells[0].Value));
                 formModifciarViaje.ShowDialog();
-                this.Listar(ConexionSQLViajes.Obtener());
+                this.Listar(conexionViajes.Obtener());
             }
         }
 
@@ -84,16 +90,20 @@ namespace InterfazGrafica
         {
             if (this.DtGdVw_ListaViajes.SelectedRows.Count == 1)
             {
-                ConexionSQLViajes.Eliminar((ConexionSQLViajes.Obtener_Viaje((int)this.DtGdVw_ListaViajes.Rows[this.DtGdVw_ListaViajes.SelectedRows[0].Index].Cells[0].Value)));
-                this.Listar(ConexionSQLViajes.Obtener());
+                ConexionSQLViajes conexionViajes = new ConexionSQLViajes();
+
+                conexionViajes.Eliminar((conexionViajes.Obtener_Viaje((int)this.DtGdVw_ListaViajes.Rows[this.DtGdVw_ListaViajes.SelectedRows[0].Index].Cells[0].Value)));
+                this.Listar(conexionViajes.Obtener());
             }
         }
 
         private void btn_CrudCrucero_Click(object sender, EventArgs e)
         {
             Frm_ListarCruceros formCruceros = new Frm_ListarCruceros();
+            ConexionSQLViajes conexionViajes = new ConexionSQLViajes();
+
             formCruceros.ShowDialog();
-            this.Listar(ConexionSQLViajes.Obtener());
+            this.Listar(conexionViajes.Obtener());
         }
 
         private void btn_AgregarPersona_AlViaje_Click(object sender, EventArgs e)
@@ -102,11 +112,13 @@ namespace InterfazGrafica
             {
                 try
                 {
+                    ConexionSQLViajes conexionViajes = new ConexionSQLViajes();
+
                     ExepcionViaje excep = new ExepcionViaje();
 
-                    excep.AgregarPersona((ConexionSQLViajes.Obtener_Viaje((int)this.DtGdVw_ListaViajes.Rows[this.DtGdVw_ListaViajes.SelectedRows[0].Index].Cells[0].Value)));
+                    excep.AgregarPersona((conexionViajes.Obtener_Viaje((int)this.DtGdVw_ListaViajes.Rows[this.DtGdVw_ListaViajes.SelectedRows[0].Index].Cells[0].Value)));
 
-                    Frm_AgregarPersonaAlViaje formAgregarAlViaje = new Frm_AgregarPersonaAlViaje((ConexionSQLViajes.Obtener_Viaje((int)this.DtGdVw_ListaViajes.Rows[this.DtGdVw_ListaViajes.SelectedRows[0].Index].Cells[0].Value)));
+                    Frm_AgregarPersonaAlViaje formAgregarAlViaje = new Frm_AgregarPersonaAlViaje((conexionViajes.Obtener_Viaje((int)this.DtGdVw_ListaViajes.Rows[this.DtGdVw_ListaViajes.SelectedRows[0].Index].Cells[0].Value)));
                     formAgregarAlViaje.ShowDialog();
                 }
                 catch(Exception ex)
@@ -120,9 +132,11 @@ namespace InterfazGrafica
         private void btn_ListarPersonasDelViaje_Click(object sender, EventArgs e)
         {
             ConexionSQLTripulantes conexion = new ConexionSQLTripulantes();
+            ConexionSQLViajes conexionViajes = new ConexionSQLViajes();
+
             if (this.DtGdVw_ListaViajes.SelectedRows.Count == 1)
             {
-                Frm_ListarTripulantes formListarPeronas = new Frm_ListarTripulantes(conexion.Lista(ConexionSQLViajes.Obtener_Viaje((int)this.DtGdVw_ListaViajes.Rows[this.DtGdVw_ListaViajes.SelectedRows[0].Index].Cells[0].Value)));
+                Frm_ListarTripulantes formListarPeronas = new Frm_ListarTripulantes(conexion.Lista(conexionViajes.Obtener_Viaje((int)this.DtGdVw_ListaViajes.Rows[this.DtGdVw_ListaViajes.SelectedRows[0].Index].Cells[0].Value)));
                 formListarPeronas.ShowDialog();
             }
         }
@@ -137,11 +151,13 @@ namespace InterfazGrafica
         #region Metodos Extras
         private void VerificarViajes()
         {
-            Almacenamiento<Viaje> listaInicial = ConexionSQLViajes.Obtener();
+            ConexionSQLViajes conexionViajes = new ConexionSQLViajes();
+
+            Almacenamiento<Viaje> listaInicial = conexionViajes.Obtener();
             
                 while (true)
                 {
-                    Almacenamiento<Viaje> listaActulizada = ConexionSQLViajes.Obtener();
+                    Almacenamiento<Viaje> listaActulizada = conexionViajes.Obtener();
                         if (listaActulizada != listaInicial)
                         {
                             listaInicial = listaActulizada; 

@@ -12,61 +12,21 @@ using Entidades.Barcos;
 
 namespace Entidades.BaseDeDatos
 {
-    public static class ConexionSQLViajes
+    public class ConexionSQLViajes : ConexionSQL
     {
 
-        private static SqlConnection conexion;
-        private static SqlCommand comando;
-        private static SqlDataReader lector;
-        private static SqlDataAdapter adaptador;
 
-        static ConexionSQLViajes()
-        {
-            ConexionSQLViajes.conexion = new SqlConnection(@"Data Source=.;
-                                            Database=AplicacionCrucero;
-                                            Trusted_Connection=True;");
-
-            ConexionSQLViajes.comando = new SqlCommand();
-            ConexionSQLViajes.adaptador = new SqlDataAdapter();
-            ConexionSQLViajes.comando.CommandType = CommandType.Text;
-            ConexionSQLViajes.comando.Connection = ConexionSQLViajes.conexion;
-
-        }
-
-        #region Probar conexion
-        private static bool ProbarConexion()
-        {
-            bool rta = true;
-
-            try
-            {
-                ConexionSQLViajes.conexion.Open();
-            }
-            catch (Exception)
-            {
-                rta = false;
-            }
-            finally
-            {
-                if (ConexionSQLViajes.conexion.State == ConnectionState.Open)
-                {
-                    ConexionSQLViajes.conexion.Close();
-                }
-            }
-
-            return rta;
-        }
-        #endregion
+        public ConexionSQLViajes() : base() { }
 
         #region Insertar
 
-        public static void Insertar(Viaje viaje)
+        public void Insertar(Viaje viaje)
         {
-            if (ConexionSQLViajes.ProbarConexion())
+            if (this.ProbarConexion())
             {
                 try
                 {
-                    string cadena = "INSERT INTO Viaje (CiudadDePartida, Destino, FechaDeInicio, ID_Crucero, CamarotesPremium, CamarotesTurista, CostoPremium, CostoTurista, DuracionDelViaje) VALUES";
+                    string cadena = "INSERT INTO Viajes (Ciudad_Partida, Destino, Fecha_inicio, Id_tipo_crucero, Camarotes_premium, Camarotes_turista, Costo_premium, Costo_turista, Duracion_viaje) VALUES";
                     cadena +=
                         "("
                             + ((int)viaje.Partida) + ","
@@ -80,15 +40,15 @@ namespace Entidades.BaseDeDatos
                             + viaje.Duracion
                         + ")";
 
-                    ConexionSQLViajes.comando = new SqlCommand();
+                    this.comando = new SqlCommand();
 
-                    ConexionSQLViajes.comando.CommandType = CommandType.Text;
-                    ConexionSQLViajes.comando.CommandText = cadena;
-                    ConexionSQLViajes.comando.Connection = ConexionSQLViajes.conexion;
+                    this.comando.CommandType = CommandType.Text;
+                    this.comando.CommandText = cadena;
+                    this.comando.Connection = this.conexion;
 
-                    ConexionSQLViajes.conexion.Open();
+                    this.conexion.Open();
 
-                    ConexionSQLViajes.comando.ExecuteNonQuery();
+                    this.comando.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -96,9 +56,9 @@ namespace Entidades.BaseDeDatos
                 }
                 finally
                 {
-                    if (ConexionSQLViajes.conexion.State == ConnectionState.Open)
+                    if (this.conexion.State == ConnectionState.Open)
                     {
-                        ConexionSQLViajes.conexion.Close();
+                        this.conexion.Close();
                     }
                 }
             }
@@ -108,33 +68,33 @@ namespace Entidades.BaseDeDatos
 
         #region Modificar
 
-        public static void Modificar(Viaje viaje)
+        public void Modificar(Viaje viaje)
         {
-            if (ConexionSQLViajes.ProbarConexion())
+            if (this.ProbarConexion())
             {
                 try
                 {
-                    string cadena = $"update Viaje set " +
-                        $"CiudadDePartida = {((int)viaje.Partida)}, " +
+                    string cadena = $"UPDATE Viajes set " +
+                        $"Ciudad_partida = {((int)viaje.Partida)}, " +
                         $"Destino = {((uint)viaje.Destino)}, " +
-                        $"FechaDeInicio = '{viaje.Inicio.ToString()}', " +
-                        $"ID_Crucero = {viaje.Crucero.ID}, " +
-                        $"CamarotesPremium = {viaje.CamarotesPremium}, " +
-                        $"CamarotesTurista = {viaje.CamarotesTurista}, " +
-                        $"CostoPremium = {viaje.CostoPremium}, " +
-                        $"CostoTurista = {viaje.CostoTurista}, " +
-                        $"DuracionDelViaje = {viaje.Duracion} " +
-                        $"WHERE ID = {viaje.ID}";
+                        $"Fecha_inicio = '{viaje.Inicio.ToString()}', " +
+                        $"id_tipo_crucero = {viaje.Crucero.ID}, " +
+                        $"Camarotes_premium = {viaje.CamarotesPremium}, " +
+                        $"Camarotes_turista = {viaje.CamarotesTurista}, " +
+                        $"Costo_premium = {viaje.CostoPremium}, " +
+                        $"Costo_turista = {viaje.CostoTurista}, " +
+                        $"Duracion_viaje = {viaje.Duracion} " +
+                        $"WHERE id_viaje = {viaje.ID}";
 
-                    ConexionSQLViajes.comando = new SqlCommand();
+                    this.comando = new SqlCommand();
 
-                    ConexionSQLViajes.comando.CommandType = CommandType.Text;
-                    ConexionSQLViajes.comando.CommandText = cadena;
-                    ConexionSQLViajes.comando.Connection = ConexionSQLViajes.conexion;
+                    this.comando.CommandType = CommandType.Text;
+                    this.comando.CommandText = cadena;
+                    this.comando.Connection = this.conexion;
 
-                    ConexionSQLViajes.conexion.Open();
+                    this.conexion.Open();
 
-                    ConexionSQLViajes.comando.ExecuteNonQuery();
+                    this.comando.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -142,9 +102,9 @@ namespace Entidades.BaseDeDatos
                 }
                 finally
                 {
-                    if (ConexionSQLViajes.conexion.State == ConnectionState.Open)
+                    if (this.conexion.State == ConnectionState.Open)
                     {
-                        ConexionSQLViajes.conexion.Close();
+                        this.conexion.Close();
                     }
                 }
             }
@@ -154,25 +114,25 @@ namespace Entidades.BaseDeDatos
 
         #region Eliminar
 
-        public static void Eliminar(Viaje viaje)
+        public void Eliminar(Viaje viaje)
         {
-            if (ConexionSQLViajes.ProbarConexion())
+            if (this.ProbarConexion())
             {
                 try
                 {
                     //ConexionSQLTripulantes.Eliminar(viaje);
 
-                    string cadena = $"delete FROM Viaje WHERE ID = {viaje.ID} ";
+                    string cadena = $"DELETE FROM Viajes WHERE id_viaje = {viaje.ID} ";
 
-                    ConexionSQLViajes.comando = new SqlCommand();
+                    this.comando = new SqlCommand();
 
-                    ConexionSQLViajes.comando.CommandType = CommandType.Text;
-                    ConexionSQLViajes.comando.CommandText = cadena;
-                    ConexionSQLViajes.comando.Connection = ConexionSQLViajes.conexion;
+                    this.comando.CommandType = CommandType.Text;
+                    this.comando.CommandText = cadena;
+                    this.comando.Connection = this.conexion;
 
-                    ConexionSQLViajes.conexion.Open();
+                    this.conexion.Open();
 
-                    ConexionSQLViajes.comando.ExecuteNonQuery();
+                    this.comando.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -180,9 +140,9 @@ namespace Entidades.BaseDeDatos
                 }
                 finally
                 {
-                    if (ConexionSQLViajes.conexion.State == ConnectionState.Open)
+                    if (this.conexion.State == ConnectionState.Open)
                     {
-                        ConexionSQLViajes.conexion.Close();
+                        this.conexion.Close();
                     }
                 }
             }
@@ -192,11 +152,11 @@ namespace Entidades.BaseDeDatos
 
         #region Obtener
 
-        public static Almacenamiento<Viaje> Obtener()
+        public Almacenamiento<Viaje> Obtener()
         {
            Almacenamiento<Viaje> lista = new Almacenamiento<Viaje>(Viaje.Comparar, new Viaje().Equals);
 
-            if (ConexionSQLViajes.ProbarConexion())
+            if (this.ProbarConexion())
             {
                 try
                 {
@@ -204,33 +164,33 @@ namespace Entidades.BaseDeDatos
 
                     string cadena = $"SELECT * From Viajes";
 
-                    ConexionSQLViajes.comando = new SqlCommand();
+                    this.comando = new SqlCommand();
 
-                    ConexionSQLViajes.comando.CommandType = CommandType.Text;
-                    ConexionSQLViajes.comando.CommandText = cadena;
-                    ConexionSQLViajes.comando.Connection = ConexionSQLViajes.conexion;
+                    this.comando.CommandType = CommandType.Text;
+                    this.comando.CommandText = cadena;
+                    this.comando.Connection = this.conexion;
 
-                    ConexionSQLViajes.conexion.Open();
+                    this.conexion.Open();
 
-                    ConexionSQLViajes.lector = ConexionSQLViajes.comando.ExecuteReader();
+                    this.lector = this.comando.ExecuteReader();
 
-                    while (ConexionSQLViajes.lector.Read())
+                    while (this.lector.Read())
                     {
                         lista += new Viaje
                             (
-                                (int)ConexionSQLViajes.lector["id_viaje"],
-                                (CiudadesDePartida)ConexionSQLViajes.lector["Ciudad_partida"],
-                                Destino.Parse((int)ConexionSQLViajes.lector["Destino"]),
-                                DateTime.Parse(ConexionSQLViajes.lector["Fecha_inicio"].ToString()),
-                                conexion.Obtener_Crucero((int)ConexionSQLViajes.lector["id_tipo_crucero"]),
-                                (int)ConexionSQLViajes.lector["Camarotes_premium"],
-                                (int)ConexionSQLViajes.lector["Camarotes_turista"],
-                                (double)ConexionSQLViajes.lector["Costo_premium"],
-                                (double)ConexionSQLViajes.lector["Costo_turista"],
-                                (int)ConexionSQLViajes.lector["Duracion_viaje"]
+                                (int)this.lector["id_viaje"],
+                                (CiudadesDePartida)this.lector["Ciudad_partida"],
+                                Destino.Parse((int)this.lector["Destino"]),
+                                DateTime.Parse(this.lector["Fecha_inicio"].ToString()),
+                                conexion.Obtener_Crucero((int)this.lector["id_tipo_crucero"]),
+                                (int)this.lector["Camarotes_premium"],
+                                (int)this.lector["Camarotes_turista"],
+                                (double)this.lector["Costo_premium"],
+                                (double)this.lector["Costo_turista"],
+                                (int)this.lector["Duracion_viaje"]
                             );
-                    }
-                    ConexionSQLViajes.lector.Close();
+                    }   
+                    this.lector.Close();
 
                 }
                 catch (Exception es)
@@ -239,9 +199,9 @@ namespace Entidades.BaseDeDatos
                 }
                 finally
                 {
-                    if (ConexionSQLViajes.conexion.State == ConnectionState.Open)
+                    if (this.conexion.State == ConnectionState.Open)
                     {
-                        ConexionSQLViajes.conexion.Close();
+                        this.conexion.Close();
                     }
                 }
             }
@@ -249,11 +209,11 @@ namespace Entidades.BaseDeDatos
             return lista;
         }
 
-        public static Almacenamiento<Viaje> Obtener(Disponibilidad disponibilidad)
+        public Almacenamiento<Viaje> Obtener(Disponibilidad disponibilidad)
         {
             Almacenamiento<Viaje> lista = new Almacenamiento<Viaje>(Viaje.Comparar);
 
-            if (ConexionSQLViajes.ProbarConexion())
+            if (this.ProbarConexion())
             {
                 try
                 {
@@ -262,30 +222,30 @@ namespace Entidades.BaseDeDatos
 
                     string cadena = $"SELECT * From Viajes";
 
-                    ConexionSQLViajes.comando = new SqlCommand();
+                    this.comando = new SqlCommand();
 
-                    ConexionSQLViajes.comando.CommandType = CommandType.Text;
-                    ConexionSQLViajes.comando.CommandText = cadena;
-                    ConexionSQLViajes.comando.Connection = ConexionSQLViajes.conexion;
+                    this.comando.CommandType = CommandType.Text;
+                    this.comando.CommandText = cadena;
+                    this.comando.Connection = this.conexion;
 
-                    ConexionSQLViajes.conexion.Open();
+                    this.conexion.Open();
 
-                    ConexionSQLViajes.lector = ConexionSQLViajes.comando.ExecuteReader();
+                    this.lector = this.comando.ExecuteReader();
 
-                    while (ConexionSQLViajes.lector.Read())
+                    while (this.lector.Read())
                     {
                         Viaje viaje = new Viaje
                             (
-                                (int)ConexionSQLViajes.lector["id_viaje"],
-                                (CiudadesDePartida)ConexionSQLViajes.lector["Ciudad_partida"],
-                                Destino.Parse((int)ConexionSQLViajes.lector["Destino"]),
-                                DateTime.Parse(ConexionSQLViajes.lector["Fecha_inicio"].ToString()),
-                                conexion.Obtener_Crucero((int)ConexionSQLViajes.lector["id_tipo_crucero"]),
-                                (int)ConexionSQLViajes.lector["Camarotes_premium"],
-                                (int)ConexionSQLViajes.lector["Camarotes_turista"],
-                                (double)ConexionSQLViajes.lector["Costo_premium"],
-                                (double)ConexionSQLViajes.lector["Costo_turista"],
-                                (int)ConexionSQLViajes.lector["Duracion_viaje"]
+                                (int)this.lector["id_viaje"],
+                                (CiudadesDePartida)this.lector["Ciudad_partida"],
+                                Destino.Parse((int)this.lector["Destino"]),
+                                DateTime.Parse(this.lector["Fecha_inicio"].ToString()),
+                                conexion.Obtener_Crucero((int)this.lector["id_tipo_crucero"]),
+                                (int)this.lector["Camarotes_premium"],
+                                (int)this.lector["Camarotes_turista"],
+                                (double)this.lector["Costo_premium"],
+                                (double)this.lector["Costo_turista"],
+                                (int)this.lector["Duracion_viaje"]
                             );
 
                         if (viaje.Estado == disponibilidad)
@@ -294,7 +254,7 @@ namespace Entidades.BaseDeDatos
                         }
 
                     }
-                    ConexionSQLViajes.lector.Close();
+                    this.lector.Close();
 
                 }
                 catch (Exception)
@@ -303,9 +263,9 @@ namespace Entidades.BaseDeDatos
                 }
                 finally
                 {
-                    if (ConexionSQLViajes.conexion.State == ConnectionState.Open)
+                    if (this.conexion.State == ConnectionState.Open)
                     {
-                        ConexionSQLViajes.conexion.Close();
+                        this.conexion.Close();
                     }
                 }
             }
@@ -313,11 +273,11 @@ namespace Entidades.BaseDeDatos
             return lista;
         }
 
-        public static Viaje Obtener_Viaje(int id)
+        public Viaje Obtener_Viaje(int id)
         {
             Viaje retorno = null;
 
-            if (ConexionSQLViajes.ProbarConexion())
+            if (this.ProbarConexion())
             {
                 try
                 {
@@ -325,33 +285,33 @@ namespace Entidades.BaseDeDatos
 
                     string cadena = $"SELECT * FROM Viajes WHERE id_viaje = {id}";
 
-                    ConexionSQLViajes.comando = new SqlCommand();
+                    this.comando = new SqlCommand();
 
-                    ConexionSQLViajes.comando.CommandType = CommandType.Text;
-                    ConexionSQLViajes.comando.CommandText = cadena;
-                    ConexionSQLViajes.comando.Connection = ConexionSQLViajes.conexion;
+                    this.comando.CommandType = CommandType.Text;
+                    this.comando.CommandText = cadena;
+                    this.comando.Connection = this.conexion;
 
-                    ConexionSQLViajes.conexion.Open();
+                    this.conexion.Open();
 
-                    ConexionSQLViajes.lector = ConexionSQLViajes.comando.ExecuteReader();
+                    this.lector = this.comando.ExecuteReader();
 
-                    while (ConexionSQLViajes.lector.Read())
+                    while (this.lector.Read())
                     {
                         retorno = new Viaje
                             (
-                                (int)ConexionSQLViajes.lector["id_viaje"],
-                                (CiudadesDePartida)ConexionSQLViajes.lector["Ciudad_partida"],
-                                Destino.Parse((int)ConexionSQLViajes.lector["Destino"]),
-                                DateTime.Parse(ConexionSQLViajes.lector["Fecha_inicio"].ToString()),
-                                conexion.Obtener_Crucero((int)ConexionSQLViajes.lector["id_tipo_crucero"]),
-                                (int)ConexionSQLViajes.lector["Camarotes_premium"],
-                                (int)ConexionSQLViajes.lector["Camarotes_turista"],
-                                (double)ConexionSQLViajes.lector["Costo_premium"],
-                                (double)ConexionSQLViajes.lector["Costo_turista"],
-                                (int)ConexionSQLViajes.lector["Duracion_viaje"]
+                                (int)this.lector["id_viaje"],
+                                (CiudadesDePartida)this.lector["Ciudad_partida"],
+                                Destino.Parse((int)this.lector["Destino"]),
+                                DateTime.Parse(this.lector["Fecha_inicio"].ToString()),
+                                conexion.Obtener_Crucero((int)this.lector["id_tipo_crucero"]),
+                                (int)this.lector["Camarotes_premium"],
+                                (int)this.lector["Camarotes_turista"],
+                                (double)this.lector["Costo_premium"],
+                                (double)this.lector["Costo_turista"],
+                                (int)this.lector["Duracion_viaje"]
                             );
                     }
-                    ConexionSQLViajes.lector.Close();
+                    this.lector.Close();
 
                 }
                 catch (Exception)
@@ -360,9 +320,9 @@ namespace Entidades.BaseDeDatos
                 }
                 finally
                 {
-                    if (ConexionSQLViajes.conexion.State == ConnectionState.Open)
+                    if (this.conexion.State == ConnectionState.Open)
                     {
-                        ConexionSQLViajes.conexion.Close();
+                        this.conexion.Close();
                     }
                 }
             }
@@ -370,31 +330,31 @@ namespace Entidades.BaseDeDatos
             return retorno;
         }
 
-        public static Almacenamiento<Destino> Destinos()
+        public Almacenamiento<Destino> Destinos()
         {
             Almacenamiento<Destino> lista = new Almacenamiento<Destino>(10000);
 
-            if (ConexionSQLViajes.ProbarConexion())
+            if (this.ProbarConexion())
             {
                 try
                 {
                     string cadena = $"SELECT * FROM Viaje";
 
-                    ConexionSQLViajes.comando = new SqlCommand();
+                    this.comando = new SqlCommand();
 
-                    ConexionSQLViajes.comando.CommandType = CommandType.Text;
-                    ConexionSQLViajes.comando.CommandText = cadena;
-                    ConexionSQLViajes.comando.Connection = ConexionSQLViajes.conexion;
+                    this.comando.CommandType = CommandType.Text;
+                    this.comando.CommandText = cadena;
+                    this.comando.Connection = this.conexion;
 
-                    ConexionSQLViajes.conexion.Open();
+                    this.conexion.Open();
 
-                    ConexionSQLViajes.lector = ConexionSQLViajes.comando.ExecuteReader();
+                    this.lector = this.comando.ExecuteReader();
 
-                    while (ConexionSQLViajes.lector.Read())
+                    while (this.lector.Read())
                     {
-                        lista += Destino.Parse((int)ConexionSQLViajes.lector["Destino"]);
+                        lista += Destino.Parse((int)this.lector["Destino"]);
                     }
-                    ConexionSQLViajes.lector.Close();
+                    this.lector.Close();
 
                 }
                 catch (Exception)
@@ -403,9 +363,9 @@ namespace Entidades.BaseDeDatos
                 }
                 finally
                 {
-                    if (ConexionSQLViajes.conexion.State == ConnectionState.Open)
+                    if (this.conexion.State == ConnectionState.Open)
                     {
-                        ConexionSQLViajes.conexion.Close();
+                        this.conexion.Close();
                     }
                 }
             }
@@ -413,11 +373,11 @@ namespace Entidades.BaseDeDatos
             return lista;
         }
 
-        public static bool Disponible(Crucero crucero)
+        public bool Disponible(Crucero crucero)
         {
             bool retorno = true;
 
-            if (ConexionSQLViajes.ProbarConexion())
+            if (this.ProbarConexion())
             {
                 try
                 {
@@ -426,30 +386,30 @@ namespace Entidades.BaseDeDatos
 
                     string cadena = $"SELECT * From Viajes WHERE id_tipo_crucero = {crucero.ID}";
 
-                    ConexionSQLViajes.comando = new SqlCommand();
+                    this.comando = new SqlCommand();
 
-                    ConexionSQLViajes.comando.CommandType = CommandType.Text;
-                    ConexionSQLViajes.comando.CommandText = cadena;
-                    ConexionSQLViajes.comando.Connection = ConexionSQLViajes.conexion;
+                    this.comando.CommandType = CommandType.Text;
+                    this.comando.CommandText = cadena;
+                    this.comando.Connection = this.conexion;
 
-                    ConexionSQLViajes.conexion.Open();
+                    this.conexion.Open();
 
-                    ConexionSQLViajes.lector = ConexionSQLViajes.comando.ExecuteReader();
+                    this.lector = this.comando.ExecuteReader();
 
-                    while (ConexionSQLViajes.lector.Read())
+                    while (this.lector.Read())
                     {
                         Viaje viaje = new Viaje
                             (
-                                (int)ConexionSQLViajes.lector["id_viaje"],
-                                (CiudadesDePartida)ConexionSQLViajes.lector["Ciudad_partida"],
-                                Destino.Parse((int)ConexionSQLViajes.lector["Destino"]),
-                                DateTime.Parse(ConexionSQLViajes.lector["Fecha_inicio"].ToString()),
-                                conexion.Obtener_Crucero((int)ConexionSQLViajes.lector["id_tipo_crucero"]),
-                                (int)ConexionSQLViajes.lector["Camarotes_premium"],
-                                (int)ConexionSQLViajes.lector["Camarotes_turista"],
-                                (double)ConexionSQLViajes.lector["Costo_premium"],
-                                (double)ConexionSQLViajes.lector["Costo_turista"],
-                                (int)ConexionSQLViajes.lector["Duracion_viaje"]
+                                (int)this.lector["id_viaje"],
+                                (CiudadesDePartida)this.lector["Ciudad_partida"],
+                                Destino.Parse((int)this.lector["Destino"]),
+                                DateTime.Parse(this.lector["Fecha_inicio"].ToString()),
+                                conexion.Obtener_Crucero((int)this.lector["id_tipo_crucero"]),
+                                (int)this.lector["Camarotes_premium"],
+                                (int)this.lector["Camarotes_turista"],
+                                (double)this.lector["Costo_premium"],
+                                (double)this.lector["Costo_turista"],
+                                (int)this.lector["Duracion_viaje"]
                             );
 
                                 if(viaje.Estado != Disponibilidad.Disponible && viaje.Estado != Disponibilidad.Terminado)
@@ -458,7 +418,7 @@ namespace Entidades.BaseDeDatos
                                     break;
                                 }
                     }
-                    ConexionSQLViajes.lector.Close();
+                    this.lector.Close();
 
                 }
                 catch (Exception)
@@ -467,9 +427,9 @@ namespace Entidades.BaseDeDatos
                 }
                 finally
                 {
-                    if (ConexionSQLViajes.conexion.State == ConnectionState.Open)
+                    if (this.conexion.State == ConnectionState.Open)
                     {
-                        ConexionSQLViajes.conexion.Close();
+                        this.conexion.Close();
                     }
                 }
             }

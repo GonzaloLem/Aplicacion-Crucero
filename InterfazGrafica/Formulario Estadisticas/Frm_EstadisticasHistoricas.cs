@@ -27,9 +27,10 @@ namespace InterfazGrafica.Formulario_Estadisticas
         private void Frm_EstadisticasHistoricas_Load(object sender, EventArgs e)
         {
             ConexionSQLCrucero conexionCrucero = new ConexionSQLCrucero();
+            ConexionSQLViajes conexionViajes = new ConexionSQLViajes();
 
-            this.Listar(ConexionSQLViajes.Obtener());
-            this.DestinosPopulares(ConexionSQLViajes.Destinos());
+            this.Listar(conexionViajes.Obtener());
+            this.DestinosPopulares(conexionViajes.Destinos());
             this.Listar(conexionCrucero.Obtener());
         } 
 

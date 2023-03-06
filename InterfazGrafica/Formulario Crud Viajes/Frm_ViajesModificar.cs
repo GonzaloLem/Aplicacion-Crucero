@@ -32,9 +32,10 @@ namespace InterfazGrafica.Formulario_Crud_Viajes
 
         private void Frm_ViajesModificar_Load(object sender, EventArgs e)
         {
-            ConexionSQLCrucero conexion = new ConexionSQLCrucero();
+            ConexionSQLCrucero conexionCrucero = new ConexionSQLCrucero();
+            ConexionSQLViajes conexionViajes = new ConexionSQLViajes();
 
-            Almacenamiento<Crucero> embacadero = conexion.Obtener();
+            Almacenamiento<Crucero> embacadero = conexionCrucero.Obtener();
 
             foreach (CiudadesDePartida item in Enum.GetValues(typeof(CiudadesDePartida)))
             {
@@ -53,7 +54,7 @@ namespace InterfazGrafica.Formulario_Crud_Viajes
 
             foreach (Crucero item in embacadero.Lista)
             {
-                if (ConexionSQLViajes.Disponible(item) || item.ID == this.viaje.Crucero.ID)
+                if (conexionViajes.Disponible(item) || item.ID == this.viaje.Crucero.ID)
                 {
                     this.cbBox_Cruceros.Items.Add(item);
                 }
@@ -69,6 +70,8 @@ namespace InterfazGrafica.Formulario_Crud_Viajes
         {
             if (this.cbBox_Cruceros.SelectedItem != null && this.cbBox_Destino.SelectedItem != null && this.cbBox_CiudadPartida.SelectedItem != null)
             {
+                ConexionSQLViajes conexionViajes = new ConexionSQLViajes();
+
                 Destino destino = null;
 
                 if (this.cbBox_Destino.SelectedItem is ViajesRegionales)
@@ -96,7 +99,7 @@ namespace InterfazGrafica.Formulario_Crud_Viajes
                     duracionDelViaje
                 );
 
-                    ConexionSQLViajes.Modificar(viaje);
+                    conexionViajes.Modificar(viaje);
                     this.Close();
                 
 

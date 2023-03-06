@@ -44,6 +44,8 @@ namespace InterfazGrafica.Formulario_Crud_Barcos
 
         private void Listar(Almacenamiento<Crucero> embarcadero)
         {
+            ConexionSQLViajes conexion = new ConexionSQLViajes();
+
             this.dtGdVw_ListaCruceros.Rows.Clear();
 
             for(int i=0;i<embarcadero.Contar;i++)
@@ -61,7 +63,7 @@ namespace InterfazGrafica.Formulario_Crud_Barcos
                 this.dtGdVw_ListaCruceros.Rows[index].Cells[8].Value = embarcadero[i].Capacidad;
                 this.dtGdVw_ListaCruceros.Rows[index].Cells[9].Value = embarcadero[i].Peso;
                 this.dtGdVw_ListaCruceros.Rows[index].Cells[10].Value = embarcadero[i].Tripulantes.Contar;
-                this.dtGdVw_ListaCruceros.Rows[index].Cells[11].Value = new bool().Traductor(ConexionSQLViajes.Disponible(embarcadero[i]));
+                this.dtGdVw_ListaCruceros.Rows[index].Cells[11].Value = new bool().Traductor(conexion.Disponible(embarcadero[i]));
 
             }
 
