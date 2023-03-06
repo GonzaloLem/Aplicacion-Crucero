@@ -9,64 +9,25 @@ using Entidades.Barcos;
 using Entidades.Listas;
 using Entidades.BaseDeDatos.ConexionesPersonas;
 using Entidades.Viajes;
+using System.Collections;
 
 namespace Entidades.BaseDeDatos
 {
-    public static class ConexionSQLCrucero
+    public class ConexionSQLCrucero : ConexionSQL
     {
-        private static SqlConnection conexion;
-        private static SqlCommand comando;
-        private static SqlDataReader lector;
-        private static SqlDataAdapter adaptador;
 
-        static ConexionSQLCrucero()
-        {
-            ConexionSQLCrucero.conexion = new SqlConnection(@"Data Source=.;
-                                            Database=AplicacionCrucero;
-                                            Trusted_Connection=True;");
 
-            ConexionSQLCrucero.comando = new SqlCommand();
-            ConexionSQLCrucero.adaptador = new SqlDataAdapter();
-            ConexionSQLCrucero.comando.CommandType = CommandType.Text;
-            ConexionSQLCrucero.comando.Connection = ConexionSQLCrucero.conexion;
-
-        }
-
-        #region Probar conexion
-        private static bool ProbarConexion()
-        {
-            bool rta = true;
-
-            try
-            {
-                ConexionSQLCrucero.conexion.Open();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-                rta = false;
-            }
-            finally
-            {
-                if (ConexionSQLCrucero.conexion.State == ConnectionState.Open)
-                {
-                    ConexionSQLCrucero.conexion.Close();
-                }
-            }
-
-            return rta;
-        }
-        #endregion
+        public ConexionSQLCrucero() : base() { }
 
         #region Insertar
 
-        public static void Insertar(Crucero crucero)
+        public void Insertar(Crucero crucero)
         {
-            if (ConexionSQLCrucero.ProbarConexion())
+            if (this.ProbarConexion())
             {
                 try
                 {
-                    string cadena = "INSERT INTO Crucero (Matricula, Nombre, Camarotes, Salones, Casinos, Piscinas, Gimnacios, CapacidadBodega, PesoTotalDeLaBodega, ListaTripulantes) VALUES";
+                    string cadena = "INSERT INTO Cruceros (Matricula, Nombre, Camarotes, Salones, Casinos, Piscinas, Gimnacios, Capacidad_bodega, Peso_total_bodega) VALUES";
                     cadena +=
                         "("
                             + "'" + crucero.Matricula + "',"
@@ -80,15 +41,15 @@ namespace Entidades.BaseDeDatos
                             + crucero.Peso + ""
                         + ")";
 
-                    ConexionSQLCrucero.comando = new SqlCommand();
+                    this.comando = new SqlCommand();
 
-                    ConexionSQLCrucero.comando.CommandType = CommandType.Text;
-                    ConexionSQLCrucero.comando.CommandText = cadena;
-                    ConexionSQLCrucero.comando.Connection = ConexionSQLCrucero.conexion;
+                    this.comando.CommandType = CommandType.Text;
+                    this.comando.CommandText = cadena;
+                    this.comando.Connection = this.conexion;
 
-                    ConexionSQLCrucero.conexion.Open();
+                    this.conexion.Open();
 
-                    ConexionSQLCrucero.comando.ExecuteNonQuery();
+                    this.comando.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -96,9 +57,9 @@ namespace Entidades.BaseDeDatos
                 }
                 finally
                 {
-                    if (ConexionSQLCrucero.conexion.State == ConnectionState.Open)
+                    if (this.conexion.State == ConnectionState.Open)
                     {
-                        ConexionSQLCrucero.conexion.Close();
+                        this.conexion.Close();
                     }
                 }
             }
@@ -108,13 +69,13 @@ namespace Entidades.BaseDeDatos
 
         #region Modificar
 
-        public static void Modificar(Crucero crucero)
+        public void Modificar(Crucero crucero)
         {
-            if (ConexionSQLCrucero.ProbarConexion())
+            if (this.ProbarConexion())
             {
                 try
                 {
-                    string cadena = $"update Crucero set " +
+                    string cadena = $"UPDATE Cruceros set " +
                         $"Matricula = '{crucero.Matricula}', " +
                         $"Nombre = '{crucero.Nombre}', " +
                         $"Camarotes = {crucero.Camarotes}, " +
@@ -122,19 +83,19 @@ namespace Entidades.BaseDeDatos
                         $"Casinos = {crucero.Salones}, " +
                         $"Piscinas = {crucero.Salones}, " +
                         $"Gimnacios = {crucero.Gimnacios}, " +
-                        $"CapacidadBodega = {crucero.Capacidad}, " +
-                        $"PesoTotalDeLaBodega = {crucero.Peso} " +
-                        $"WHERE ID = {crucero.ID}";
+                        $"Capacidad_bodega = {crucero.Capacidad}, " +
+                        $"Peso_total_bodega = {crucero.Peso} " +
+                        $"WHERE id_crucero = {crucero.ID}";
 
-                    ConexionSQLCrucero.comando = new SqlCommand();
+                    this.comando = new SqlCommand();
 
-                    ConexionSQLCrucero.comando.CommandType = CommandType.Text;
-                    ConexionSQLCrucero.comando.CommandText = cadena;
-                    ConexionSQLCrucero.comando.Connection = ConexionSQLCrucero.conexion;
+                    this.comando.CommandType = CommandType.Text;
+                    this.comando.CommandText = cadena;
+                    this.comando.Connection = this.conexion;
 
-                    ConexionSQLCrucero.conexion.Open();
+                    this.conexion.Open();
 
-                    ConexionSQLCrucero.comando.ExecuteNonQuery();
+                    this.comando.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -142,9 +103,9 @@ namespace Entidades.BaseDeDatos
                 }
                 finally
                 {
-                    if (ConexionSQLCrucero.conexion.State == ConnectionState.Open)
+                    if (this.conexion.State == ConnectionState.Open)
                     {
-                        ConexionSQLCrucero.conexion.Close();
+                        this.conexion.Close();
                     }
                 }
             }
@@ -154,23 +115,23 @@ namespace Entidades.BaseDeDatos
 
         #region Eliminar
 
-        public static void Elminar(Crucero crucero)
+        public void Elminar(Crucero crucero)
         {
-            if (ConexionSQLCrucero.ProbarConexion())
+            if (this.ProbarConexion())
             {
                 try
                 {
-                    string cadena = $"delete FROM Crucero WHERE ID = {crucero.ID}";
+                    string cadena = $"DELETE FROM Cruceros WHERE id_crucero = {crucero.ID}";
 
-                    ConexionSQLCrucero.comando = new SqlCommand();
+                    this.comando = new SqlCommand();
 
-                    ConexionSQLCrucero.comando.CommandType = CommandType.Text;
-                    ConexionSQLCrucero.comando.CommandText = cadena;
-                    ConexionSQLCrucero.comando.Connection = ConexionSQLCrucero.conexion;
+                    this.comando.CommandType = CommandType.Text;
+                    this.comando.CommandText = cadena;
+                    this.comando.Connection = this.conexion;
 
-                    ConexionSQLCrucero.conexion.Open();
+                    this.conexion.Open();
 
-                    ConexionSQLCrucero.comando.ExecuteNonQuery();
+                    this.comando.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -178,9 +139,9 @@ namespace Entidades.BaseDeDatos
                 }
                 finally
                 {
-                    if (ConexionSQLCrucero.conexion.State == ConnectionState.Open)
+                    if (this.conexion.State == ConnectionState.Open)
                     {
-                        ConexionSQLCrucero.conexion.Close();
+                        this.conexion.Close();
                     }
                 }
             }
@@ -190,44 +151,43 @@ namespace Entidades.BaseDeDatos
 
         #region Obtener
 
-        public static Almacenamiento<Crucero> Obtener()
+        public Almacenamiento<Crucero> Obtener()
         {
             Almacenamiento<Crucero> lista = new Almacenamiento<Crucero>(Crucero.Comparar);
 
-            if (ConexionSQLCrucero.ProbarConexion())
+            if (this.ProbarConexion())
             {
                 try
                 {
-                    string cadena = $"SELECT * From Crucero";
+                    string cadena = $"SELECT * From Cruceros";
 
-                    ConexionSQLCrucero.comando = new SqlCommand();
+                    this.comando = new SqlCommand();
 
-                    ConexionSQLCrucero.comando.CommandType = CommandType.Text;
-                    ConexionSQLCrucero.comando.CommandText = cadena;
-                    ConexionSQLCrucero.comando.Connection = ConexionSQLCrucero.conexion;
+                    this.comando.CommandType = CommandType.Text;
+                    this.comando.CommandText = cadena;
+                    this.comando.Connection = this.conexion;
 
-                    ConexionSQLCrucero.conexion.Open();
+                    this.conexion.Open();
 
-                    ConexionSQLCrucero.lector = ConexionSQLCrucero.comando.ExecuteReader();
+                    this.lector = this.comando.ExecuteReader();
 
-                    while (ConexionSQLCrucero.lector.Read())
+                    while (this.lector.Read())
                     {
                         lista += new Crucero
                             (
-                                (int)ConexionSQLCrucero.lector["ID"],
-                                ConexionSQLCrucero.lector["Matricula"].ToString(),
-                                ConexionSQLCrucero.lector["Nombre"].ToString(),
-                                (int)ConexionSQLCrucero.lector["Camarotes"],
-                                (int)ConexionSQLCrucero.lector["Salones"],
-                                (int)ConexionSQLCrucero.lector["Casinos"],
-                                (int)ConexionSQLCrucero.lector["Piscinas"],
-                                (int)ConexionSQLCrucero.lector["Gimnacios"],
-                                (double)ConexionSQLCrucero.lector["CapacidadBodega"],
-                                (double)ConexionSQLCrucero.lector["PesoTotalDeLaBodega"],
-                                ConexionSQLTripulantes.Obtener((int)ConexionSQLCrucero.lector["ID"])
+                                (int)this.lector["id_crucero"],
+                                this.lector["Matricula"].ToString(),
+                                this.lector["Nombre"].ToString(),
+                                (int)this.lector["Camarotes"],
+                                (int)this.lector["Salones"],
+                                (int)this.lector["Casinos"],
+                                (int)this.lector["Piscinas"],
+                                (int)this.lector["Gimnacios"],
+                                (double)this.lector["Capacidad_bodega"],
+                                (double)this.lector["Peso_total_bodega"]
                             );
                     }
-                    ConexionSQLCrucero.lector.Close();
+                    this.lector.Close();
 
                 }
                 catch (Exception)
@@ -236,9 +196,9 @@ namespace Entidades.BaseDeDatos
                 }
                 finally
                 {
-                    if (ConexionSQLCrucero.conexion.State == ConnectionState.Open)
+                    if (this.conexion.State == ConnectionState.Open)
                     {
-                        ConexionSQLCrucero.conexion.Close();
+                        this.conexion.Close();
                     }
                 }
             }
@@ -246,43 +206,42 @@ namespace Entidades.BaseDeDatos
             return lista;
         }
 
-        public static Crucero Obtener_Crucero(int id)
+        public Crucero Obtener_Crucero(int id)
         {
             Crucero retorno = null;
 
-            if (ConexionSQLCrucero.ProbarConexion())
+            if (this.ProbarConexion())
             {
                 try
                 {
-                    string cadena = $"SELECT * FROM Crucero WHERE ID = {id}";
+                    string cadena = $"SELECT * FROM Cruceros WHERE id_crucero = {id}";
 
-                    ConexionSQLCrucero.comando = new SqlCommand();
-                    ConexionSQLCrucero.comando.CommandType = CommandType.Text;
-                    ConexionSQLCrucero.comando.CommandText = cadena;
-                    ConexionSQLCrucero.comando.Connection = ConexionSQLCrucero.conexion;
+                    this.comando = new SqlCommand();
+                    this.comando.CommandType = CommandType.Text;
+                    this.comando.CommandText = cadena;
+                    this.comando.Connection = this.conexion;
 
-                    ConexionSQLCrucero.conexion.Open();
+                    this.conexion.Open();
 
-                    ConexionSQLCrucero.lector = ConexionSQLCrucero.comando.ExecuteReader();
+                    this.lector = this.comando.ExecuteReader();
 
-                    while (ConexionSQLCrucero.lector.Read())
+                    while (this.lector.Read())
                     {
                         retorno = new Crucero
                             (
-                                (int)ConexionSQLCrucero.lector["ID"],
-                                ConexionSQLCrucero.lector["Matricula"].ToString(),
-                                ConexionSQLCrucero.lector["Nombre"].ToString(),
-                                (int)ConexionSQLCrucero.lector["Camarotes"],
-                                (int)ConexionSQLCrucero.lector["Salones"],
-                                (int)ConexionSQLCrucero.lector["Casinos"],
-                                (int)ConexionSQLCrucero.lector["Piscinas"],
-                                (int)ConexionSQLCrucero.lector["Gimnacios"],
-                                (double)ConexionSQLCrucero.lector["CapacidadBodega"],
-                                (double)ConexionSQLCrucero.lector["PesoTotalDeLaBodega"],
-                                new Almacenamiento<Personas.Persona>(1)
+                                (int)this.lector["id_crucero"],
+                                this.lector["Matricula"].ToString(),
+                                this.lector["Nombre"].ToString(),
+                                (int)this.lector["Camarotes"],
+                                (int)this.lector["Salones"],
+                                (int)this.lector["Casinos"],
+                                (int)this.lector["Piscinas"],
+                                (int)this.lector["Gimnacios"],
+                                (double)this.lector["Capacidad_bodega"],
+                                (double)this.lector["Peso_total_bodega"]
                             );
                     }
-                    ConexionSQLCrucero.lector.Close();
+                    this.lector.Close();
 
                 }
                 catch (Exception)
@@ -291,9 +250,9 @@ namespace Entidades.BaseDeDatos
                 }
                 finally
                 {
-                    if (ConexionSQLCrucero.conexion.State == ConnectionState.Open)
+                    if (this.conexion.State == ConnectionState.Open)
                     {
-                        ConexionSQLCrucero.conexion.Close();
+                        this.conexion.Close();
                     }
                 }
             }
@@ -301,30 +260,35 @@ namespace Entidades.BaseDeDatos
             return retorno;
         }
 
-        public static int Horas(Crucero crucero)
-        {
+        #endregion
+
+        #region Metodos
+
+        public int Horas(Crucero crucero)
+        { 
             int retorno = 0;
 
-            if (ConexionSQLCrucero.ProbarConexion())
+            if (this.ProbarConexion())
             {
                 try
                 {
-                    string cadena = $"SELECT * FROM Viaje WHERE ID_Crucero = {crucero.ID}";
+                    string cadena = $"SELECT Duracion_viaje FROM Viajes WHERE id_tipo_crucero = {crucero.ID}";
 
-                    ConexionSQLCrucero.comando = new SqlCommand();
-                    ConexionSQLCrucero.comando.CommandType = CommandType.Text;
-                    ConexionSQLCrucero.comando.CommandText = cadena;
-                    ConexionSQLCrucero.comando.Connection = ConexionSQLCrucero.conexion;
+                    this.comando = new SqlCommand();
 
-                    ConexionSQLCrucero.conexion.Open();
+                    this.comando.CommandType = CommandType.Text;
+                    this.comando.CommandText = cadena;
+                    this.comando.Connection = this.conexion;
 
-                    ConexionSQLCrucero.lector = ConexionSQLCrucero.comando.ExecuteReader();
+                    this.conexion.Open();
 
-                    while (ConexionSQLCrucero.lector.Read())
+                    this.lector = this.comando.ExecuteReader();
+
+                    while (this.lector.Read())
                     {
-                        retorno += (int)ConexionSQLCrucero.lector["DuracionDelViaje"];
+                        retorno += (int)this.lector["Duracion_viaje"];
                     }
-                    ConexionSQLCrucero.lector.Close();
+                    this.lector.Close();
 
                 }
                 catch (Exception)
@@ -333,15 +297,16 @@ namespace Entidades.BaseDeDatos
                 }
                 finally
                 {
-                    if (ConexionSQLCrucero.conexion.State == ConnectionState.Open)
+                    if (this.conexion.State == ConnectionState.Open)
                     {
-                        ConexionSQLCrucero.conexion.Close();
+                        this.conexion.Close();
                     }
                 }
             }
 
             return retorno;
         }
+
         #endregion
 
     }

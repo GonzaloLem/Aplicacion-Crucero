@@ -1,90 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data;
-using System.Data.SqlClient;
-using Entidades;
-using Entidades.Listas;
 using Entidades.Personas;
+using Entidades.Listas;
 using Entidades.Barcos;
 
 namespace Entidades.BaseDeDatos.ConexionesPersonas
 {
-    public static class ConexionSQLTripulantes
+    public class ConexionSQLTripulantes : ConexionSQL
     {
-        private static SqlConnection conexion;
-        private static SqlCommand comando;
-        private static SqlDataReader lector;
-        private static SqlDataAdapter adaptador;
 
-        static ConexionSQLTripulantes()
-        {
-            ConexionSQLTripulantes.conexion = new SqlConnection(@"Data Source=.;
-                                            Database=AplicacionCrucero;
-                                            Trusted_Connection=True;");
-
-            ConexionSQLTripulantes.comando = new SqlCommand();
-            ConexionSQLTripulantes.adaptador = new SqlDataAdapter();
-            ConexionSQLTripulantes.comando.CommandType = CommandType.Text;
-            ConexionSQLTripulantes.comando.Connection = ConexionSQLTripulantes.conexion;
-
-        }
-
-        #region Probar conexion
-        private static bool ProbarConexion()
-        {
-            bool rta = true;
-
-            try
-            {
-                ConexionSQLTripulantes.conexion.Open();
-            }
-            catch (Exception)
-            {
-                rta = false;
-            }
-            finally
-            {
-                if (ConexionSQLTripulantes.conexion.State == ConnectionState.Open)
-                {
-                    ConexionSQLTripulantes.conexion.Close();
-                }
-            }
-
-            return rta;
-        }
-        #endregion
+        public ConexionSQLTripulantes() : base() { }
 
         #region Insertar
 
-        public static void Insertar(Persona persona, Viaje viaje, Crucero crucero)
+        public void Insertar(Viaje viaje, Persona persona)
         {
-
-            if (ConexionSQLTripulantes.ProbarConexion())
+            if (this.ProbarConexion())
             {
                 try
                 {
-                    string cadena = "INSERT INTO Tripulante (ID_Persona, ID_Viaje, ID_Crucero, Estado) VALUES";
+                    string cadena = "INSERT INTO Tripulantes (id_persona, id_crucero, id_viaje) VALUES";
                     cadena +=
-                    "("
+                        "("
                         + persona.ID + ","
-                        + viaje.ID + ","
-                        + crucero.ID + ","
-                        + 1
-                    + ")";
+                        + viaje.Crucero.ID + ","
+                        + viaje.ID
+                        + ")";
 
-                    ConexionSQLTripulantes.comando = new SqlCommand();
+                    this.comando = new SqlCommand();
 
-                    ConexionSQLTripulantes.comando.CommandType = CommandType.Text;
-                    ConexionSQLTripulantes.comando.CommandText = cadena;
-                    ConexionSQLTripulantes.comando.Connection = ConexionSQLTripulantes.conexion;
+                    this.comando.CommandType = CommandType.Text;
+                    this.comando.CommandText = cadena;
+                    this.comando.Connection = this.conexion;
 
-                    ConexionSQLTripulantes.conexion.Open();
+                    this.conexion.Open();
 
-                    ConexionSQLTripulantes.comando.ExecuteNonQuery();
-
+                    this.comando.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -92,45 +48,9 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
                 }
                 finally
                 {
-                    if (ConexionSQLTripulantes.conexion.State == ConnectionState.Open)
+                    if (this.conexion.State == ConnectionState.Open)
                     {
-                        ConexionSQLTripulantes.conexion.Close();
-                    }
-                }
-            }
-        }
-
-        #endregion
-
-        #region Modificar
-
-        public static void Modificar(int id)
-        {
-            if (ConexionSQLTripulantes.ProbarConexion())
-            {
-                try
-                {
-                    string cadena = $"update Triputante sett";
-
-                    ConexionSQLTripulantes.comando = new SqlCommand();
-
-                    ConexionSQLTripulantes.comando.CommandType = CommandType.Text;
-                    ConexionSQLTripulantes.comando.CommandText = cadena;
-                    ConexionSQLTripulantes.comando.Connection = ConexionSQLTripulantes.conexion;
-
-                    ConexionSQLTripulantes.conexion.Open();
-
-                    ConexionSQLTripulantes.comando.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.ToString());
-                }
-                finally
-                {
-                    if (ConexionSQLTripulantes.conexion.State == ConnectionState.Open)
-                    {
-                        ConexionSQLTripulantes.conexion.Close();
+                        this.conexion.Close();
                     }
                 }
             }
@@ -140,23 +60,24 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
 
         #region Eliminar
 
-        public static void Eliminar(Viaje viaje)
+        public void Eliminar(int id)
         {
-            if (ConexionSQLTripulantes.ProbarConexion())
+            if (this.ProbarConexion())
             {
                 try
                 {
-                    string cadena = $"delete FROM Tripulante WHERE ID_Viaje = {viaje.ID} ";
 
-                    ConexionSQLTripulantes.comando = new SqlCommand();
+                    string cadena = $"DELETE FROM Tripulantes WHERE id_persona = {id}";
 
-                    ConexionSQLTripulantes.comando.CommandType = CommandType.Text;
-                    ConexionSQLTripulantes.comando.CommandText = cadena;
-                    ConexionSQLTripulantes.comando.Connection = ConexionSQLTripulantes.conexion;
+                    this.comando = new SqlCommand();
 
-                    ConexionSQLTripulantes.conexion.Open();
+                    this.comando.CommandType = CommandType.Text;
+                    this.comando.CommandText = cadena;
+                    this.comando.Connection = this.conexion;
 
-                    ConexionSQLTripulantes.comando.ExecuteNonQuery();
+                    this.conexion.Open();
+
+                    this.comando.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -164,41 +85,9 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
                 }
                 finally
                 {
-                    if (ConexionSQLTripulantes.conexion.State == ConnectionState.Open)
+                    if (this.conexion.State == ConnectionState.Open)
                     {
-                        ConexionSQLTripulantes.conexion.Close();
-                    }
-                }
-            }
-        }
-
-        public static void Eliminar(Persona persona)
-        {
-            if (ConexionSQLTripulantes.ProbarConexion())
-            {
-                try
-                {
-                    string cadena = $"delete FROM Triputante WHERE ID_Persona = {persona.ID} ";
-
-                    ConexionSQLTripulantes.comando = new SqlCommand();
-
-                    ConexionSQLTripulantes.comando.CommandType = CommandType.Text;
-                    ConexionSQLTripulantes.comando.CommandText = cadena;
-                    ConexionSQLTripulantes.comando.Connection = ConexionSQLTripulantes.conexion;
-
-                    ConexionSQLTripulantes.conexion.Open();
-
-                    ConexionSQLTripulantes.comando.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.ToString());
-                }
-                finally
-                {
-                    if (ConexionSQLTripulantes.conexion.State == ConnectionState.Open)
-                    {
-                        ConexionSQLTripulantes.conexion.Close();
+                        this.conexion.Close();
                     }
                 }
             }
@@ -206,35 +95,87 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
 
         #endregion
 
-        #region Buscar
+        #region Obtener
 
-        public static bool Buscar(Persona persona)
+        /// <summary>
+        /// Retorna los Pasajeros del viaje que se le pasa como parametro
+        /// </summary>
+        /// <param name="viaje"></param>
+        /// <returns></returns>
+        public Almacenamiento<Persona> Lista(Viaje viaje)
         {
-            bool retorno = false;
+            Almacenamiento<Persona> retorno = new Almacenamiento<Persona>(Persona.Comparar);
 
-            if (ConexionSQLTripulantes.ProbarConexion())
+            if (this.ProbarConexion())
             {
                 try
                 {
-                    string cadena = $"SELECT * From Tripulante WHERE ID_Persona = {persona.ID} ";
+                    string cadena = $"SELECT * FROM  Persona LEFT JOIN Tripulantes ON Tripulantes.id_persona = Persona.id_persona LEFT JOIN Pasajeros ON Persona.id_persona = Pasajeros.id_pasajero LEFT JOIN Equipajes ON Equipajes.id_equipaje = Pasajeros.id_pasajero LEFT JOIN Empleados ON Persona.id_persona = Empleados.id_empleado LEFT JOIN Capitanes ON Persona.id_persona = Capitanes.id_capitan WHERE Tripulantes.id_viaje = {viaje.ID}";
 
-                    ConexionSQLTripulantes.comando = new SqlCommand();
+                    this.comando = new SqlCommand();
 
-                    ConexionSQLTripulantes.comando.CommandType = CommandType.Text;
-                    ConexionSQLTripulantes.comando.CommandText = cadena;
-                    ConexionSQLTripulantes.comando.Connection = ConexionSQLTripulantes.conexion;
+                    this.comando.CommandType = CommandType.Text;
+                    this.comando.CommandText = cadena;
+                    this.comando.Connection = this.conexion;
 
-                    ConexionSQLTripulantes.conexion.Open();
+                    this.conexion.Open();
 
-                    ConexionSQLTripulantes.lector = ConexionSQLTripulantes.comando.ExecuteReader();
+                    this.lector = this.comando.ExecuteReader();
 
-                    while (ConexionSQLTripulantes.lector.Read())
-                    {   
+                    while (this.lector.Read())
+                    {
+                        if (this.lector["id_pasajero"].ToString() != "")
+                        {
+                            retorno += new Pasajero
+                            (
+                                (int)this.lector["id_persona"],
+                                this.lector["Nombre"].ToString(),
+                                this.lector["Apellido"].ToString(),
+                                (int)this.lector["Edad"],
+                                (int)this.lector["DNI"],
+                                (Nacionalidades)this.lector["Nacionalidad"],
+                                (double)this.lector["Celular"],
+                                this.lector["Correo"].ToString(),
+                                (Clases)this.lector["Clase"],
+                                new Equipaje((int)this.lector["id_equipaje"], (int)this.lector["Bolsos"], (int)this.lector["Maletas"], (double)this.lector["Peso_Maletas"]),
+                                (bool)this.lector["Casino"],
+                                (bool)this.lector["Gimnacio"],
+                                (bool)this.lector["Piscina"]
+                            );
+                        }
+                        else if (this.lector["id_empleado"].ToString() != "")
+                        {
+                            retorno += new Empleado
+                            (
+                                (int)this.lector["id_persona"],
+                                this.lector["Nombre"].ToString(),
+                                this.lector["Apellido"].ToString(),
+                                (int)this.lector["Edad"],
+                                (int)this.lector["DNI"],
+                                (Nacionalidades)this.lector["Nacionalidad"],
+                                (double)this.lector["Celular"],
+                                (PuestosDeTrabajo)this.lector["Puesto"],
+                                (DateTime)this.lector["Fecha_ingreso"]
+                            );
+                        }
+                        else if (this.lector["id_capitan"].ToString() != "")
+                        {
+                            retorno += new Capitan
+                                (
+                                    (int)this.lector["id_persona"],
+                                    this.lector["Nombre"].ToString(),
+                                    this.lector["Apellido"].ToString(),
+                                    (int)this.lector["Edad"],
+                                    (int)this.lector["DNI"],
+                                    (Nacionalidades)this.lector["Nacionalidad"],
+                                    (double)this.lector["Celular"],
+                                    (int)this.lector["Hora_Viaje"],
+                                    (int)this.lector["Viajes_realizados"]
+                                );
+                        }
 
-                            retorno = true;
-                        
                     }
-                    ConexionSQLTripulantes.lector.Close();
+                    this.lector.Close();
 
                 }
                 catch (Exception)
@@ -243,9 +184,69 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
                 }
                 finally
                 {
-                    if (ConexionSQLTripulantes.conexion.State == ConnectionState.Open)
+                    if (this.conexion.State == ConnectionState.Open)
                     {
-                        ConexionSQLTripulantes.conexion.Close();
+                        this.conexion.Close();
+                    }
+                }
+            }
+
+            return retorno;
+        }
+
+        /// <summary>
+        /// Te Obtiene todos los Pasajeros que van abordo del crucero que se le pasa como parametro
+        /// </summary>
+        /// <param name="crucero"></param>
+        /// <returns></returns>
+        public Almacenamiento<Persona> Lista(int idCrucero)
+        {
+            Almacenamiento<Persona> retorno = new Almacenamiento<Persona>(Persona.Comparar);
+
+            if (this.ProbarConexion())
+            {
+                try
+                {
+                    string cadena = $"SELECT * FROM  Persona INNER JOIN Tripulantes ON Tripulantes.id_crucero = {idCrucero} AND Persona.id_persona = Tripulantes.id_persona INNER JOIN Pasajeros ON Pasajeros.id_pasajero = Persona.id_persona INNER JOIN Equipajes ON Equipajes.id_equipaje = Persona.id_persona";
+
+                    this.comando = new SqlCommand();
+
+                    this.comando.CommandType = CommandType.Text;
+                    this.comando.CommandText = cadena;
+                    this.comando.Connection = this.conexion;
+
+                    this.conexion.Open();
+
+                    this.lector = this.comando.ExecuteReader();
+
+                    while (this.lector.Read())
+                    {
+                        retorno += new Capitan
+                            (
+                                (int)this.lector["id_persona"],
+                                this.lector["Nombre"].ToString(),
+                                this.lector["Apellido"].ToString(),
+                                (int)this.lector["Edad"],
+                                (int)this.lector["DNI"],
+                                (Nacionalidades)this.lector["Nacionalidad"],
+                                (double)this.lector["Celular"],
+                                (int)this.lector["Hora_Viaje"],
+                                (int)this.lector["Viajes_realizados"]
+                            );
+
+                    }
+                    this.lector.Close();
+
+                }
+                catch (Exception)
+                {
+
+                }
+                finally
+                {
+                    if (this.conexion.State == ConnectionState.Open)
+                    {
+                        this.conexion.Close();
                     }
                 }
             }
@@ -255,98 +256,6 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
 
         #endregion
 
-        #region Obtener
-
-        public static Almacenamiento<Persona> Obtener(int idCrucero)
-        {
-            //Func<Almacenamiento<Persona>, Persona, int> comparador = Persona.Comparar;
-
-            Almacenamiento<Persona> lista = new Almacenamiento<Persona>(Persona.Comparar);
-
-            if (ConexionSQLTripulantes.ProbarConexion())
-            {
-                try
-                {
-                    string cadena = $"SELECT * From Tripulante where ID_Crucero = {idCrucero}";
-
-                    ConexionSQLTripulantes.comando = new SqlCommand();
-
-                    ConexionSQLTripulantes.comando.CommandType = CommandType.Text;
-                    ConexionSQLTripulantes.comando.CommandText = cadena;
-                    ConexionSQLTripulantes.comando.Connection = ConexionSQLTripulantes.conexion;
-
-                    ConexionSQLTripulantes.conexion.Open();
-
-                    ConexionSQLTripulantes.lector = ConexionSQLTripulantes.comando.ExecuteReader();
-
-                    while (ConexionSQLTripulantes.lector.Read())
-                    {
-                        lista += ConexionSQLPersona.Obtener_Persona((int)ConexionSQLTripulantes.lector["ID_Persona"]);   
-                    }
-                    ConexionSQLTripulantes.lector.Close();
-
-                }
-                catch (Exception)
-                {
-
-                }
-                finally
-                {
-                    if (ConexionSQLTripulantes.conexion.State == ConnectionState.Open)
-                    {
-                        ConexionSQLTripulantes.conexion.Close();
-                    }
-                }
-            }
-
-            return lista;
-        }
-
-        public static Almacenamiento<Persona> Obtener(Viaje viaje)
-        {
-            Almacenamiento<Persona> lista = new Almacenamiento<Persona>(Persona.Comparar);
-
-            if (ConexionSQLTripulantes.ProbarConexion())
-            {
-                try
-                {
-                    string cadena = $"SELECT * From Tripulante where ID_Crucero = {viaje.Crucero.ID} and ID_Viaje = {viaje.ID}";
-
-                    ConexionSQLTripulantes.comando = new SqlCommand();
-
-                    ConexionSQLTripulantes.comando.CommandType = CommandType.Text;
-                    ConexionSQLTripulantes.comando.CommandText = cadena;
-                    ConexionSQLTripulantes.comando.Connection = ConexionSQLTripulantes.conexion;
-
-                    ConexionSQLTripulantes.conexion.Open();
-
-                    ConexionSQLTripulantes.lector = ConexionSQLTripulantes.comando.ExecuteReader();
-
-                    while (ConexionSQLTripulantes.lector.Read())
-                    {
-                        lista += ConexionSQLPersona.Obtener_Persona((int)ConexionSQLTripulantes.lector["ID_Persona"]);
-                    }
-                    ConexionSQLTripulantes.lector.Close();
-
-                }
-                catch (Exception)
-                {
-
-                }
-                finally
-                {
-                    if (ConexionSQLTripulantes.conexion.State == ConnectionState.Open)
-                    {
-                        ConexionSQLTripulantes.conexion.Close();
-                    }
-                }
-            }
-
-            return lista;
-        }
-
-
-        #endregion
 
     }
 }

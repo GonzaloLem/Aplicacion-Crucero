@@ -32,9 +32,9 @@ namespace InterfazGrafica.Formulario_Crud_Viajes
 
         private void Frm_ViajesModificar_Load(object sender, EventArgs e)
         {
-            
+            ConexionSQLCrucero conexion = new ConexionSQLCrucero();
 
-            Almacenamiento<Crucero> embacadero = ConexionSQLCrucero.Obtener();
+            Almacenamiento<Crucero> embacadero = conexion.Obtener();
 
             foreach (CiudadesDePartida item in Enum.GetValues(typeof(CiudadesDePartida)))
             {

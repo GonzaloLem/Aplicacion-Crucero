@@ -24,6 +24,8 @@ namespace InterfazGrafica.Formulario_Crud_Barcos
             if (this.ValidarTexBox())
             {
 
+                ConexionSQLCrucero conexion = new ConexionSQLCrucero();
+
                 Crucero crucero = new Crucero
                     (
                         Crucero.GenerarMatricula(),
@@ -36,9 +38,9 @@ namespace InterfazGrafica.Formulario_Crud_Barcos
                         double.Parse(this.txtBox_Capacidad.Text)
                     );
 
-                if(ConexionSQLCrucero.Obtener() != crucero)
+                if(conexion.Obtener() != crucero)
                 {
-                    ConexionSQLCrucero.Insertar(crucero);
+                    conexion.Insertar(crucero);
                     this.Close();
                 }
 

@@ -10,87 +10,47 @@ using Entidades.Listas;
 
 namespace Entidades.BaseDeDatos.ConexionesPersonas
 {
-    public static class ConexionSQLEquipaje
+    public class ConexionSQLEquipaje : ConexionSQL
     {
 
-        private static SqlConnection conexion;
-        private static SqlCommand comando;
-        private static SqlDataReader lector;
-        private static SqlDataAdapter adaptador;
-
-        static ConexionSQLEquipaje()
-        {
-            ConexionSQLEquipaje.conexion = new SqlConnection(@"Data Source=.;
-                                            Database=AplicacionCrucero;
-                                            Trusted_Connection=True;");
-
-            ConexionSQLEquipaje.comando = new SqlCommand();
-            ConexionSQLEquipaje.adaptador = new SqlDataAdapter();
-            ConexionSQLEquipaje.comando.CommandType = CommandType.Text;
-            ConexionSQLEquipaje.comando.Connection = ConexionSQLEquipaje.conexion;
-
-        }
-
-        #region Probar conexion
-        private static bool ProbarConexion()
-        {
-            bool rta = true;
-
-            try
-            {
-                ConexionSQLEquipaje.conexion.Open();
-            }
-            catch (Exception)
-            {
-                rta = false;
-            }
-            finally
-            {
-                if (ConexionSQLEquipaje.conexion.State == ConnectionState.Open)
-                {
-                    ConexionSQLEquipaje.conexion.Close();
-                }
-            }
-
-            return rta;
-        }
-        #endregion
+        public ConexionSQLEquipaje() : base() { }
 
         #region Insertar
 
-        public static void Insertar(Equipaje equipaje)
+        public void Insertar(int id, Pasajero pasajero)
         {
-            if (ConexionSQLEquipaje.ProbarConexion())
+            if (this.ProbarConexion())
             {
                 try
                 {
-                    string cadena = "INSERT INTO Equipaje (Bolsos, Maletas, PesoTotalMaletas) VALUES";
+                    string cadena = "INSERT INTO Equipajes (id_equipaje, Bolsos, Maletas, Peso_maletas) VALUES";
                     cadena +=
                         "("
-                        + equipaje.Bolsos + ","
-                        + equipaje.Maletas + ","
-                        + equipaje.Peso
+                        + id + ","
+                        + pasajero.Equipaje.Bolsos + ","
+                        + pasajero.Equipaje.Maletas + ","
+                        + pasajero.Equipaje.Peso
                         + ")";
 
-                    ConexionSQLEquipaje.comando = new SqlCommand();
+                    this.comando = new SqlCommand();
 
-                    ConexionSQLEquipaje.comando.CommandType = CommandType.Text;
-                    ConexionSQLEquipaje.comando.CommandText = cadena;
-                    ConexionSQLEquipaje.comando.Connection = ConexionSQLEquipaje.conexion;
+                    this.comando.CommandType = CommandType.Text;
+                    this.comando.CommandText = cadena;
+                    this.comando.Connection = this.conexion;
 
-                    ConexionSQLEquipaje.conexion.Open();
+                    this.conexion.Open();
 
-                    ConexionSQLEquipaje.comando.ExecuteNonQuery();
+                    this.comando.ExecuteNonQuery();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-
+                    Console.WriteLine(ex.ToString());   
                 }
                 finally
                 {
-                    if (ConexionSQLEquipaje.conexion.State == ConnectionState.Open)
+                    if (this.conexion.State == ConnectionState.Open)
                     {
-                        ConexionSQLEquipaje.conexion.Close();
+                        this.conexion.Close();
                     }
                 }
             }
@@ -99,27 +59,27 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
         #endregion
 
         #region Modificar
-        public static void Modificar(Equipaje equipaje)
+        public void Modificar(Pasajero pasajero)
         {
-            if (ConexionSQLEquipaje.ProbarConexion())
+            if (this.ProbarConexion())
             {
                 try
                 {
-                    string cadena = $"update Equipaje set " +
-                        $"Bolsos = {equipaje.Bolsos}, " +
-                        $"Maletas = {equipaje.Maletas}, " +
-                        $"PesoTotalMaletas = {equipaje.Peso} " +
-                        $"WHERE ID = {equipaje.ID}";
+                    string cadena = $"update Equipajes set " +
+                        $"Bolsos = {pasajero.Equipaje.Bolsos}, " +
+                        $"Maletas = {pasajero.Equipaje.Maletas}, " +
+                        $"Peso_maletas = {pasajero.Equipaje.Peso} " +
+                        $"WHERE id_equipaje = {pasajero.ID}";
 
-                    ConexionSQLEquipaje.comando = new SqlCommand();
+                    this.comando = new SqlCommand();
 
-                    ConexionSQLEquipaje.comando.CommandType = CommandType.Text;
-                    ConexionSQLEquipaje.comando.CommandText = cadena;
-                    ConexionSQLEquipaje.comando.Connection = ConexionSQLEquipaje.conexion;
+                    this.comando.CommandType = CommandType.Text;
+                    this.comando.CommandText = cadena;
+                    this.comando.Connection = this.conexion;
 
-                    ConexionSQLEquipaje.conexion.Open();
+                    this.conexion.Open();
 
-                    ConexionSQLEquipaje.comando.ExecuteNonQuery();
+                    this.comando.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -127,9 +87,9 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
                 }
                 finally
                 {
-                    if (ConexionSQLEquipaje.conexion.State == ConnectionState.Open)
+                    if (this.conexion.State == ConnectionState.Open)
                     {
-                        ConexionSQLEquipaje.conexion.Close();
+                        this.conexion.Close();
                     }
                 }
             }
@@ -137,22 +97,23 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
         #endregion
 
         #region Eliminar
-        public static void Eliminar(int id)
+        public void Eliminar(int id)
         {
-            if (ConexionSQLEquipaje.ProbarConexion())
+            if (this.ProbarConexion())
             {
                 try
                 {
-                    string cadena = $"delete FROM Equipaje WHERE ID = {id}";
-                    ConexionSQLEquipaje.comando = new SqlCommand();
+                    string cadena = $"DELETE FROM Equipajes WHERE id_equipaje = {id}";
 
-                    ConexionSQLEquipaje.comando.CommandType = CommandType.Text;
-                    ConexionSQLEquipaje.comando.CommandText = cadena;
-                    ConexionSQLEquipaje.comando.Connection = ConexionSQLEquipaje.conexion;
+                    this.comando = new SqlCommand();
 
-                    ConexionSQLEquipaje.conexion.Open();
+                    this.comando.CommandType = CommandType.Text;
+                    this.comando.CommandText = cadena;
+                    this.comando.Connection = this.conexion;
 
-                    ConexionSQLEquipaje.comando.ExecuteNonQuery();
+                    this.conexion.Open();
+
+                    this.comando.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -160,9 +121,9 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
                 }
                 finally
                 {
-                    if (ConexionSQLEquipaje.conexion.State == ConnectionState.Open)
+                    if (this.conexion.State == ConnectionState.Open)
                     {
-                        ConexionSQLEquipaje.conexion.Close();
+                        this.conexion.Close();
                     }
                 }
             }
@@ -171,80 +132,38 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
 
         #region Obtener
 
-        public static int Obtener()
-        {
-            int retorno = -1;
 
-            if (ConexionSQLEquipaje.ProbarConexion())
-            {
-                try
-                {
-                    string cadena = $"SELECT MAX(ID) as ID_Maximo FROM Equipaje";
-
-                    ConexionSQLEquipaje.comando = new SqlCommand();
-
-                    ConexionSQLEquipaje.comando.CommandType = CommandType.Text;
-                    ConexionSQLEquipaje.comando.CommandText = cadena;
-                    ConexionSQLEquipaje.comando.Connection = ConexionSQLEquipaje.conexion;
-
-                    ConexionSQLEquipaje.conexion.Open();
-
-                    ConexionSQLEquipaje.lector = ConexionSQLEquipaje.comando.ExecuteReader();
-
-                    while (ConexionSQLEquipaje.lector.Read())
-                    {
-                        retorno = (int)ConexionSQLEquipaje.lector["ID_Maximo"];
-                    }
-                    ConexionSQLEquipaje.lector.Close();
-
-                }
-                catch (Exception)
-                {
-
-                }
-                finally
-                {
-                    if (ConexionSQLEquipaje.conexion.State == ConnectionState.Open)
-                    {
-                        ConexionSQLEquipaje.conexion.Close();
-                    }
-                }
-            }
-
-            return retorno;
-        }
-
-        public static Equipaje Obtener_Equipaje(int id)
+        public Equipaje Obtener(Pasajero pasajero)
         {
             Equipaje retorno = null;
 
-            if (ConexionSQLEquipaje.ProbarConexion())
+            if (this.ProbarConexion())
             {
                 try
                 {
-                    string cadena = $"SELECT * FROM Equipaje WHERE ID = {id}";
+                    string cadena = $"SELECT * FROM Equipajes where id_equipaje = {pasajero.ID}";
 
-                    ConexionSQLEquipaje.comando = new SqlCommand();
+                    this.comando = new SqlCommand();
 
-                    ConexionSQLEquipaje.comando.CommandType = CommandType.Text;
-                    ConexionSQLEquipaje.comando.CommandText = cadena;
-                    ConexionSQLEquipaje.comando.Connection = ConexionSQLEquipaje.conexion;
+                    this.comando.CommandType = CommandType.Text;
+                    this.comando.CommandText = cadena;
+                    this.comando.Connection = this.conexion;
 
-                    ConexionSQLEquipaje.conexion.Open();
+                    this.conexion.Open();
 
-                    ConexionSQLEquipaje.lector = ConexionSQLEquipaje.comando.ExecuteReader();
+                    this.lector = this.comando.ExecuteReader();
 
-                    while(ConexionSQLEquipaje.lector.Read())
+                    while (this.lector.Read()) 
                     {
                         retorno = new Equipaje
                             (
-                                (int)ConexionSQLEquipaje.lector["ID"],
-                                (int)ConexionSQLEquipaje.lector["Bolsos"],
-                                (int)ConexionSQLEquipaje.lector["Maletas"],
-                                (double)ConexionSQLEquipaje.lector["PesoTotalMaletas"]
+                                (int)this.lector["Id_equipaje"],
+                                (int)this.lector["Bolsos"],
+                                (int)this.lector["Maletas"],
+                                (double)this.lector["Peso_maletas"]
                             );
                     }
-                    ConexionSQLEquipaje.lector.Close();
+                    this.lector.Close();
 
                 }
                 catch (Exception)
@@ -253,9 +172,9 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
                 }
                 finally
                 {
-                    if (ConexionSQLEquipaje.conexion.State == ConnectionState.Open)
+                    if (this.conexion.State == ConnectionState.Open)
                     {
-                        ConexionSQLEquipaje.conexion.Close();
+                        this.conexion.Close();
                     }
                 }
             }
@@ -263,37 +182,37 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
             return retorno;
         }
 
-        public static Almacenamiento<Equipaje> Lista()
+        public Almacenamiento<Equipaje> Lista()
         {
             Almacenamiento<Equipaje> retorno = new Almacenamiento<Equipaje>(100000);
 
-            if (ConexionSQLEquipaje.ProbarConexion())
+            if (this.ProbarConexion())
             {
                 try
                 {
-                    string cadena = $"SELECT * FROM Equipaje";
+                    string cadena = $"SELECT * FROM Equipajes";
 
-                    ConexionSQLEquipaje.comando = new SqlCommand();
+                    this.comando = new SqlCommand();
 
-                    ConexionSQLEquipaje.comando.CommandType = CommandType.Text;
-                    ConexionSQLEquipaje.comando.CommandText = cadena;
-                    ConexionSQLEquipaje.comando.Connection = ConexionSQLEquipaje.conexion;
+                    this.comando.CommandType = CommandType.Text;
+                    this.comando.CommandText = cadena;
+                    this.comando.Connection = this.conexion;
 
-                    ConexionSQLEquipaje.conexion.Open();
+                    this.conexion.Open();
 
-                    ConexionSQLEquipaje.lector = ConexionSQLEquipaje.comando.ExecuteReader();
+                    this.lector = this.comando.ExecuteReader();
 
-                    while (ConexionSQLEquipaje.lector.Read())
+                    while (this.lector.Read())
                     {
                         retorno += new Equipaje
                             (
-                                (int)ConexionSQLEquipaje.lector["ID"],
-                                (int)ConexionSQLEquipaje.lector["Bolsos"],
-                                (int)ConexionSQLEquipaje.lector["Maletas"],
-                                (double)ConexionSQLEquipaje.lector["PesoTotalMaletas"]
+                                (int)this.lector["Id_equipaje"],
+                                (int)this.lector["Bolsos"],
+                                (int)this.lector["Maletas"],
+                                (double)this.lector["Peso_maletas"]
                             );
                     }
-                    ConexionSQLEquipaje.lector.Close();
+                    this.lector.Close();
 
                 }
                 catch (Exception)
@@ -302,9 +221,9 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
                 }
                 finally
                 {
-                    if (ConexionSQLEquipaje.conexion.State == ConnectionState.Open)
+                    if (this.conexion.State == ConnectionState.Open)
                     {
-                        ConexionSQLEquipaje.conexion.Close();
+                        this.conexion.Close();
                     }
                 }
             }

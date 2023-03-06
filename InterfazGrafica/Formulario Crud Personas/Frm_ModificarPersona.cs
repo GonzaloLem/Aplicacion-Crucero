@@ -11,6 +11,7 @@ using InterfazGrafica.Funciones_Extras;
 using Entidades;
 using Entidades.BaseDeDatos;
 using Entidades.Personas;
+using Entidades.BaseDeDatos.ConexionesPersonas;
 
 namespace InterfazGrafica.Formulario_Crud_Personas
 {
@@ -35,33 +36,35 @@ namespace InterfazGrafica.Formulario_Crud_Personas
 
         private protected override void Btn_AgregarPersona_Click(object sender, EventArgs e)
         {
+            ConexionSQLPersona conexionPersonas = new ConexionSQLPersona();
+
             if ((Roles)this.CbBox_RolPersona.SelectedItem == Roles.Cliente)
             {
 
                 Pasajero pasajero = this.ValidarPasajero();
 
-                if (pasajero is not null && ConexionSQLPersona.Obtener_Persona(this.persona.ID) is not null)
+                if (pasajero is not null && conexionPersonas.Obtener_Persona(this.persona.ID) is not null)
                 {
-                    ConexionSQLPersona.Modificar(pasajero);
+                    conexionPersonas.Modificar(pasajero);
                 }
             }
             else if ((Roles)this.CbBox_RolPersona.SelectedItem == Roles.Empleado)
             {
                 Empleado empleado = this.ValidarEmpleado();
 
-                if (empleado is not null && ConexionSQLPersona.Obtener_Persona(this.persona.ID) is not null)
+                if (empleado is not null && conexionPersonas.Obtener_Persona(this.persona.ID) is not null)
                 {
-                    ConexionSQLPersona.Modificar(empleado);
+                    conexionPersonas.Modificar(empleado);
                 }
             }
             else if ((Roles)this.CbBox_RolPersona.SelectedItem == Roles.Capitan)
             {
                 Capitan capitan = this.ValidarCapitan();
 
-                if (capitan is not null && ConexionSQLPersona.Obtener_Persona(this.persona.ID) is not null)
+                if (capitan is not null && conexionPersonas.Obtener_Persona(this.persona.ID) is not null)
                 {
-                    ConexionSQLPersona.Modificar(capitan);
-                }
+                    conexionPersonas.Modificar(capitan);
+                }   
             }
 
             Extras.Limpiar(this.GrpBox_Contenedor);

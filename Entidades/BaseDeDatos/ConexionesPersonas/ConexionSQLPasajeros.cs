@@ -7,53 +7,14 @@ using System.Data.SqlClient;
 using System.Data;
 using Entidades.Personas;
 using Entidades.Extensiones;
+using Entidades.Listas;
 
 namespace Entidades.BaseDeDatos.ConexionesPersonas
 {
-    internal class ConexionSQLPasajeros
+    public class ConexionSQLPasajeros : ConexionSQLPersona
     {
-        private SqlConnection conexion;
-        private SqlCommand comando;
-        private SqlDataReader lector;
-        private SqlDataAdapter adaptador;
 
-        public ConexionSQLPasajeros()
-        {
-            this.conexion = new SqlConnection(@"Data Source=.;
-                                            Database=AplicacionCrucero;
-                                            Trusted_Connection=True;");
-
-            this.comando = new SqlCommand();
-            this.adaptador = new SqlDataAdapter();
-            this.comando.CommandType = CommandType.Text;
-            this.comando.Connection = this.conexion;
-
-        }
-
-        #region Probar conexion
-        private bool ProbarConexion()
-        {
-            bool rta = true;
-
-            try
-            {
-                this.conexion.Open();
-            }
-            catch (Exception)
-            {
-                rta = false;
-            }
-            finally
-            {
-                if (this.conexion.State == ConnectionState.Open)
-                {
-                    this.conexion.Close();
-                }
-            }
-
-            return rta;
-        }
-        #endregion
+        public ConexionSQLPasajeros() : base() { }
 
         #region Insertar
 
@@ -63,16 +24,14 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
             {
                 try
                 {
-                    ConexionSQLEquipaje.Insertar(pasajero.Equipaje);
-
-                    
-
-                    string cadena = "INSERT INTO Pasajero (Correo, Clase, ID_Equipaje, Casino, Piscina, Gimnacio) VALUES";
+                    this.Insertar((Persona)pasajero);
+               
+                    string cadena = "INSERT INTO Pasajeros (id_pasajero, Correo, Clase, Casino, Piscina, Gimnacio) VALUES";
                     cadena +=
                         "("
+                        + this.Obtener_ID(pasajero.DNI) + ","
                         + "'" + pasajero.Correo + "',"
                         + ((int)pasajero.Clase) + ","
-                        + ConexionSQLEquipaje.Obtener() + ","
                         + new byte().Conversor(pasajero.Casino) + ","
                         + new byte().Conversor(pasajero.Piscina) + ","
                         + new byte().Conversor(pasajero.Gimnacio)
@@ -96,8 +55,12 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
                 {
                     if (this.conexion.State == ConnectionState.Open)
                     {
-                        this.conexion.Close();
+                        this.conexion.Close();                  
                     }
+
+                    ConexionSQLEquipaje equipaje = new ConexionSQLEquipaje();
+
+                    equipaje.Insertar(this.Obtener_ID(pasajero.DNI), pasajero);
                 }
             }
         }
@@ -106,21 +69,19 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
 
         #region Modificar
 
-        public void Modificar(int id, Pasajero pasajero)
+        public void Modificar(Pasajero pasajero)
         {
             if (this.ProbarConexion())
             {
                 try
                 {
-                    ConexionSQLEquipaje.Modificar(pasajero.Equipaje);
-
-                    string cadena = $"update Pasajero set " +
+                    string cadena = $"UPDATE Pasajeros set " +
                         $"Correo = '{pasajero.Correo}', " +
                         $"Clase = {((int)pasajero.Clase)}, " +
                         $"Casino = {new byte().Conversor(pasajero.Casino)}, " +
                         $"Piscina = {new byte().Conversor(pasajero.Piscina)}, " +
                         $"Gimnacio = {new byte().Conversor(pasajero.Gimnacio)} " +
-                        $"WHERE ID = {id}";
+                        $"WHERE id_pasajero = {pasajero.ID}";
 
                     this.comando = new SqlCommand();
 
@@ -150,13 +111,13 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
 
         #region Eliminar
 
-        public void Eliminar(int idPasajero, int idEquipaje)
+        public override void Eliminar(int id)
         {
             if (this.ProbarConexion())
             {
                 try
                 {
-                    string cadena = $"delete FROM Pasajero WHERE ID = {idPasajero} ";
+                    string cadena = $"DELETE FROM Pasajeros WHERE id_pasajero = {id}";
 
                     this.comando = new SqlCommand();
 
@@ -167,10 +128,6 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
                     this.conexion.Open();
 
                     this.comando.ExecuteNonQuery();
-
-                    ConexionSQLEquipaje.Eliminar(idEquipaje);
-
-
                 }
                 catch (Exception ex)
                 {
@@ -189,52 +146,8 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
         #endregion
 
         #region Obtener
-        /// <summary>
-        /// Busca la id mas alta de la Tabla Pasajeros
-        /// </summary>
-        public int Obtener()
-        {
-            int retorno = -1;
 
-            if (this.ProbarConexion())
-            {
-                try
-                {
-                    string cadena = $"SELECT MAX(ID) as ID_Maximo FROM Pasajero";
-
-                    this.comando = new SqlCommand();
-
-                    this.comando.CommandType = CommandType.Text;
-                    this.comando.CommandText = cadena;
-                    this.comando.Connection = this.conexion;
-
-                    this.conexion.Open();
-
-                    this.lector = this.comando.ExecuteReader();
-
-                    while (this.lector.Read())
-                    {
-                        retorno = (int)this.lector["ID_Maximo"];
-                    }
-                    this.lector.Close();
-                }
-                catch (Exception)
-                {
-
-                }
-                finally
-                {
-                    if (this.conexion.State == ConnectionState.Open)
-                    {
-                        this.conexion.Close();
-                    }
-                }
-            }
-
-            return retorno;
-        }
-
-        public Pasajero Obtener_Pasajero(int id)
+        public Pasajero Obtener(int id)
         {
             Pasajero retorno = null;
 
@@ -242,7 +155,7 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
             {
                 try
                 {
-                    string cadena = $"SELECT * FROM Pasajero WHERE ID = {id}";
+                    string cadena = $"SELECT * FROM Persona INNER JOIN Pasajeros ON Persona.id_persona = Pasajeros.id_pasajero INNER JOIN Equipajes ON Persona.id_persona = Equipajes.id_equipaje WHERE id_persona = {id}";
 
                     this.comando = new SqlCommand();
 
@@ -257,13 +170,78 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
                     while (this.lector.Read())
                     {
                         retorno = new Pasajero
-                            (           
+                            (
+                                (int)this.lector["id_persona"],
+                                this.lector["Nombre"].ToString(),
+                                this.lector["Apellido"].ToString(),
+                                (int)this.lector["Edad"],
+                                (int)this.lector["DNI"],
+                                (Nacionalidades)this.lector["Nacionalidad"],
+                                (double)this.lector["Celular"],
                                 this.lector["Correo"].ToString(),
                                 (Clases)this.lector["Clase"],
-                                ConexionSQLEquipaje.Obtener_Equipaje((int)this.lector["ID_Equipaje"]),
+                                new Equipaje((int)this.lector["id_equipaje"], (int)this.lector["Bolsos"], (int)this.lector["Maletas"], (double)this.lector["Peso_Maletas"]),
                                 (bool)this.lector["Casino"],
-                                (bool)this.lector["Piscina"],
-                                (bool)this.lector["Gimnacio"]
+                                (bool)this.lector["Gimnacio"],
+                                (bool)this.lector["Piscina"]
+                            );
+                    }
+                    this.lector.Close();
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());   
+                }
+                finally
+                {
+                    if (this.conexion.State == ConnectionState.Open)
+                    {
+                        this.conexion.Close();
+                    }
+                }
+            }
+
+            return retorno;
+        }
+
+        public Almacenamiento<Persona> Lista()
+        {
+            Almacenamiento<Persona> retorno = new Almacenamiento<Persona>(Persona.Comparar);
+
+            if (this.ProbarConexion())
+            {
+                try
+                {
+                    string cadena = $"SELECT * FROM Persona INNER JOIN Pasajeros ON Persona.id_persona = Pasajeros.id_pasajero INNER JOIN Equipajes ON Equipajes.id_equipaje = Pasajeros.id_pasajero";
+
+                    this.comando = new SqlCommand();
+
+                    this.comando.CommandType = CommandType.Text;
+                    this.comando.CommandText = cadena;
+                    this.comando.Connection = this.conexion;
+
+                    this.conexion.Open();
+
+                    this.lector = this.comando.ExecuteReader();
+
+                    while (this.lector.Read())
+                    {
+                        retorno += new Pasajero
+                            (
+                                (int)this.lector["id_persona"],
+                                this.lector["Nombre"].ToString(),
+                                this.lector["Apellido"].ToString(),
+                                (int)this.lector["Edad"],
+                                (int)this.lector["DNI"],
+                                (Nacionalidades)this.lector["Nacionalidad"],
+                                (double)this.lector["Celular"],
+                                this.lector["Correo"].ToString(),
+                                (Clases)this.lector["Clase"],
+                                new Equipaje((int)this.lector["id_equipaje"], (int)this.lector["Bolsos"], (int)this.lector["Maletas"], (double)this.lector["Peso_Maletas"]),
+                                (bool)this.lector["Casino"],
+                                (bool)this.lector["Gimnacio"],
+                                (bool)this.lector["Piscina"]
                             );
                     }
                     this.lector.Close();

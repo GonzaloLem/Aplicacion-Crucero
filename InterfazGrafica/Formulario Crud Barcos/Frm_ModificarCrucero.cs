@@ -36,6 +36,8 @@ namespace InterfazGrafica.Formulario_Crud_Barcos
         {
             if (this.ValidarTexBox())
             {
+                ConexionSQLCrucero conexion = new ConexionSQLCrucero();
+
                 Crucero crucero = new Crucero
                     (
                         this.crucero.ID,
@@ -47,11 +49,10 @@ namespace InterfazGrafica.Formulario_Crud_Barcos
                         sbyte.Parse(this.txtBox_Piscinas.Text),
                         sbyte.Parse(this.txtBox_Gimnacios.Text),
                         double.Parse(this.txtBox_Capacidad.Text),
-                        this.crucero.Peso,
-                        this.crucero.Tripulantes
+                        this.crucero.Peso
                     );
 
-                    ConexionSQLCrucero.Modificar(crucero);
+                    conexion.Modificar(crucero);
                     this.Close();
             }
         }

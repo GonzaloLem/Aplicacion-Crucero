@@ -25,7 +25,9 @@ namespace InterfazGrafica.Formulario_Crud_Viajes
 
         private void Frm_CrearViaje_Load(object sender, EventArgs e)
         {
-            Almacenamiento<Crucero> embacadero = ConexionSQLCrucero.Obtener();
+            ConexionSQLCrucero conexion = new ConexionSQLCrucero();
+
+            Almacenamiento<Crucero> embacadero = conexion.Obtener();
 
             this.InformacionCrucero();
             this.AsignarFechasDeViaje();

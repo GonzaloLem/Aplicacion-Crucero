@@ -27,15 +27,19 @@ namespace InterfazGrafica.Formulario_Crud_Barcos
 
         private void Frm_ListarCruceros_Load(object sender, EventArgs e)
         {
-            this.Listar(ConexionSQLCrucero.Obtener());
+            ConexionSQLCrucero conexion = new ConexionSQLCrucero();
+
+            this.Listar(conexion.Obtener());
         }
 
         private void btn_CrearViaje_Click(object sender, EventArgs e)
         {
             Frm_CrearCrucero formCrearViaje = new Frm_CrearCrucero();
 
+            ConexionSQLCrucero conexion = new ConexionSQLCrucero();
+
             formCrearViaje.ShowDialog();
-            this.Listar(ConexionSQLCrucero.Obtener());
+            this.Listar(conexion.Obtener());
         }
 
         private void Listar(Almacenamiento<Crucero> embarcadero)
@@ -67,9 +71,11 @@ namespace InterfazGrafica.Formulario_Crud_Barcos
         {
             if(this.dtGdVw_ListaCruceros.SelectedRows.Count == 1)
             {
-                Frm_ModificarCrucero formModificarCrucero = new Frm_ModificarCrucero(ConexionSQLCrucero.Obtener_Crucero((int)this.dtGdVw_ListaCruceros.Rows[this.dtGdVw_ListaCruceros.SelectedRows[0].Index].Cells[0].Value));
+                ConexionSQLCrucero conexion = new ConexionSQLCrucero();
+                Frm_ModificarCrucero formModificarCrucero = new Frm_ModificarCrucero(conexion.Obtener_Crucero((int)this.dtGdVw_ListaCruceros.Rows[this.dtGdVw_ListaCruceros.SelectedRows[0].Index].Cells[0].Value));
+               
                 formModificarCrucero.ShowDialog();
-                this.Listar(ConexionSQLCrucero.Obtener());
+                this.Listar(conexion.Obtener());
             }
         }
 
@@ -77,17 +83,22 @@ namespace InterfazGrafica.Formulario_Crud_Barcos
         {
             if (this.dtGdVw_ListaCruceros.SelectedRows.Count == 1)
             {
-                ConexionSQLCrucero.Elminar(ConexionSQLCrucero.Obtener_Crucero((int)this.dtGdVw_ListaCruceros.Rows[this.dtGdVw_ListaCruceros.SelectedRows[0].Index].Cells[0].Value));
-                this.Listar(ConexionSQLCrucero.Obtener());
+                ConexionSQLCrucero conexion = new ConexionSQLCrucero();
+
+                conexion.Elminar(conexion.Obtener_Crucero((int)this.dtGdVw_ListaCruceros.Rows[this.dtGdVw_ListaCruceros.SelectedRows[0].Index].Cells[0].Value));
+                this.Listar(conexion.Obtener());
             }
         }
 
 
         private void btn_ListarTripilantes_Click(object sender, EventArgs e)
         {
-            if (this.dtGdVw_ListaCruceros.SelectedRows.Count == 1 && ConexionSQLTripulantes.Obtener((int)this.dtGdVw_ListaCruceros.Rows[this.dtGdVw_ListaCruceros.SelectedRows[0].Index].Cells[0].Value).Contar > 0)
+            ConexionSQLTripulantes conexion = new ConexionSQLTripulantes();
+
+
+            if (this.dtGdVw_ListaCruceros.SelectedRows.Count == 1 && conexion.Lista((int)this.dtGdVw_ListaCruceros.Rows[this.dtGdVw_ListaCruceros.SelectedRows[0].Index].Cells[0].Value).Contar > 0)
             {
-                Frm_ListarTripulantes formListarPersonas = new Frm_ListarTripulantes(ConexionSQLTripulantes.Obtener((int)this.dtGdVw_ListaCruceros.Rows[this.dtGdVw_ListaCruceros.SelectedRows[0].Index].Cells[0].Value));
+                Frm_ListarTripulantes formListarPersonas = new Frm_ListarTripulantes(conexion.Lista((int)this.dtGdVw_ListaCruceros.Rows[this.dtGdVw_ListaCruceros.SelectedRows[0].Index].Cells[0].Value));
                 formListarPersonas.ShowDialog();  
             }
         }

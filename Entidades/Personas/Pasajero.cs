@@ -17,25 +17,8 @@ namespace Entidades.Personas
         private bool gimnacio;
 
 
-        public Pasajero() :base(null, null, 0, 0, 0, 0)
-        {
-            this.correo = null;
-            this.clase = 0;
-            this.equipaje = null;
-            this.casino = false;
-            this.piscina = false;
-            this.gimnacio = false;
-        }
 
-        public Pasajero(string nombre, string apellido, int edad, int dni, Nacionalidades nacionalidad, double celular, string correo,  Clases clase, Equipaje equipaje, bool casino, bool gimnacio, bool piscina) : base(nombre, apellido, edad, dni, nacionalidad, celular)
-        {
-            this.correo = correo;
-            this.clase = clase;
-            this.equipaje = equipaje;
-            this.casino = casino;
-            this.piscina = piscina;
-            this.gimnacio = gimnacio;
-        }
+
 
         public Pasajero(int id, string nombre, string apellido, int edad, int dni, Nacionalidades nacionalidad, double celular, string correo, Clases clase, Equipaje equipaje, bool casino, bool gimnacio, bool piscina) : base(id, nombre, apellido, edad, dni, nacionalidad, celular)
         {
@@ -56,10 +39,14 @@ namespace Entidades.Personas
             this.piscina = piscina;
             this.gimnacio = gimnacio;
         }
-
-        public Pasajero(int id, string correo, Clases clase, Equipaje equipaje, bool casino, bool piscina, bool gimnacio) : this(correo, clase, equipaje, casino, piscina, gimnacio)
+        public Pasajero(string nombre, string apellido, int edad, int dni, Nacionalidades nacionalidad, double celular, string correo, Clases clase, Equipaje equipaje, bool casino, bool gimnacio, bool piscina) : base(nombre, apellido, edad, dni, nacionalidad, celular)
         {
-            this.id = id;
+            this.correo = correo;
+            this.clase = clase;
+            this.equipaje = equipaje;
+            this.casino = casino;
+            this.piscina = piscina;
+            this.gimnacio = gimnacio;
         }
 
         public string Correo { get => this.correo; }

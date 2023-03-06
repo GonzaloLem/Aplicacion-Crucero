@@ -160,7 +160,7 @@ namespace Entidades.BaseDeDatos
             {
                 try
                 {
-                    ConexionSQLTripulantes.Eliminar(viaje);
+                    //ConexionSQLTripulantes.Eliminar(viaje);
 
                     string cadena = $"delete FROM Viaje WHERE ID = {viaje.ID} ";
 
@@ -194,13 +194,15 @@ namespace Entidades.BaseDeDatos
 
         public static Almacenamiento<Viaje> Obtener()
         {
-            Almacenamiento<Viaje> lista = new Almacenamiento<Viaje>(Viaje.Comparar, new Viaje().Equals);
+           Almacenamiento<Viaje> lista = new Almacenamiento<Viaje>(Viaje.Comparar, new Viaje().Equals);
 
             if (ConexionSQLViajes.ProbarConexion())
             {
                 try
                 {
-                    string cadena = $"SELECT * From Viaje";
+                    ConexionSQLCrucero conexion = new ConexionSQLCrucero(); 
+
+                    string cadena = $"SELECT * From Viajes";
 
                     ConexionSQLViajes.comando = new SqlCommand();
 
@@ -216,24 +218,24 @@ namespace Entidades.BaseDeDatos
                     {
                         lista += new Viaje
                             (
-                                (int)ConexionSQLViajes.lector["ID"],
-                                (CiudadesDePartida)ConexionSQLViajes.lector["CiudadDePartida"],
+                                (int)ConexionSQLViajes.lector["id_viaje"],
+                                (CiudadesDePartida)ConexionSQLViajes.lector["Ciudad_partida"],
                                 Destino.Parse((int)ConexionSQLViajes.lector["Destino"]),
-                                DateTime.Parse(ConexionSQLViajes.lector["FechaDeInicio"].ToString()),
-                                ConexionSQLCrucero.Obtener_Crucero((int)ConexionSQLViajes.lector["ID_Crucero"]),
-                                (int)ConexionSQLViajes.lector["CamarotesPremium"],
-                                (int)ConexionSQLViajes.lector["CamarotesTurista"],
-                                (double)ConexionSQLViajes.lector["CostoPremium"],
-                                (double)ConexionSQLViajes.lector["CostoTurista"],
-                                (int)ConexionSQLViajes.lector["DuracionDelViaje"]
+                                DateTime.Parse(ConexionSQLViajes.lector["Fecha_inicio"].ToString()),
+                                conexion.Obtener_Crucero((int)ConexionSQLViajes.lector["id_tipo_crucero"]),
+                                (int)ConexionSQLViajes.lector["Camarotes_premium"],
+                                (int)ConexionSQLViajes.lector["Camarotes_turista"],
+                                (double)ConexionSQLViajes.lector["Costo_premium"],
+                                (double)ConexionSQLViajes.lector["Costo_turista"],
+                                (int)ConexionSQLViajes.lector["Duracion_viaje"]
                             );
                     }
                     ConexionSQLViajes.lector.Close();
 
                 }
-                catch (Exception)
+                catch (Exception es)
                 {
-
+                    Console.WriteLine(es.ToString());
                 }
                 finally
                 {
@@ -255,7 +257,10 @@ namespace Entidades.BaseDeDatos
             {
                 try
                 {
-                    string cadena = $"SELECT * From Viaje";
+
+                    ConexionSQLCrucero conexion = new ConexionSQLCrucero();
+
+                    string cadena = $"SELECT * From Viajes";
 
                     ConexionSQLViajes.comando = new SqlCommand();
 
@@ -271,16 +276,16 @@ namespace Entidades.BaseDeDatos
                     {
                         Viaje viaje = new Viaje
                             (
-                                (int)ConexionSQLViajes.lector["ID"],
-                                (CiudadesDePartida)ConexionSQLViajes.lector["CiudadDePartida"],
+                                (int)ConexionSQLViajes.lector["id_viaje"],
+                                (CiudadesDePartida)ConexionSQLViajes.lector["Ciudad_partida"],
                                 Destino.Parse((int)ConexionSQLViajes.lector["Destino"]),
-                                DateTime.Parse(ConexionSQLViajes.lector["FechaDeInicio"].ToString()),
-                                ConexionSQLCrucero.Obtener_Crucero((int)ConexionSQLViajes.lector["ID_Crucero"]),
-                                (int)ConexionSQLViajes.lector["CamarotesPremium"],
-                                (int)ConexionSQLViajes.lector["CamarotesTurista"],
-                                (double)ConexionSQLViajes.lector["CostoPremium"],
-                                (double)ConexionSQLViajes.lector["CostoTurista"],
-                                (int)ConexionSQLViajes.lector["DuracionDelViaje"]
+                                DateTime.Parse(ConexionSQLViajes.lector["Fecha_inicio"].ToString()),
+                                conexion.Obtener_Crucero((int)ConexionSQLViajes.lector["id_tipo_crucero"]),
+                                (int)ConexionSQLViajes.lector["Camarotes_premium"],
+                                (int)ConexionSQLViajes.lector["Camarotes_turista"],
+                                (double)ConexionSQLViajes.lector["Costo_premium"],
+                                (double)ConexionSQLViajes.lector["Costo_turista"],
+                                (int)ConexionSQLViajes.lector["Duracion_viaje"]
                             );
 
                         if (viaje.Estado == disponibilidad)
@@ -316,7 +321,9 @@ namespace Entidades.BaseDeDatos
             {
                 try
                 {
-                    string cadena = $"SELECT * FROM Viaje WHERE ID = {id}";
+                    ConexionSQLCrucero conexion = new ConexionSQLCrucero();
+
+                    string cadena = $"SELECT * FROM Viajes WHERE id_viaje = {id}";
 
                     ConexionSQLViajes.comando = new SqlCommand();
 
@@ -332,16 +339,16 @@ namespace Entidades.BaseDeDatos
                     {
                         retorno = new Viaje
                             (
-                                (int)ConexionSQLViajes.lector["ID"],
-                                (CiudadesDePartida)ConexionSQLViajes.lector["CiudadDePartida"],
+                                (int)ConexionSQLViajes.lector["id_viaje"],
+                                (CiudadesDePartida)ConexionSQLViajes.lector["Ciudad_partida"],
                                 Destino.Parse((int)ConexionSQLViajes.lector["Destino"]),
-                                DateTime.Parse(ConexionSQLViajes.lector["FechaDeInicio"].ToString()),
-                                ConexionSQLCrucero.Obtener_Crucero((int)ConexionSQLViajes.lector["ID_Crucero"]),
-                                (int)ConexionSQLViajes.lector["CamarotesPremium"],
-                                (int)ConexionSQLViajes.lector["CamarotesTurista"],
-                                (double)ConexionSQLViajes.lector["CostoPremium"],
-                                (double)ConexionSQLViajes.lector["CostoTurista"],
-                                (int)ConexionSQLViajes.lector["DuracionDelViaje"]
+                                DateTime.Parse(ConexionSQLViajes.lector["Fecha_inicio"].ToString()),
+                                conexion.Obtener_Crucero((int)ConexionSQLViajes.lector["id_tipo_crucero"]),
+                                (int)ConexionSQLViajes.lector["Camarotes_premium"],
+                                (int)ConexionSQLViajes.lector["Camarotes_turista"],
+                                (double)ConexionSQLViajes.lector["Costo_premium"],
+                                (double)ConexionSQLViajes.lector["Costo_turista"],
+                                (int)ConexionSQLViajes.lector["Duracion_viaje"]
                             );
                     }
                     ConexionSQLViajes.lector.Close();
@@ -414,7 +421,10 @@ namespace Entidades.BaseDeDatos
             {
                 try
                 {
-                    string cadena = $"SELECT * From Viaje WHERE ID_Crucero = {crucero.ID}";
+                    
+                    ConexionSQLCrucero conexion = new ConexionSQLCrucero();
+
+                    string cadena = $"SELECT * From Viajes WHERE id_tipo_crucero = {crucero.ID}";
 
                     ConexionSQLViajes.comando = new SqlCommand();
 
@@ -430,16 +440,16 @@ namespace Entidades.BaseDeDatos
                     {
                         Viaje viaje = new Viaje
                             (
-                                (int)ConexionSQLViajes.lector["ID"],
-                                (CiudadesDePartida)ConexionSQLViajes.lector["CiudadDePartida"],
+                                (int)ConexionSQLViajes.lector["id_viaje"],
+                                (CiudadesDePartida)ConexionSQLViajes.lector["Ciudad_partida"],
                                 Destino.Parse((int)ConexionSQLViajes.lector["Destino"]),
-                                DateTime.Parse(ConexionSQLViajes.lector["FechaDeInicio"].ToString()),
-                                ConexionSQLCrucero.Obtener_Crucero((int)ConexionSQLViajes.lector["ID_Crucero"]),
-                                (int)ConexionSQLViajes.lector["CamarotesPremium"],
-                                (int)ConexionSQLViajes.lector["CamarotesTurista"],
-                                (double)ConexionSQLViajes.lector["CostoPremium"],
-                                (double)ConexionSQLViajes.lector["CostoTurista"],
-                                (int)ConexionSQLViajes.lector["DuracionDelViaje"]
+                                DateTime.Parse(ConexionSQLViajes.lector["Fecha_inicio"].ToString()),
+                                conexion.Obtener_Crucero((int)ConexionSQLViajes.lector["id_tipo_crucero"]),
+                                (int)ConexionSQLViajes.lector["Camarotes_premium"],
+                                (int)ConexionSQLViajes.lector["Camarotes_turista"],
+                                (double)ConexionSQLViajes.lector["Costo_premium"],
+                                (double)ConexionSQLViajes.lector["Costo_turista"],
+                                (int)ConexionSQLViajes.lector["Duracion_viaje"]
                             );
 
                                 if(viaje.Estado != Disponibilidad.Disponible && viaje.Estado != Disponibilidad.Terminado)

@@ -26,9 +26,11 @@ namespace InterfazGrafica.Formulario_Estadisticas
 
         private void Frm_EstadisticasHistoricas_Load(object sender, EventArgs e)
         {
+            ConexionSQLCrucero conexionCrucero = new ConexionSQLCrucero();
+
             this.Listar(ConexionSQLViajes.Obtener());
             this.DestinosPopulares(ConexionSQLViajes.Destinos());
-            this.Listar(ConexionSQLCrucero.Obtener());
+            this.Listar(conexionCrucero.Obtener());
         } 
 
         private void ListarDestinos()
@@ -40,6 +42,8 @@ namespace InterfazGrafica.Formulario_Estadisticas
         private void Listar(Almacenamiento<Crucero> lista)
         {
             this.dtGdVw_ListarCruceros.Rows.Clear();
+
+             ConexionSQLCrucero conexion = new ConexionSQLCrucero();
 
                 for(int i=0;i<lista.Contar;i++)
                 {
@@ -53,7 +57,7 @@ namespace InterfazGrafica.Formulario_Estadisticas
                     this.dtGdVw_ListarCruceros.Rows[index].Cells[5].Value = lista[i].Casinos;
                     this.dtGdVw_ListarCruceros.Rows[index].Cells[6].Value = lista[i].Piscinas;
                     this.dtGdVw_ListarCruceros.Rows[index].Cells[7].Value = lista[i].Gimnacios;
-                    this.dtGdVw_ListarCruceros.Rows[index].Cells[8].Value = ConexionSQLCrucero.Horas(lista[i]);
+                    this.dtGdVw_ListarCruceros.Rows[index].Cells[8].Value = conexion.Horas(lista[i]);
 
                 }
 
@@ -78,6 +82,9 @@ namespace InterfazGrafica.Formulario_Estadisticas
 
         private void Listar(Almacenamiento<Viaje> lista)
         {
+
+            ConexionSQLTripulantes conexion = new ConexionSQLTripulantes();
+
             this.dtGdVw_EstadasticasDeLosViajes.Rows.Clear();
 
             for (int i = 0; i < lista.Contar; i++)
@@ -90,7 +97,7 @@ namespace InterfazGrafica.Formulario_Estadisticas
                 this.dtGdVw_EstadasticasDeLosViajes.Rows[index].Cells[3].Value = lista[i].CostoPremium;
                 this.dtGdVw_EstadasticasDeLosViajes.Rows[index].Cells[4].Value = lista[i].CostoTurista;
                 this.dtGdVw_EstadasticasDeLosViajes.Rows[index].Cells[5].Value = lista[i].Crucero;
-                this.dtGdVw_EstadasticasDeLosViajes.Rows[index].Cells[6].Value = ConexionSQLTripulantes.Obtener(lista[i]).Contar;
+                this.dtGdVw_EstadasticasDeLosViajes.Rows[index].Cells[6].Value = conexion.Lista(lista[i]).Contar;
                 this.dtGdVw_EstadasticasDeLosViajes.Rows[index].Cells[7].Value = lista[i].Ganancias();
 
             }

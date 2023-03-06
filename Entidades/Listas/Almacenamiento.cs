@@ -22,7 +22,7 @@ namespace Entidades.Listas
         private Almacenamiento()
         {
             this.lista = new List<T>();
-            this.limite = 2147483647;
+            this.limite = 214748364;
             this.comparar = this.Comparar;
             this.restringir = this.Equals;
         }

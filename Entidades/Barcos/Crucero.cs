@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Entidades.BaseDeDatos;
 using Entidades.Personas;
 using Entidades.Listas;
+using Entidades.BaseDeDatos.ConexionesPersonas;
 
 namespace Entidades.Barcos
 {
@@ -20,9 +21,9 @@ namespace Entidades.Barcos
         private int casinos;
         private int piscinas;
         private int gimnacios;
+        private int capacidad_Personas;
         private double bodegaCapacidad;
         private double bodegaPeso;
-        private Almacenamiento<Persona> listaTripulantes;
 
         #region Constructores
         public Crucero()
@@ -37,12 +38,12 @@ namespace Entidades.Barcos
             this.gimnacios = 0;
             this.bodegaCapacidad = 0;
             this.bodegaPeso = 0;
-            this.listaTripulantes = null;
+            this.capacidad_Personas = 100000;
         }
         private Crucero(int camarotes)
         {
             this.id = 0;
-            this.listaTripulantes = new Almacenamiento<Persona>(Persona.Comparar, this.CapacidadPersonas(camarotes));
+            this.capacidad_Personas = this.CapacidadPersonas(camarotes);
             this.bodegaPeso = 0;
         }
         public Crucero(string matricula, string nombre, int camarotes, int salones, int casinos, int piscinas, int gimnacios, double capacidadBodega) : this(camarotes)
@@ -57,11 +58,11 @@ namespace Entidades.Barcos
             this.bodegaCapacidad = capacidadBodega;
         }
 
-        public Crucero(int id, string matricula, string nombre, int camarotes, int salones, int casinos, int piscinas, int gimnacios, double capacidadBodega, double pesoTotalBodega, Almacenamiento<Persona> tripulantes) : this(matricula, nombre, camarotes, salones, casinos, piscinas, gimnacios, capacidadBodega)
+        public Crucero(int id, string matricula, string nombre, int camarotes, int salones, int casinos, int piscinas, int gimnacios, double capacidadBodega, double pesoTotalBodega) : this(matricula, nombre, camarotes, salones, casinos, piscinas, gimnacios, capacidadBodega)
         {
             this.id = id;
             this.bodegaPeso = pesoTotalBodega;
-            this.listaTripulantes = tripulantes;
+            this.capacidad_Personas = this.CapacidadPersonas(camarotes);
         }
         #endregion
 
@@ -83,8 +84,23 @@ namespace Entidades.Barcos
         /// </summary>
         public double Peso { get => this.bodegaPeso; }
 
-        public Almacenamiento<Persona> Tripulantes { get => this.listaTripulantes; }
+        //Unirlo con la Conexion de tripulantes!!!!!!
+        public Almacenamiento<Persona> Tripulantes 
+        {
+            get 
+            
+            { 
+                ConexionSQLTripulantes conexion = new ConexionSQLTripulantes();
 
+                return conexion.Lista(this.id);
+            
+            } 
+        
+        }
+
+
+
+        //Unirlo con la Conexion de tripulantes!!!!!!
         /// <summary>
         /// Retorna el total de clientes a bordo que tiene el crucero
         /// </summary>
@@ -94,7 +110,9 @@ namespace Entidades.Barcos
             {
                 int retorno = 0;
 
-                    foreach(Persona item in this.listaTripulantes.Lista)
+                ConexionSQLTripulantes conexion = new ConexionSQLTripulantes();
+
+                foreach (Persona item in conexion.Lista(this.id).Lista)
                     {
                         if(item is  Pasajero)
                         {
@@ -116,7 +134,9 @@ namespace Entidades.Barcos
             {
                 bool retorno = false;
 
-                if (this.listaTripulantes.Contar < this.CapacidadPersonas(this.camarotes))
+                ConexionSQLTripulantes conexion = new ConexionSQLTripulantes();
+
+                if (conexion.Lista(this.id).Contar < this.CapacidadPersonas(this.camarotes))
                 {
                     retorno = true;
                 }
@@ -163,31 +183,6 @@ namespace Entidades.Barcos
             return retorno;
         }
 
-        public void AgregarPersona(Persona persona)
-        {
-            if(persona is Pasajero && this.VerificarCapacidadDeLaBodega(((Pasajero)persona).Equipaje))
-            {
-                this.bodegaPeso += (float)((Pasajero)persona).Equipaje.Peso;
-                this.listaTripulantes += persona;
-            }
-            else
-            {
-                this.listaTripulantes += persona; 
-            }
-        }
-
-        public void EliminarPersona(Persona persona)
-        {
-            if (persona is Pasajero)
-            {
-                this.bodegaPeso -= (float)((Pasajero)persona).Equipaje.Peso;
-                this.listaTripulantes -= persona;
-            }
-            else
-            {
-                this.listaTripulantes -= persona;
-            }
-        }
 
         public static string GenerarMatricula()
         {
@@ -212,33 +207,14 @@ namespace Entidades.Barcos
             return retorno;
         }
 
-        public string ObtenerIdsTripulantes()
-        {
-            string retorno = null;
-
-            for (int i = 0; i < this.listaTripulantes.Contar; i++)
-            {
-                if (i != this.listaTripulantes.Contar - 1)
-                {
-                    retorno += this.listaTripulantes[i].ID + ",";
-                }
-                else
-                {
-                    retorno += this.listaTripulantes[i].ID;
-                }
-
-            }
-
-            return retorno;
-        }
-
         #endregion
 
         #region Operadores
 
         public static explicit operator Crucero(int id)
         {
-            return ConexionSQLCrucero.Obtener_Crucero(id);
+                ConexionSQLCrucero conexion = new ConexionSQLCrucero();
+            return conexion.Obtener_Crucero(id);
         }
 
         public static bool operator ==(Crucero crucero1, Crucero crucero2)

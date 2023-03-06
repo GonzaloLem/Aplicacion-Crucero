@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using Entidades.Personas;
 using Entidades.Operaciones;
 using Entidades.BaseDeDatos;
+using Entidades.BaseDeDatos.ConexionesPersonas;
 using Entidades.Exepciones;
 using InterfazGrafica.Funciones_Extras;
 using Entidades.Exepciones.Exepciones_de_Persona;
@@ -104,29 +105,35 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             if((Roles)this.CbBox_RolPersona.SelectedItem == Roles.Cliente)
             {
 
+                ConexionSQLPasajeros conexionSQLPasajeros = new ConexionSQLPasajeros();
+
                 Pasajero pasajero = this.ValidarPasajero();
 
-                if (pasajero is not null && ConexionSQLPersona.Obtener() != pasajero)
+                if (pasajero is not null && conexionSQLPasajeros.Lista() != pasajero)
                 {
-                    ConexionSQLPersona.Insertar(pasajero);   
+                    conexionSQLPasajeros.Insertar(pasajero);   
                 }
             }
             else if ((Roles)this.CbBox_RolPersona.SelectedItem == Roles.Empleado)
             {
+                ConexionSQLEmpleado conexionEmpleado = new ConexionSQLEmpleado();
+
                 Empleado empleado = this.ValidarEmpleado();
 
-                if (empleado is not null && ConexionSQLPersona.Obtener() != empleado)
+                if (empleado is not null && conexionEmpleado.Lista() != empleado)
                 {
-                    ConexionSQLPersona.Insertar(empleado);   
+                    conexionEmpleado.Insertar(empleado);   
                 }
             }
             else if((Roles)this.CbBox_RolPersona.SelectedItem == Roles.Capitan)
             {
+                ConexionSQLCapitan conexionCapitan = new ConexionSQLCapitan();
+
                 Capitan capitan = this.ValidarCapitan();
 
-                if (capitan is not null && ConexionSQLPersona.Obtener() != capitan)
+                if (capitan is not null && conexionCapitan.Lista() != capitan)
                 {
-                    ConexionSQLPersona.Insertar(capitan);   
+                    conexionCapitan.Insertar(capitan);   
                 }
             }
 

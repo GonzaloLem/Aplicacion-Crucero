@@ -10,50 +10,11 @@ using Entidades.Listas;
 
 namespace Entidades.BaseDeDatos.ConexionesPersonas
 {
-    class ConexionSQLEmpleado
+    public class ConexionSQLEmpleado : ConexionSQLPersona
     {
-        private SqlConnection conexion;
-        private SqlCommand comando;
-        private SqlDataReader lector;
-        private SqlDataAdapter adaptador;
 
-        public ConexionSQLEmpleado()
-        {
-            this.conexion = new SqlConnection(@"Data Source=.;
-                                            Database=AplicacionCrucero;
-                                            Trusted_Connection=True;");
 
-            this.comando = new SqlCommand();
-            this.adaptador = new SqlDataAdapter();
-            this.comando.CommandType = CommandType.Text;
-            this.comando.Connection = this.conexion;
-
-        }
-
-        #region Probar conexion
-        private bool ProbarConexion()
-        {
-            bool rta = true;
-
-            try
-            {
-                this.conexion.Open();
-            }
-            catch (Exception)
-            {
-                rta = false;
-            }
-            finally
-            {
-                if (this.conexion.State == ConnectionState.Open)
-                {
-                    this.conexion.Close();
-                }
-            }
-
-            return rta;
-        }
-        #endregion
+        public ConexionSQLEmpleado() : base() { }
 
         #region Insertar
 
@@ -63,10 +24,12 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
             {
                 try
                 {
+                    this.Insertar((Persona)empleado);
 
-                    string cadena = "INSERT INTO Empleado (Puesto, FechaDeIngreso) VALUES";
+                    string cadena = "INSERT INTO Empleados (id_empleado, Puesto, Fecha_ingreso) VALUES";
                     cadena +=
                         "("
+                        + this.Obtener_ID(empleado.DNI) + ","
                         + ((int)empleado.Puesto) + ","
                         + "'" + empleado.Fecha + "'"
                         + ")";
@@ -98,16 +61,16 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
         #endregion
 
         #region Modificar
-        public void Modificar(int id, Empleado empleado)
+        public void Modificar(Empleado empleado)
         {
             if (this.ProbarConexion())
             {
                 try
                 {
-                    string cadena = $"update Empleado set " +
+                    string cadena = $"UPDATE Empleado set " +
                         $"Puesto = {((int)empleado.Puesto)}, " +
                         $"FechaDeIngreso = '{empleado.Fecha}' " +
-                        $"WHERE ID = {id}";
+                        $"WHERE id_empleado = {empleado.ID}";
 
                     this.comando = new SqlCommand();
 
@@ -135,13 +98,13 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
         #endregion
 
         #region Eliminar
-        public void Eliminar(int id)
+        public override void Eliminar(int id)
         {
             if (this.ProbarConexion())
             {
                 try
                 {
-                    string cadena = $"delete FROM Empleado WHERE ID = {id}";
+                    string cadena = $"DELETE FROM Empleados WHERE id_empleado = {id}";
 
                     this.comando = new SqlCommand();
 
@@ -169,53 +132,8 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
         #endregion
 
         #region Obtener
-        /// <summary>
-        /// Busca la id mas alta de la Tabla Empleados
-        /// </summary>
-        public int Obtener()
-        {
-            int retorno = -1;
 
-            if (this.ProbarConexion())
-            {
-                try
-                {
-                    string cadena = $"SELECT MAX(ID) as ID_Maximo FROM Empleado";
-
-                    this.comando = new SqlCommand();
-
-                    this.comando.CommandType = CommandType.Text;
-                    this.comando.CommandText = cadena;
-                    this.comando.Connection = this.conexion;
-
-                    this.conexion.Open();
-
-                    this.lector = this.comando.ExecuteReader();
-
-                    while (this.lector.Read())
-                    {
-                        retorno = (int)this.lector["ID_Maximo"];
-                    }
-                    this.lector.Close();
-
-                }
-                catch (Exception)
-                {
-
-                }
-                finally
-                {
-                    if (this.conexion.State == ConnectionState.Open)
-                    {
-                        this.conexion.Close();
-                    }
-                }
-            }
-
-            return retorno;
-        }
-
-        public Empleado Obtener_Empleado(int id)
+        public Empleado Obtener(int id)
         {
             Empleado retorno = null;
 
@@ -223,7 +141,7 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
             {
                 try
                 {
-                    string cadena = $"SELECT * FROM Empleado WHERE ID = {id}";
+                    string cadena = $"SELECT * FROM Persona INNER JOIN Empleados ON Empleados.id_empleado = {id}";
 
                     this.comando = new SqlCommand();
 
@@ -239,8 +157,15 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
                     {
                         retorno = new Empleado
                             (
+                                (int)this.lector["id_persona"],
+                                this.lector["Nombre"].ToString(),
+                                this.lector["Apellido"].ToString(),
+                                (int)this.lector["Edad"],
+                                (int)this.lector["DNI"],
+                                (Nacionalidades)this.lector["Nacionalidad"],
+                                (double)this.lector["Celular"],
                                 (PuestosDeTrabajo)this.lector["Puesto"],
-                                (DateTime)this.lector["FechaDeIngreso"]
+                                (DateTime)this.lector["Fecha_ingreso"]
                             );
                     }
                     this.lector.Close();
@@ -261,6 +186,63 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
 
             return retorno;
         }
+
+        public Almacenamiento<Persona> Lista()
+        {
+            Almacenamiento<Persona> retorno = new Almacenamiento<Persona>(Persona.Comparar);
+
+            if (this.ProbarConexion())
+            {
+                try
+                {
+                    string cadena = $"SELECT * FROM Persona INNER JOIN Empleados ON Persona.id_persona = Empleados.id_pasajero";
+
+                    this.comando = new SqlCommand();
+
+                    this.comando.CommandType = CommandType.Text;
+                    this.comando.CommandText = cadena;
+                    this.comando.Connection = this.conexion;
+
+                    this.conexion.Open();
+
+                    this.lector = this.comando.ExecuteReader();
+
+                    while (this.lector.Read())
+                    {
+                        retorno += new Empleado
+                            (
+                                (int)this.lector["id_persona"],
+                                this.lector["Nombre"].ToString(),
+                                this.lector["Apellido"].ToString(),
+                                (int)this.lector["Edad"],
+                                (int)this.lector["DNI"],
+                                (Nacionalidades)this.lector["Nacionalidad"],
+                                (double)this.lector["Celular"],
+                                (PuestosDeTrabajo)this.lector["Puesto"],
+                                (DateTime)this.lector["Fecha_ingreso"]
+                            );
+    
+                    }
+                    this.lector.Close();
+
+                }
+                catch (Exception)
+                {
+
+                }
+                finally
+                {
+                    if (this.conexion.State == ConnectionState.Open)
+                    {
+                        this.conexion.Close();
+                    }
+                }
+            }
+
+            return retorno;
+        }
+
+
         #endregion
 
     }

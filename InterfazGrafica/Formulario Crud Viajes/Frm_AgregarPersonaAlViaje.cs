@@ -34,22 +34,34 @@ namespace InterfazGrafica.Formulario_Crud_Viajes
         #region Eventos
         private void Frm_AgregarPersonaAlViaje_Load(object sender, EventArgs e)
         {
+            ConexionSQLPersona conexion = new ConexionSQLPersona();
+
             this.DatosDelViaje();
-            this.ListarPersonas(ConexionSQLPersona.Obtener());
+            this.ListarPersonas(conexion.Obtener_Lista());
             this.DataGridPorDefecto();
         }
 
         private void btn_AñadirPersona_Click(object sender, EventArgs e)
         {
+
+            ConexionSQLTripulantes conexionTripulantes = new ConexionSQLTripulantes();
+
             if (this.dtGdVw_PersonasDisponibles.SelectedRows.Count == 1)
             {
-                Persona persona = ConexionSQLPersona.Obtener_Persona((int)this.dtGdVw_PersonasDisponibles.Rows[this.dtGdVw_PersonasDisponibles.SelectedRows[0].Index].Cells[0].Value);
+
+                ConexionSQLPersona conexionSQLPersona = new ConexionSQLPersona();
+                ConexionSQLTripulantes conexionTripulante = new ConexionSQLTripulantes();
+
+
+                Persona persona = conexionSQLPersona.Obtener_Persona((int)this.dtGdVw_PersonasDisponibles.Rows[this.dtGdVw_PersonasDisponibles.SelectedRows[0].Index].Cells[0].Value);
+                
+
 
                     if(persona is Pasajero)
                     {
                         if(this.viaje.Requisitos((Pasajero)persona))
                         {
-                            ConexionSQLTripulantes.Insertar(persona, this.viaje, this.viaje.Crucero);
+                            conexionTripulante.Insertar(this.viaje, persona);
                         }
                         else
                         {
@@ -58,10 +70,10 @@ namespace InterfazGrafica.Formulario_Crud_Viajes
                     }
                     else
                     {
-                        ConexionSQLTripulantes.Insertar(persona, this.viaje, this.viaje.Crucero);                           
+                        conexionTripulante.Insertar(this.viaje, persona);                           
                     }
 
-                this.ListarPersonas(ConexionSQLPersona.Obtener());
+                this.ListarPersonas(conexionSQLPersona.Obtener_Lista());
 
             }
         }
@@ -70,8 +82,10 @@ namespace InterfazGrafica.Formulario_Crud_Viajes
         {
             if (this.dtGdVw_PersonasDisponibles.SelectedRows.Count == 1)
             {
+                ConexionSQLPersona conexionSQLPersona = new ConexionSQLPersona();
+
                 this.DataGridPorDefecto();
-                Persona persona = ConexionSQLPersona.Obtener_Persona((int)this.dtGdVw_PersonasDisponibles.Rows[this.dtGdVw_PersonasDisponibles.SelectedRows[0].Index].Cells[0].Value);
+                Persona persona = conexionSQLPersona.Obtener_Persona((int)this.dtGdVw_PersonasDisponibles.Rows[this.dtGdVw_PersonasDisponibles.SelectedRows[0].Index].Cells[0].Value);
                 if (persona is Pasajero)
                 {
                     this.MostrarCliente((Pasajero)persona);
@@ -95,8 +109,8 @@ namespace InterfazGrafica.Formulario_Crud_Viajes
             this.dtGdVw_PersonasDisponibles.Rows.Clear();
             for(int i=0;i<lista.Contar;i++)
             {
-                if (!ConexionSQLTripulantes.Buscar(lista[i]))
-                {
+                //if (!ConexionSQLTripulantes.Buscar(lista[i]))
+                //{
                     int index = this.dtGdVw_PersonasDisponibles.Rows.Add();
 
                     this.dtGdVw_PersonasDisponibles.Rows[index].Cells[0].Value = lista[i].ID;
@@ -105,7 +119,7 @@ namespace InterfazGrafica.Formulario_Crud_Viajes
                     this.dtGdVw_PersonasDisponibles.Rows[index].Cells[3].Value = lista[i].Edad;
                     this.dtGdVw_PersonasDisponibles.Rows[index].Cells[4].Value = lista[i].DNI;
                     this.dtGdVw_PersonasDisponibles.Rows[index].Cells[5].Value = lista[i].Tipo;
-                }
+                //}
 
             }
         }
@@ -208,6 +222,8 @@ namespace InterfazGrafica.Formulario_Crud_Viajes
         private void Validar(object sender, EventArgs e)
         {
 
+            ConexionSQLPersona conexion = new ConexionSQLPersona();
+
             foreach (Control item in this.grpBox_Filtro.Controls)
             {
                 if (item != sender)
@@ -219,20 +235,20 @@ namespace InterfazGrafica.Formulario_Crud_Viajes
 
             if (((CheckBox)sender).Name == this.ckBox_Cliente.Name)
             {
-                this.ListarPersonas(ConexionSQLPersona.Obtener(Roles.Cliente));
+                //this.ListarPersonas(ConexionSQLPersona.Obtener(Roles.Cliente));
             }
             else if (((CheckBox)sender).Name == this.ckBox_Empleado.Name)
             {
-                this.ListarPersonas(ConexionSQLPersona.Obtener(Roles.Empleado));
+                //this.ListarPersonas(ConexionSQLPersona.Obtener(Roles.Empleado));
             }
             else if (((CheckBox)sender).Name == this.ckBox_Capitan.Name)
             {
-                this.ListarPersonas(ConexionSQLPersona.Obtener(Roles.Capitan));
+                //this.ListarPersonas(ConexionSQLPersona.Obtener(Roles.Capitan));
             }
 
             if(this.ckBox_Cliente.Checked == false && this.ckBox_Empleado.Checked == false && this.ckBox_Capitan.Checked == false)
             {
-                this.ListarPersonas(ConexionSQLPersona.Obtener());
+                this.ListarPersonas(conexion.Obtener_Lista());
             }
         }
 

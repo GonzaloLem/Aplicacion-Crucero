@@ -10,50 +10,11 @@ using Entidades.Listas;
 
 namespace Entidades.BaseDeDatos.ConexionesPersonas
 {
-    class ConexionSQLCapitan
+    public class ConexionSQLCapitan : ConexionSQLPersona
     {
-        private SqlConnection conexion;
-        private SqlCommand comando;
-        private SqlDataReader lector;
-        private SqlDataAdapter adaptador;
 
-        public ConexionSQLCapitan()
-        {
-            this.conexion = new SqlConnection(@"Data Source=.;
-                                            Database=AplicacionCrucero;
-                                            Trusted_Connection=True;");
 
-            this.comando = new SqlCommand();
-            this.adaptador = new SqlDataAdapter();
-            this.comando.CommandType = CommandType.Text;
-            this.comando.Connection = this.conexion;
-
-        }
-
-        #region Probar conexion
-        private bool ProbarConexion()
-        {
-            bool rta = true;
-
-            try
-            {
-                this.conexion.Open();
-            }
-            catch (Exception)
-            {
-                rta = false;
-            }
-            finally
-            {
-                if (this.conexion.State == ConnectionState.Open)
-                {
-                    this.conexion.Close();
-                }
-            }
-
-            return rta;
-        }
-        #endregion
+        public ConexionSQLCapitan() : base() { }
 
         #region Insertar
 
@@ -64,9 +25,12 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
                 try
                 {
 
-                    string cadena = "INSERT INTO Capitan (HorasDeViaje, ViajesRealizadosConLaEmpresa) VALUES";
+                    this.Insertar((Persona)capitan);
+
+                    string cadena = "INSERT INTO Capitanes (id_capitan, Hora_Viajes, Viajes_realizados) VALUES";
                     cadena +=
                         "("
+                           + this.Obtener_ID(capitan.DNI) + ","
                            + capitan.Horas + ","
                            + capitan.Viajes
                         + ")";
@@ -99,17 +63,17 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
 
         #region Modificar
 
-        public void Modificar(int id, Capitan capitan)
+        public void Modificar(Capitan capitan)
         {
             if (this.ProbarConexion())
             {
                 try
                 {
 
-                    string cadena = $"update Capitan set " +
+                    string cadena = $"UPDATE Capitan set " +
                         $"HorasDeViaje = {capitan.Horas}, " +
                         $"ViajesRealizadosConLaEmpresa = {capitan.Viajes} " +
-                        $"WHERE ID = {id}";
+                        $"WHERE id_capitan = {capitan.ID}";
 
                     this.comando = new SqlCommand();
 
@@ -139,14 +103,14 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
 
         #region Eliminar
 
-        public void Eliminar(int id)
+
+        public override void Eliminar(int id)
         {
             if (this.ProbarConexion())
             {
                 try
                 {
-
-                    string cadena = $"delete FROM Capitan WHERE ID {id}";
+                    string cadena = $"DELETE FROM Capitanes WHERE id_capitan = {id}";
 
                     this.comando = new SqlCommand();
 
@@ -175,18 +139,16 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
         #endregion
 
         #region Obtener
-        /// <summary>
-        /// Busca la id mas alta de la Tabla Empleados
-        /// </summary>
-        public int Obtener()
+
+        public Capitan Obtener(int id)
         {
-            int retorno = -1;
+            Capitan retorno = null;
 
             if (this.ProbarConexion())
             {
                 try
                 {
-                    string cadena = $"SELECT MAX(ID) as ID_Maximo FROM Capitan";
+                    string cadena = $"SELECT * FROM Persona INNER JOIN Capitanes ON Capitanes.id_capitan = {id}";
 
                     this.comando = new SqlCommand();
 
@@ -200,7 +162,18 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
 
                     while (this.lector.Read())
                     {
-                        retorno = (int)this.lector["ID_Maximo"];
+                        retorno = new Capitan
+                            (
+                                (int)this.lector["id_persona"],
+                                this.lector["Nombre"].ToString(),
+                                this.lector["Apellido"].ToString(),
+                                (int)this.lector["Edad"],
+                                (int)this.lector["DNI"],
+                                (Nacionalidades)this.lector["Nacionalidad"],
+                                (double)this.lector["Celular"],
+                                (int)this.lector["Hora_Viaje"],
+                                (int)this.lector["Viajes_realizados"]
+                            );
                     }
                     this.lector.Close();
 
@@ -221,15 +194,15 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
             return retorno;
         }
 
-        public Capitan Obtener_Capitan(int id)
+        public Almacenamiento<Persona> Lista()
         {
-            Capitan retorno = null;
+            Almacenamiento<Persona> retorno = new Almacenamiento<Persona>(Persona.Comparar);
 
             if (this.ProbarConexion())
             {
                 try
                 {
-                    string cadena = $"SELECT * FROM Capitan WHERE ID = {id}";
+                    string cadena = $"SELECT * FROM Persona INNER JOIN Capitanes ON Persona.id_persona = Capitanes.id_capitan";
 
                     this.comando = new SqlCommand();
 
@@ -243,11 +216,19 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
 
                     while (this.lector.Read())
                     {
-                        retorno = new Capitan
+                        retorno += new Capitan
                             (
-                                (int)this.lector["HorasDeViaje"],
-                                (int)this.lector["ViajesRealizadosConLaEmpresa"]
+                                (int)this.lector["id_persona"],
+                                this.lector["Nombre"].ToString(),
+                                this.lector["Apellido"].ToString(),
+                                (int)this.lector["Edad"],
+                                (int)this.lector["DNI"],
+                                (Nacionalidades)this.lector["Nacionalidad"],
+                                (double)this.lector["Celular"],
+                                (int)this.lector["Hora_Viaje"],
+                                (int)this.lector["Viajes_realizados"]
                             );
+
                     }
                     this.lector.Close();
 

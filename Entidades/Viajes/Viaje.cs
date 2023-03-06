@@ -219,7 +219,10 @@ namespace Entidades
         public double Ganancias()
         {
             double retorno = 0;
-            Almacenamiento<Persona> lista = ConexionSQLTripulantes.Obtener(this);
+
+            ConexionSQLTripulantes conexion = new ConexionSQLTripulantes();
+
+            Almacenamiento<Persona> lista = conexion.Lista(this);
 
                 for(int i=0;i<lista.Contar;i++)
                 {

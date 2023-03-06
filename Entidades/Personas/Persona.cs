@@ -8,7 +8,7 @@ using Entidades.Listas;
 
 namespace Entidades.Personas
 {
-    public abstract class Persona
+    public class Persona
     {
         private protected int id;
         private protected string nombre;
@@ -20,10 +20,6 @@ namespace Entidades.Personas
 
         #region Constructores
 
-        public Persona()
-        {
-
-        }
 
         public Persona(string nombre, string apellido, int edad, int dni, Nacionalidades nacionalidad, double celular)
         {
