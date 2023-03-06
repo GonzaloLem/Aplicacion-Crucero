@@ -60,11 +60,10 @@ namespace InterfazGrafica.Formulario_Crud_Personas
             else if ((Roles)this.CbBox_RolPersona.SelectedItem == Roles.Capitan)
             {
                 Capitan capitan = this.ValidarCapitan();
-
                 if (capitan is not null && conexionPersonas.Obtener_Persona(this.persona.ID) is not null)
                 {
                     conexionPersonas.Modificar(capitan);
-                }   
+                }
             }
 
             Extras.Limpiar(this.GrpBox_Contenedor);
@@ -91,15 +90,15 @@ namespace InterfazGrafica.Formulario_Crud_Personas
 
         private void AsignarDatosPersona()
         {
-            if(persona is Pasajero)
+            if (persona is Pasajero)
             {
                 this.AsignarDatosPasajero();
             }
-            else if(persona is Empleado)
+            else if (persona is Empleado)
             {
                 this.AsignarDatosEmpleado();
             }
-            else if(persona is Capitan)
+            else if (persona is Capitan)
             {
                 this.AsignarDatosCapitan();
             }
@@ -136,7 +135,7 @@ namespace InterfazGrafica.Formulario_Crud_Personas
 
             if (this.TxtBox_Correo.Text != "" && this.CbBox_Pasajero_Clase.SelectedItem != null && this.TxtBox_Bolsos.Text != "" && this.TxtBox_Maletas.Text != "" && this.TxtBox_PesoMaletas.Text != "")
             {
-                Equipaje equipaje = new Equipaje(((Pasajero)this.persona).Equipaje.ID ,int.Parse(this.TxtBox_Bolsos.Text), int.Parse(this.TxtBox_Maletas.Text), int.Parse(this.TxtBox_PesoMaletas.Text));
+                Equipaje equipaje = new Equipaje(((Pasajero)this.persona).Equipaje.ID, int.Parse(this.TxtBox_Bolsos.Text), int.Parse(this.TxtBox_Maletas.Text), int.Parse(this.TxtBox_PesoMaletas.Text));
 
                 if (this.ValidarEquipaje(equipaje))
                 {
@@ -214,5 +213,9 @@ namespace InterfazGrafica.Formulario_Crud_Personas
         #endregion
 
 
+        private void Btn_Confirmar_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

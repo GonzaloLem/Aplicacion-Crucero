@@ -176,7 +176,7 @@ namespace Entidades.BaseDeDatos
                                     (int)this.lector["DNI"],
                                     (Nacionalidades)this.lector["Nacionalidad"],
                                     (double)this.lector["Celular"],
-                                    (int)this.lector["Hora_Viaje"],
+                                    (int)this.lector["Hora_Viajes"],
                                     (int)this.lector["Viajes_realizados"]
                                 );
                         }
@@ -317,7 +317,7 @@ namespace Entidades.BaseDeDatos
                     }
                     else if (conexionCapitan.Obtener(persona.ID) is not null)
                     {
-                        conexionCapitan.Modificar((Empleado)persona);
+                        conexionCapitan.Modificar((Capitan)persona);
                     }
 
                     string cadena = $"UPDATE Persona set " +

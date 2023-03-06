@@ -70,9 +70,9 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
                 try
                 {
 
-                    string cadena = $"UPDATE Capitan set " +
-                        $"HorasDeViaje = {capitan.Horas}, " +
-                        $"ViajesRealizadosConLaEmpresa = {capitan.Viajes} " +
+                    string cadena = $"UPDATE Capitanes set " +
+                        $"Hora_Viajes = {capitan.Horas}, " +
+                        $"Viajes_realizados = {capitan.Viajes} " +
                         $"WHERE id_capitan = {capitan.ID}";
 
                     this.comando = new SqlCommand();
@@ -148,7 +148,7 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
             {
                 try
                 {
-                    string cadena = $"SELECT * FROM Persona INNER JOIN Capitanes ON Capitanes.id_capitan = {id}";
+                    string cadena = $"SELECT * FROM Persona INNER JOIN Capitanes ON Capitanes.id_capitan = Persona.id_persona WHERE id_persona = {id}";
 
                     this.comando = new SqlCommand();
 
@@ -171,7 +171,7 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
                                 (int)this.lector["DNI"],
                                 (Nacionalidades)this.lector["Nacionalidad"],
                                 (double)this.lector["Celular"],
-                                (int)this.lector["Hora_Viaje"],
+                                (int)this.lector["Hora_Viajes"],
                                 (int)this.lector["Viajes_realizados"]
                             );
                     }

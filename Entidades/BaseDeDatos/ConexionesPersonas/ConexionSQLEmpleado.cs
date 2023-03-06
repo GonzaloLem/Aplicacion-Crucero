@@ -141,7 +141,7 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
             {
                 try
                 {
-                    string cadena = $"SELECT * FROM Persona INNER JOIN Empleados ON Empleados.id_empleado = {id}";
+                    string cadena = $"SELECT * FROM Persona INNER JOIN Empleados ON Empleados.id_empleado = Persona.id_persona WHERE id_persona = {id}";
 
                     this.comando = new SqlCommand();
 
