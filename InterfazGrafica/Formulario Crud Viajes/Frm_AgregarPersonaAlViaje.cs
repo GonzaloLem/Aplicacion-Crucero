@@ -106,11 +106,14 @@ namespace InterfazGrafica.Formulario_Crud_Viajes
         #region Metodos
         private void ListarPersonas(Almacenamiento<Persona> lista)
         {
+
+            ConexionSQLTripulantes conexionTripulantes = new ConexionSQLTripulantes();
+
             this.dtGdVw_PersonasDisponibles.Rows.Clear();
             for(int i=0;i<lista.Contar;i++)
             {
-                //if (!ConexionSQLTripulantes.Buscar(lista[i]))
-                //{
+                if (!conexionTripulantes.Buscar(lista[i], this.viaje.Crucero))
+                {
                     int index = this.dtGdVw_PersonasDisponibles.Rows.Add();
 
                     this.dtGdVw_PersonasDisponibles.Rows[index].Cells[0].Value = lista[i].ID;
@@ -119,7 +122,7 @@ namespace InterfazGrafica.Formulario_Crud_Viajes
                     this.dtGdVw_PersonasDisponibles.Rows[index].Cells[3].Value = lista[i].Edad;
                     this.dtGdVw_PersonasDisponibles.Rows[index].Cells[4].Value = lista[i].DNI;
                     this.dtGdVw_PersonasDisponibles.Rows[index].Cells[5].Value = lista[i].Tipo;
-                //}
+                }
 
             }
         }

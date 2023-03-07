@@ -221,7 +221,9 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
 
                     while (this.lector.Read())
                     {
-                        retorno += new Capitan
+                        if (this.lector["id_pasajero"].ToString() != "")
+                        {
+                            retorno += new Pasajero
                             (
                                 (int)this.lector["id_persona"],
                                 this.lector["Nombre"].ToString(),
@@ -230,17 +232,52 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
                                 (int)this.lector["DNI"],
                                 (Nacionalidades)this.lector["Nacionalidad"],
                                 (double)this.lector["Celular"],
-                                (int)this.lector["Hora_Viaje"],
-                                (int)this.lector["Viajes_realizados"]
+                                this.lector["Correo"].ToString(),
+                                (Clases)this.lector["Clase"],
+                                new Equipaje((int)this.lector["id_equipaje"], (int)this.lector["Bolsos"], (int)this.lector["Maletas"], (double)this.lector["Peso_Maletas"]),
+                                (bool)this.lector["Casino"],
+                                (bool)this.lector["Gimnacio"],
+                                (bool)this.lector["Piscina"]
                             );
+                        }
+                        else if (this.lector["id_empleado"].ToString() != "")
+                        {
+                            retorno += new Empleado
+                            (
+                                (int)this.lector["id_persona"],
+                                this.lector["Nombre"].ToString(),
+                                this.lector["Apellido"].ToString(),
+                                (int)this.lector["Edad"],
+                                (int)this.lector["DNI"],
+                                (Nacionalidades)this.lector["Nacionalidad"],
+                                (double)this.lector["Celular"],
+                                (PuestosDeTrabajo)this.lector["Puesto"],
+                                (DateTime)this.lector["Fecha_ingreso"]
+                            );
+                        }
+                        else if (this.lector["id_capitan"].ToString() != "")
+                        {
+                            retorno += new Capitan
+                                (
+                                    (int)this.lector["id_persona"],
+                                    this.lector["Nombre"].ToString(),
+                                    this.lector["Apellido"].ToString(),
+                                    (int)this.lector["Edad"],
+                                    (int)this.lector["DNI"],
+                                    (Nacionalidades)this.lector["Nacionalidad"],
+                                    (double)this.lector["Celular"],
+                                    (int)this.lector["Hora_Viaje"],
+                                    (int)this.lector["Viajes_realizados"]
+                                );
+                        }
 
                     }
                     this.lector.Close();
 
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-
+                    Console.WriteLine(ex.ToString());
                 }
                 finally
                 {
@@ -248,6 +285,52 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
                     {
                         this.conexion.Close();
                     }
+                }
+            }
+
+            return retorno;
+        }
+
+        #endregion
+
+        #region Metodos
+
+        public bool Buscar(Persona persona, Crucero crucero)
+        { 
+            bool retorno = false;
+
+            try
+            {
+                string cadena = $"SELECT * FROM Tripulantes WHERE Tripulantes.id_persona = {persona.ID}";
+
+                this.comando = new SqlCommand();
+
+                this.comando.CommandType = CommandType.Text;
+                this.comando.CommandText = cadena;
+                this.comando.Connection = this.conexion;
+
+                this.conexion.Open();
+
+                this.lector = this.comando.ExecuteReader();
+
+                    while (this.lector.Read())
+                    {
+                        if (this.lector["id_persona"].ToString() != "")
+                        { 
+                            retorno = true;
+                        }
+                    }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.ToString());
+            }
+            finally
+            {
+                if (this.conexion.State == ConnectionState.Open)
+                {
+                    this.conexion.Close();
                 }
             }
 
