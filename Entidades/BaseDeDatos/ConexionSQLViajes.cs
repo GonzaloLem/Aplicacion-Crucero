@@ -338,7 +338,7 @@ namespace Entidades.BaseDeDatos
             {
                 try
                 {
-                    string cadena = $"SELECT * FROM Viaje";
+                    string cadena = $"SELECT * FROM Viajes";
 
                     this.comando = new SqlCommand();
 

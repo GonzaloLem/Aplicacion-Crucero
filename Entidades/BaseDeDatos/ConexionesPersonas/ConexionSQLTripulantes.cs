@@ -169,7 +169,7 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
                                     (int)this.lector["DNI"],
                                     (Nacionalidades)this.lector["Nacionalidad"],
                                     (double)this.lector["Celular"],
-                                    (int)this.lector["Hora_Viaje"],
+                                    (int)this.lector["Hora_Viajes"],
                                     (int)this.lector["Viajes_realizados"]
                                 );
                         }
@@ -266,7 +266,7 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
                                     (int)this.lector["DNI"],
                                     (Nacionalidades)this.lector["Nacionalidad"],
                                     (double)this.lector["Celular"],
-                                    (int)this.lector["Hora_Viaje"],
+                                    (int)this.lector["Hora_Viajes"],
                                     (int)this.lector["Viajes_realizados"]
                                 );
                         }
