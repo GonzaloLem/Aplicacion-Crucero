@@ -54,8 +54,9 @@ namespace InterfazGrafica
         private void Btn_AgregarPersona_Click(object sender, EventArgs e)
         {
             Frm_AgregarPersona formAgregarPersona = new Frm_AgregarPersona();
-
+            ConexionSQLViajes conexionViajes = new ConexionSQLViajes();
             formAgregarPersona.ShowDialog();
+            this.Listar(conexionViajes.Obtener());
         }
 
         private void Btn_ListarPersonasSistema_Click(object sender, EventArgs e)
@@ -100,10 +101,10 @@ namespace InterfazGrafica
         private void btn_CrudCrucero_Click(object sender, EventArgs e)
         {
             Frm_ListarCruceros formCruceros = new Frm_ListarCruceros();
-            ConexionSQLViajes conexionViajes = new ConexionSQLViajes();
+            
 
             formCruceros.ShowDialog();
-            this.Listar(conexionViajes.Obtener());
+          
         }
 
         private void btn_AgregarPersona_AlViaje_Click(object sender, EventArgs e)
@@ -120,6 +121,9 @@ namespace InterfazGrafica
 
                     Frm_AgregarPersonaAlViaje formAgregarAlViaje = new Frm_AgregarPersonaAlViaje((conexionViajes.Obtener_Viaje((int)this.DtGdVw_ListaViajes.Rows[this.DtGdVw_ListaViajes.SelectedRows[0].Index].Cells[0].Value)));
                     formAgregarAlViaje.ShowDialog();
+
+                    this.Listar(conexionViajes.Obtener());
+
                 }
                 catch(Exception ex)
                 { 

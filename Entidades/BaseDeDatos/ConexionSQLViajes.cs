@@ -120,7 +120,10 @@ namespace Entidades.BaseDeDatos
             {
                 try
                 {
-                    //ConexionSQLTripulantes.Eliminar(viaje);
+
+                    ConexionSQLTripulantes conexionTripulantes = new ConexionSQLTripulantes();
+
+                    conexionTripulantes.Eliminar(viaje);
 
                     string cadena = $"DELETE FROM Viajes WHERE id_viaje = {viaje.ID} ";
 

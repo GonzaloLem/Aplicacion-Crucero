@@ -291,6 +291,7 @@ namespace Entidades
 
         public static bool operator ==(Viaje viaje1, Viaje viaje2)
         {
+            ConexionSQLTripulantes conexionTripulantes = new ConexionSQLTripulantes();
             return (viaje1.Destino == viaje2.Destino && viaje1.fechaInicio.ToShortDateString() == viaje2.fechaInicio.ToShortDateString());
         }
 

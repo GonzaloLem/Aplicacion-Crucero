@@ -93,6 +93,39 @@ namespace Entidades.BaseDeDatos.ConexionesPersonas
             }
         }
 
+        public void Eliminar(Viaje viaje)
+        {
+            if (this.ProbarConexion())
+            {
+                try
+                {
+
+                    string cadena = $"DELETE FROM Tripulantes WHERE id_viaje = {viaje.ID}";
+
+                    this.comando = new SqlCommand();
+
+                    this.comando.CommandType = CommandType.Text;
+                    this.comando.CommandText = cadena;
+                    this.comando.Connection = this.conexion;
+
+                    this.conexion.Open();
+
+                    this.comando.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                finally
+                {
+                    if (this.conexion.State == ConnectionState.Open)
+                    {
+                        this.conexion.Close();
+                    }
+                }
+            }
+        }
+
         #endregion
 
         #region Obtener
